@@ -17,13 +17,13 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section className="bg-white py-28">
+    <section className="bg-[#020303] py-28">
       <div className="max-w-[900px] mx-auto px-8">
         <div className="text-center mb-16">
-          <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,5vw,3rem)] text-dark tracking-tight mb-4">
+          <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,5vw,3rem)] text-white tracking-tight mb-4">
             Still Have <span className="gradient-text">Qs?</span>
           </h2>
-          <p data-aos="fade-up" data-aos-delay="100" className="text-dark/55 text-lg leading-relaxed">
+          <p data-aos="fade-up" data-aos-delay="100" className="text-white text-lg leading-relaxed">
             Find answers to common questions about our services.
           </p>
         </div>
