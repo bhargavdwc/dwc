@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const testimonials = [
   {
@@ -6,111 +7,131 @@ const testimonials = [
     name: 'Neha Gupta',
     title: 'Product Manager',
     company: 'TechBridge India',
-    initials: 'NG',
-    color: '#0D5EF6',
+    image: 'https://i.pravatar.cc/150?img=12',
   },
   {
     quote: "The PPC campaigns DWC ran for us delivered a 5x return on ad spend. Their data-driven approach and transparent reporting made all the difference. We now consider them an extension of our own team.",
     name: 'Karan Patel',
     title: 'CEO',
     company: 'UrbanCo',
-    initials: 'KP',
-    color: '#04B9CA',
+    image: 'https://i.pravatar.cc/150?img=11',
   },
   {
     quote: "From social media strategy to creative design, DWC handles everything flawlessly. Their creativity and dedication are unmatched. Our brand engagement increased by 280% across all channels.",
     name: 'Priya Sharma',
     title: 'Marketing Director',
     company: 'GrowFast Solutions',
-    initials: 'PS',
-    color: '#7C3AED',
+    image: 'https://i.pravatar.cc/150?img=5',
   },
 ]
 
 export default function Testimonials() {
   const [active, setActive] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+
+  // Autoplay functionality
+  useEffect(() => {
+    if (isHovered) return;
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [isHovered]);
+
+  const next = () => setActive((prev) => (prev + 1) % testimonials.length);
+  const prev = () => setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="bg-white py-28">
-      <div className="max-w-[1200px] mx-auto px-8">
-        {/* Header */}
+    <section className="relative py-8 overflow-hidden bg-[#020303]">
+      <style>{`
+        .octogon-clip {
+          clip-path: polygon(50% 0%, 82% 18%, 100% 50%, 82% 82%, 50% 100%, 18% 82%, 0% 50%, 18% 18%);
+        }
+      `}</style>
+
+      <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        
         <div className="text-center mb-16">
-          <div data-aos="fade-down" className="inline-block font-mono text-[0.72rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-4 py-1.5 mb-5">
-            What Our Clients Say
-          </div>
-          <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(1.8rem,4vw,2.5rem)] text-dark tracking-tight">
-            Client <span className="bg-brand-gradient bg-clip-text text-transparent">Success Stories</span>
+          <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,4vw,3rem)] text-white tracking-tight">
+            Client <span className="bg-brand-gradient bg-clip-text text-transparent italic font-serif">Stories</span>
           </h2>
         </div>
 
-        {/* Active card */}
-        <div data-aos="fade-up" className="max-w-[800px] mx-auto text-center mb-12">
-          <div className="bg-gradient-to-br from-[#f8f9ff] to-white border border-primary/12 rounded-[24px] p-8 md:p-12 shadow-[0_20px_60px_rgba(13,94,246,0.08)] transition-all duration-500">
-            {/* Stars */}
-            <div className="flex justify-center gap-1 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-amber-500 fill-current" viewBox="0 0 24 24">
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                </svg>
-              ))}
-            </div>
+        <div 
+          className="relative max-w-[800px] mx-auto min-h-[300px] cursor-grab active:cursor-grabbing"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Navigation Arrows */}
+          <button 
+            onClick={prev}
+            className="absolute left-[-20px] md:left-[-60px] top-1/2 -translate-y-1/2 text-cyan/40 hover:text-cyan transition-colors z-20 hover:scale-110"
+            aria-label="Previous Testimonial"
+          >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          
+          <button 
+            onClick={next}
+            className="absolute right-[-20px] md:right-[-60px] top-1/2 -translate-y-1/2 text-cyan/40 hover:text-cyan transition-colors z-20 hover:scale-110"
+            aria-label="Next Testimonial"
+          >
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6"/></svg>
+          </button>
 
-            {/* Quote */}
-            <p className="font-body text-[clamp(1rem,2vw,1.2rem)] text-dark/75 leading-relaxed italic mb-8 relative">
-              <span className="font-display text-[4rem] text-primary/30 leading-none align-[-0.5em] mr-1">"</span>
-              {testimonials[active].quote}
-            </p>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 relative"
+            >
+              {/* Portrait Octagon */}
+              <div className="w-[140px] h-[140px] shrink-0 octogon-clip bg-brand-gradient p-1 shadow-[0_0_30px_rgba(4,185,202,0.3)]">
+                <img 
+                  src={testimonials[active].image} 
+                  alt={testimonials[active].name} 
+                  className="w-full h-full object-cover octogon-clip" 
+                />
+              </div>
 
-            {/* Client */}
-            <div className="flex items-center justify-center gap-4">
-              <div 
-                className="w-[52px] h-[52px] rounded-full flex items-center justify-center text-dark font-display font-bold text-lg border-[3px] border-dark"
-                style={{ background: `linear-gradient(135deg, ${testimonials[active].color}, #04B9CA)` }}
-              >
-                {testimonials[active].initials}
+              {/* Quote */}
+              <div className="relative pt-8 md:pt-4 flex-1 text-center md:text-left">
+                {/* Giant Quote Mark */}
+                <div className="absolute -top-12 left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-8 text-[7.5em] font-bold text-cyan/20 leading-none font-serif z-0 select-none pointer-events-none drop-shadow-[0_0_15px_rgba(4,185,202,0.2)]">
+                  &ldquo;
+                </div>
+                
+                <blockquote className="relative z-10 text-white italic text-[20px] md:text-[22px] leading-relaxed font-body">
+                  <p className="mb-8 font-light tracking-wide">{testimonials[active].quote}</p>
+                  <cite className="block text-[14px] not-italic text-white/70 border-l-[3px] border-cyan/40 pl-4 text-left mx-auto md:mx-0 w-max">
+                    <span className="text-[17px] uppercase tracking-widest bg-brand-gradient bg-clip-text text-transparent font-extrabold block mb-1">
+                      {testimonials[active].name}
+                    </span>
+                    <span className="text-white/90 font-medium">{testimonials[active].title}</span>
+                    <br />
+                    {testimonials[active].company}
+                  </cite>
+                </blockquote>
               </div>
-              <div className="text-left">
-                <div className="font-display font-bold text-dark text-base">{testimonials[active].name}</div>
-                <div className="font-body text-[0.85rem] text-dark/50">{testimonials[active].title} — {testimonials[active].company}</div>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Navigation dots */}
-        <div className="flex justify-center gap-3">
+        {/* Dots */}
+        <div className="flex justify-center gap-3 mt-12">
           {testimonials.map((_, i) => (
             <button
               key={i}
               onClick={() => setActive(i)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${i === active ? 'w-8 bg-brand-gradient' : 'w-2.5 bg-primary/20'}`}
-              aria-label={`Testimonial ${i + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${i === active ? 'w-8 bg-white' : 'w-2 bg-white/30 hover:bg-white/60'}`}
+              aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
 
-        {/* Thumbnail cards */}
-        <div className="flex gap-6 justify-center mt-10 flex-wrap">
-          {testimonials.map((t, i) => (
-            <button
-              key={i}
-              onClick={() => setActive(i)}
-              className={`flex items-center gap-3 px-5 py-3 rounded-full border transition-all duration-300 
-                ${i === active ? 'border-primary bg-primary/6 shadow-sm' : 'border-primary/15 bg-transparent hover:border-primary/30'}`}
-            >
-              <div 
-                className="w-8 h-8 rounded-full flex items-center justify-center text-dark font-display font-bold text-[0.8rem] shrink-0"
-                style={{ background: `linear-gradient(135deg, ${t.color}, #04B9CA)` }}
-              >
-                {t.initials}
-              </div>
-              <div className="text-left">
-                <div className="font-display font-semibold text-[0.85rem] text-dark">{t.name}</div>
-                <div className="font-body text-[0.75rem] text-dark/50">{t.company}</div>
-              </div>
-            </button>
-          ))}
-        </div>
       </div>
     </section>
   )

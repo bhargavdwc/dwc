@@ -33,7 +33,9 @@
   padding: 3rem;
   border-radius: 40px;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #0d5ef6 0%, #00d2ff 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
   /* Improve mobile performance */
   -webkit-transform: translateZ(0);
   transform: translateZ(0);

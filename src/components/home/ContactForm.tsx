@@ -13,18 +13,18 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="bg-white py-28">
+    <section className="bg-[#020303] py-24">
       <div className="max-w-[1300px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         {/* Left */}
         <div>
           <div data-aos="fade-right" className="inline-block font-mono text-[0.72rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/15 rounded-full px-4 py-1.5 mb-5">
             Let's Connect
           </div>
-          <h2 data-aos="fade-right" className="font-display font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-dark tracking-tight mb-6 leading-tight">
+          <h2 data-aos="fade-right" className="font-display font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-white tracking-tight mb-6 leading-tight">
             Experience the{' '}
             <span className="gradient-text">DWC Advantage</span>
           </h2>
-          <p data-aos="fade-right" data-aos-delay="100" className="text-dark/60 leading-relaxed mb-10 text-base max-w-xl">
+          <p data-aos="fade-right" data-aos-delay="100" className="text-white leading-relaxed mb-10 text-base max-w-xl">
             We've mastered the art of blending creativity and data to deliver marketing that maximizes your ROI. Let's build your roadmap to digital success. Fill in the form and our strategist will reach out within 24 hours.
           </p>
 
@@ -34,12 +34,12 @@ export default function ContactForm() {
               { name: 'LinkedIn', color: 'hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10' },
               { name: 'Instagram', color: 'hover:text-[#E1306C] hover:border-[#E1306C] hover:bg-[#E1306C]/10' },
               { name: 'Facebook', color: 'hover:text-[#1877F2] hover:border-[#1877F2] hover:bg-[#1877F2]/10' },
-              { name: 'Twitter/X', color: 'hover:text-black hover:border-black hover:bg-black/5' },
+              { name: 'Twitter/X', color: 'hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10' },
             ].map(s => (
               <a
                 key={s.name}
                 href="#"
-                className={`px-5 py-2 rounded-full border border-dark/10 text-dark/60 no-underline text-[0.85rem] font-display font-medium transition-all duration-300 ${s.color}`}
+                className={`px-5 py-2 rounded-full border border-white text-white no-underline text-[0.85rem] font-display font-medium transition-all duration-300 ${s.color}`}
               >
                 {s.name}
               </a>
@@ -51,7 +51,7 @@ export default function ContactForm() {
         <div data-aos="fade-left">
           <form
             onSubmit={handleSubmit}
-            className="bg-white border border-primary/10 rounded-[24px] p-8 md:p-10 shadow-[0_20px_50px_rgba(13,94,246,0.05)]"
+            className="bg-white border border-primary/10 rounded-[12px] p-8 md:p-10 shadow-[0_20px_50px_rgba(13,94,246,0.05)]"
           >
             <div className="grid gap-5">
               {/* Name */}
