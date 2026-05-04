@@ -1005,6 +1005,7 @@ function SplashCursor({
 
     // Named event handlers for proper cleanup
     function handleMouseDown(e) {
+      if (e.target && e.target.closest && (e.target.closest('.contact-form-container') || e.target.closest('.testimonial-card-container') || e.target.closest('.pc-card-wrapper') || e.target.closest('.testimonial-profile-card'))) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1014,6 +1015,7 @@ function SplashCursor({
 
     let firstMouseMoveHandled = false;
     function handleMouseMove(e) {
+      if (e.target && e.target.closest && (e.target.closest('.contact-form-container') || e.target.closest('.testimonial-card-container') || e.target.closest('.pc-card-wrapper') || e.target.closest('.testimonial-profile-card'))) return;
       let pointer = pointers[0];
       let posX = scaleByPixelRatio(e.clientX);
       let posY = scaleByPixelRatio(e.clientY);
@@ -1027,6 +1029,7 @@ function SplashCursor({
     }
 
     function handleTouchStart(e) {
+      if (e.target && e.target.closest && (e.target.closest('.contact-form-container') || e.target.closest('.testimonial-card-container') || e.target.closest('.pc-card-wrapper') || e.target.closest('.testimonial-profile-card'))) return;
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {
@@ -1037,6 +1040,7 @@ function SplashCursor({
     }
 
     function handleTouchMove(e) {
+      if (e.target && e.target.closest && (e.target.closest('.contact-form-container') || e.target.closest('.testimonial-card-container') || e.target.closest('.pc-card-wrapper') || e.target.closest('.testimonial-profile-card'))) return;
       const touches = e.targetTouches;
       let pointer = pointers[0];
       for (let i = 0; i < touches.length; i++) {

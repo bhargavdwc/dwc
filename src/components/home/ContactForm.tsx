@@ -51,17 +51,17 @@ export default function ContactForm() {
         <div data-aos="fade-left">
           <form
             onSubmit={handleSubmit}
-            className="bg-white border border-primary/10 rounded-[12px] p-8 md:p-10 shadow-[0_20px_50px_rgba(13,94,246,0.05)]"
+            className="contact-form-container bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 md:p-10 shadow-[0_0_50px_rgba(4,185,202,0.1)]"
           >
             <div className="grid gap-5">
               {/* Name */}
               <div className="relative group">
                 <input 
-                  className="peer w-full bg-primary/2 border border-primary/10 rounded-xl px-4 pt-6 pb-2 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 placeholder-transparent" 
+                  className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent" 
                   type="text" placeholder="Full Name" required 
                   value={formState.name} onChange={e => setFormState(s => ({...s, name: e.target.value}))} id="contact-name" 
                 />
-                <label className="absolute left-4 top-1/2 -translate-y-1/2 text-dark/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-primary" htmlFor="contact-name">
+                <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-name">
                   Full Name
                 </label>
               </div>
@@ -69,11 +69,11 @@ export default function ContactForm() {
               {/* Email */}
               <div className="relative group">
                 <input 
-                  className="peer w-full bg-primary/2 border border-primary/10 rounded-xl px-4 pt-6 pb-2 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 placeholder-transparent" 
+                  className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent" 
                   type="email" placeholder="Email Address" required 
                   value={formState.email} onChange={e => setFormState(s => ({...s, email: e.target.value}))} id="contact-email" 
                 />
-                <label className="absolute left-4 top-1/2 -translate-y-1/2 text-dark/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-primary" htmlFor="contact-email">
+                <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-email">
                   Email Address
                 </label>
               </div>
@@ -82,11 +82,11 @@ export default function ContactForm() {
                 {/* Phone */}
                 <div className="relative group">
                   <input 
-                    className="peer w-full bg-primary/2 border border-primary/10 rounded-xl px-4 pt-6 pb-2 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 placeholder-transparent" 
+                    className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent" 
                     type="tel" placeholder="Phone Number" 
                     value={formState.phone} onChange={e => setFormState(s => ({...s, phone: e.target.value}))} id="contact-phone" 
                   />
-                  <label className="absolute left-4 top-1/2 -translate-y-1/2 text-dark/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-primary" htmlFor="contact-phone">
+                  <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-phone">
                     Phone Number
                   </label>
                 </div>
@@ -94,11 +94,11 @@ export default function ContactForm() {
                 {/* Company */}
                 <div className="relative group">
                   <input 
-                    className="peer w-full bg-primary/2 border border-primary/10 rounded-xl px-4 pt-6 pb-2 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 placeholder-transparent" 
+                    className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent" 
                     type="text" placeholder="Company Name" 
                     value={formState.company} onChange={e => setFormState(s => ({...s, company: e.target.value}))} id="contact-company" 
                   />
-                  <label className="absolute left-4 top-1/2 -translate-y-1/2 text-dark/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-primary" htmlFor="contact-company">
+                  <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-company">
                     Company Name
                   </label>
                 </div>
@@ -107,15 +107,15 @@ export default function ContactForm() {
               {/* Service */}
               <div className="relative group">
                 <select
-                  className="w-full bg-primary/2 border border-primary/10 rounded-xl px-4 py-4 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 appearance-none"
+                  className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-4 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 appearance-none"
                   value={formState.service}
                   onChange={e => setFormState(s => ({...s, service: e.target.value}))}
                   id="contact-service"
                 >
-                  <option value="">Select a Service</option>
-                  {services.map(s => <option key={s} value={s}>{s}</option>)}
+                  <option value="" className="text-dark bg-white">Select a Service</option>
+                  {services.map(s => <option key={s} value={s} className="text-dark bg-white">{s}</option>)}
                 </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-dark/40">
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-white/40">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
               </div>
@@ -123,11 +123,11 @@ export default function ContactForm() {
               {/* Message */}
               <div className="relative group">
                 <textarea 
-                  className="peer w-full bg-primary/2 border border-primary/10 rounded-xl px-4 pt-8 pb-2 text-dark text-sm outline-none transition-all duration-300 focus:border-primary focus:bg-white focus:ring-4 focus:ring-primary/10 placeholder-transparent min-h-[120px] resize-y" 
+                  className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-8 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent min-h-[120px] resize-y" 
                   placeholder="Project Brief" rows={4} 
                   value={formState.message} onChange={e => setFormState(s => ({...s, message: e.target.value}))} id="contact-message" 
                 />
-                <label className="absolute left-4 top-6 -translate-y-1/2 text-dark/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-primary" htmlFor="contact-message">
+                <label className="absolute left-4 top-6 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-message">
                   Project Brief
                 </label>
               </div>
@@ -136,7 +136,7 @@ export default function ContactForm() {
               <button
                 type="submit"
                 className={`w-full p-4 rounded-xl font-display font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-lg group
-                  ${status === 'success' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white' : 'bg-brand-gradient text-dark hover:-translate-y-0.5 hover:shadow-xl'}`}
+                  ${status === 'success' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white' : 'bg-brand-gradient text-dark hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(4,185,202,0.4)]'}`}
                 disabled={status !== 'idle'}
               >
                 {status === 'idle' && <>Submit<svg className="w-4 h-4 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></>}

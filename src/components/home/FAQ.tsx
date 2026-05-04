@@ -1,15 +1,35 @@
 import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
-  { q: 'What type of websites do you develop?', a: 'We develop all types of websites including corporate sites, e-commerce platforms, landing pages, portfolios, and custom web applications. We specialize in high-performance, SEO-optimized websites built with modern frameworks like React and Next.js.' },
-  { q: 'What type of industries do you serve?', a: 'We serve a wide range of industries including real estate, healthcare, education, e-commerce, hospitality, fintech, manufacturing, and retail. Our diverse experience allows us to craft industry-specific strategies that deliver results.' },
-  { q: 'Does paid media marketing have a fixed budget?', a: 'No, paid media budgets are flexible and customized to your goals. We recommend starting with a minimum budget, then scaling based on performance data. Our experts optimize every rupee spent to maximize your return on ad spend (ROAS).' },
-  { q: 'How can we grow your business online?', a: 'We use a comprehensive digital ecosystem approach: SEO to build organic visibility, PPC for immediate traffic, social media for community building, and content marketing for thought leadership. Each strategy is data-driven and tailored to your specific business goals.' },
-  { q: 'Do you only serve in Ahmedabad?', a: 'While we are based in Ahmedabad, we serve clients across India and internationally. Our digital-first approach means we can work effectively with businesses anywhere in the world, from Mumbai and Delhi to London and Dubai.' },
+  {
+    q: 'What type of websites do you develop?',
+    a: 'We develop all types of websites including corporate sites, e-commerce platforms, landing pages, portfolios, and custom web applications. We specialize in high-performance, SEO-optimized websites built with modern frameworks like React and Next.js.',
+  },
+  {
+    q: 'What type of industries do you serve?',
+    a: 'We serve a wide range of industries including real estate, healthcare, education, e-commerce, hospitality, fintech, manufacturing, and retail. Our diverse experience allows us to craft industry-specific strategies that deliver results.',
+  },
+  {
+    q: 'Does paid media marketing have a fixed budget?',
+    a: 'No, paid media budgets are flexible and customized to your goals. We recommend starting with a minimum budget, then scaling based on performance data. Our experts optimize every rupee spent to maximize your return on ad spend (ROAS).',
+  },
+  {
+    q: 'How can we grow your business online?',
+    a: 'We use a comprehensive digital ecosystem approach: SEO to build organic visibility, PPC for immediate traffic, social media for community building, and content marketing for thought leadership. Each strategy is data-driven and tailored to your specific business goals.',
+  },
+  {
+    q: 'Do you only serve in Ahmedabad?',
+    a: 'While we are based in Ahmedabad, we serve clients across India and internationally. Our digital-first approach means we can work effectively with businesses anywhere in the world, from Mumbai and Delhi to London and Dubai.',
+  },
 ]
 
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
+
+  const toggleFAQ = (index: number) => {
+    setOpen(open === index ? null : index)
+  }
 
   return (
     <section className="bg-[#020303] py-20">
@@ -36,14 +56,14 @@ export default function FAQ() {
         <div className="flex flex-col gap-3">
           {faqs.map((faq, i) => {
             const isOpen = open === i
+
             return (
               <div
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={`${i * 60}`}
-                onClick={() => setOpen(isOpen ? null : i)}
                 className={`
-                  relative rounded-2xl cursor-pointer select-none
+                  relative rounded-2xl select-none
                   border transition-all duration-400 overflow-hidden
                   ${isOpen
                     ? 'border-white/10 bg-white/5'
@@ -55,12 +75,16 @@ export default function FAQ() {
                 <div
                   className={`
                     absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl transition-all duration-400
-                    ${isOpen ? 'bg-gradient-to-b from-primary via-primary/70 to-transparent opacity-100' : 'opacity-0'}
+                    ${isOpen
+                      ? 'bg-gradient-to-b from-primary via-primary/70 to-transparent opacity-100'
+                      : 'opacity-0'
+                    }
                   `}
                 />
 
                 {/* Header row */}
                 <div className="flex items-center gap-5 px-6 py-5">
+
                   {/* Number badge */}
                   <span
                     className={`
@@ -86,8 +110,10 @@ export default function FAQ() {
                     {faq.q}
                   </span>
 
-                  {/* Arrow circle button */}
-                  <div
+                  {/* Arrow Button Only */}
+                  <button
+                    type="button"
+                    onClick={() => toggleFAQ(i)}
                     className={`
                       shrink-0 w-9 h-9 rounded-full flex items-center justify-center
                       border transition-all duration-300
@@ -96,9 +122,12 @@ export default function FAQ() {
                         : 'border-white/10 bg-white/5 text-white/40'
                       }
                     `}
+                    aria-label={isOpen ? 'Close FAQ' : 'Open FAQ'}
                   >
                     <svg
-                      className={`w-4 h-4 transition-transform duration-400 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+                      className={`w-4 h-4 transition-transform duration-400 ${
+                        isOpen ? 'rotate-180' : 'rotate-0'
+                      }`}
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
@@ -108,22 +137,28 @@ export default function FAQ() {
                     >
                       <path d="M6 9l6 6 6-6" />
                     </svg>
-                  </div>
+                  </button>
                 </div>
 
-                {/* Answer — animated expand */}
-                <div
-                  className={`
-                    grid transition-all duration-500 ease-in-out
-                    ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}
-                  `}
-                >
-                  <div className="overflow-hidden">
-                    <p className="px-6 pb-6 pl-[4.5rem] text-white/55 font-body text-[0.93rem] leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
+                {/* Answer */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        ease: 'easeInOut',
+                      }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-6 pb-6 pl-[4.5rem] text-white/55 font-body text-[0.93rem] leading-relaxed">
+                        {faq.a}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )
           })}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ProfileCard from '../ui/ProfileCard'
 
 const testimonials = [
   {
@@ -7,21 +8,21 @@ const testimonials = [
     name: 'Neha Gupta',
     title: 'Product Manager',
     company: 'TechBridge India',
-    image: 'https://i.pravatar.cc/150?img=12',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
   },
   {
     quote: "The PPC campaigns DWC ran for us delivered a 5x return on ad spend. Their data-driven approach and transparent reporting made all the difference. We now consider them an extension of our own team.",
     name: 'Karan Patel',
     title: 'CEO',
     company: 'UrbanCo',
-    image: 'https://i.pravatar.cc/150?img=11',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
   },
   {
     quote: "From social media strategy to creative design, DWC handles everything flawlessly. Their creativity and dedication are unmatched. Our brand engagement increased by 280% across all channels.",
     name: 'Priya Sharma',
     title: 'Marketing Director',
     company: 'GrowFast Solutions',
-    image: 'https://i.pravatar.cc/150?img=5',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
   },
 ]
 
@@ -44,39 +45,49 @@ export default function Testimonials() {
   return (
     <section className="relative py-8 overflow-hidden bg-[#020303]">
       <style>{`
-        .octogon-clip {
-          clip-path: polygon(50% 0%, 82% 18%, 100% 50%, 82% 82%, 50% 100%, 18% 82%, 0% 50%, 18% 18%);
+        .testimonial-profile-card .pc-card {
+          height: 280px !important;
+          min-height: 280px !important;
+        }
+        .testimonial-profile-card .pc-details {
+          display: none !important;
+        }
+        @media (max-width: 768px) {
+          .testimonial-profile-card .pc-card {
+            height: 240px !important;
+            min-height: 240px !important;
+          }
         }
       `}</style>
 
       <div className="max-w-[1200px] mx-auto px-8 relative z-10">
-        
+
         <div className="text-center mb-16">
           <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,4vw,3rem)] text-white tracking-tight">
             Client <span className="bg-brand-gradient bg-clip-text text-transparent italic font-serif">Stories</span>
           </h2>
         </div>
 
-        <div 
-          className="relative max-w-[800px] mx-auto min-h-[300px] cursor-grab active:cursor-grabbing"
+        <div
+          className="relative max-w-[800px] mx-auto min-h-[300px]"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           {/* Navigation Arrows */}
-          <button 
+          <button
             onClick={prev}
             className="absolute left-[-20px] md:left-[-60px] top-1/2 -translate-y-1/2 text-cyan/40 hover:text-cyan transition-colors z-20 hover:scale-110"
             aria-label="Previous Testimonial"
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M15 18l-6-6 6-6" /></svg>
           </button>
-          
-          <button 
+
+          <button
             onClick={next}
             className="absolute right-[-20px] md:right-[-60px] top-1/2 -translate-y-1/2 text-cyan/40 hover:text-cyan transition-colors z-20 hover:scale-110"
             aria-label="Next Testimonial"
           >
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6"/></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" /></svg>
           </button>
 
           <AnimatePresence mode="wait">
@@ -86,14 +97,18 @@ export default function Testimonials() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 relative"
+              className="testimonial-card-container flex flex-col md:flex-row items-center md:items-start gap-10 md:gap-16 relative"
             >
-              {/* Portrait Octagon */}
-              <div className="w-[140px] h-[140px] shrink-0 octogon-clip bg-brand-gradient p-1 shadow-[0_0_30px_rgba(4,185,202,0.3)]">
-                <img 
-                  src={testimonials[active].image} 
-                  alt={testimonials[active].name} 
-                  className="w-full h-full object-cover octogon-clip" 
+              {/* Profile Card Integration */}
+              <div className="shrink-0 w-[200px] md:w-[220px] mx-auto md:mx-0 perspective-1000 z-20">
+                <ProfileCard
+                  avatarUrl={testimonials[active].image}
+                  name={testimonials[active].name}
+                  title={testimonials[active].title}
+                  showUserInfo={false}
+                  className="testimonial-profile-card"
+                  innerGradient="linear-gradient(145deg, rgba(4,185,202,0.2) 0%, rgba(2,3,3,0.9) 100%)"
+                  behindGlowColor="rgba(4, 185, 202, 0.4)"
                 />
               </div>
 
@@ -103,7 +118,7 @@ export default function Testimonials() {
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 md:translate-x-0 md:-left-8 text-[7.5em] font-bold text-cyan/20 leading-none font-serif z-0 select-none pointer-events-none drop-shadow-[0_0_15px_rgba(4,185,202,0.2)]">
                   &ldquo;
                 </div>
-                
+
                 <blockquote className="relative z-10 text-white italic text-[20px] md:text-[22px] leading-relaxed font-body">
                   <p className="mb-8 font-light tracking-wide">{testimonials[active].quote}</p>
                   <cite className="block text-[14px] not-italic text-white/70 border-l-[3px] border-cyan/40 pl-4 text-left mx-auto md:mx-0 w-max">
