@@ -14,7 +14,7 @@ export default function ContactForm() {
 
   return (
     <section className="bg-[#020303] py-24">
-      <div className="max-w-[1300px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div className="max-w-[1300px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* Left */}
         <div>
           <div data-aos="fade-right" className="inline-block font-mono text-[0.72rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/15 rounded-full px-4 py-1.5 mb-5">

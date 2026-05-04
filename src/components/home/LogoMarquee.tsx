@@ -41,7 +41,7 @@ export default function LogoMarquee() {
   };
 
   return (
-    <section className="bg-black py-8 overflow-hidden">
+    <section className="bg-black py-18 overflow-hidden">
       <div className="text-center mb-8">
         <span className="font-mono text-base text-white uppercase">
           Trusted by Industry Leaders

@@ -65,7 +65,7 @@ export default function AboutSnippet() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#020202] py-12 lg:py-20 overflow-hidden flex flex-col items-center"
+      className="relative bg-[#020202] py-8 lg:py-12 overflow-hidden flex flex-col items-center"
       id="about-snippet"
     >
       {/* Immersive Background Glows */}
@@ -92,7 +92,7 @@ export default function AboutSnippet() {
             baseRotation={2}
             blurStrength={12}
             containerClassName="w-full"
-            textClassName="font-display font-bold text-white leading-[1.1] tracking-tight text-[clamp(2rem,5.5vw,4.2rem)]"
+            textClassName="font-display font-bold text-white leading-[1.1] tracking-tight text-[clamp(1.5rem,4vw,3.5rem)]"
           >
             Leading Branding and Advertising Agency in Ahmedabad.
           </ScrollReveal>
@@ -106,7 +106,7 @@ export default function AboutSnippet() {
             baseRotation={0}
             blurStrength={8}
             containerClassName="w-full"
-            textClassName="font-body text-white/60 text-sm lg:text-base leading-relaxed"
+            textClassName="font-body text-white/60 text-xs lg:text-sm leading-relaxed"
           >
             Your brand deserves a digital presence that works as hard as you do. At Digital Web Connection, we go beyond basic marketing — we create strategies that help businesses across India stand out, attract the right audience, and drive measurable results.
           </ScrollReveal>

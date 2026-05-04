@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
-import logoImg from '../../assets/white_logo.jpg'
+import logoImg from '../../assets/dark_logo.jpg'
 
 const services = ['Social Media Marketing', 'Digital Consultancy', 'Email Marketing', 'Link Generation', 'Online Presence Analysis']
 const company = ['Our Team', 'About Us', 'Contact Us']
-const support = ['Help Center', 'Get Live Support', 'View Documentation']
 
 const socials = [
   { label: 'LinkedIn', icon: (
@@ -22,27 +21,27 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="bg-white relative overflow-hidden border-t border-primary/10 noise-overlay">
+    <footer className="bg-black relative overflow-hidden border-t border-white noise-overlay">
       {/* Big display text */}
-      <div className="pt-20 px-8 text-center overflow-hidden">
-        <div className="font-display font-bold text-[clamp(2.5rem,8vw,7rem)] leading-none text-transparent [text-stroke:1px_rgba(13,94,246,0.15)] tracking-tighter opacity-80 uppercase">
+      <div className="pt-12 px-8 text-center overflow-hidden">
+        <div className="font-display font-bold text-[clamp(2.5rem,8vw,7rem)] leading-none text-white/60 [text-stroke:1px_rgba(255,255,255,0.15)] tracking-tighter opacity-80 uppercase">
           HELLO! WE'RE LISTENING
         </div>
       </div>
 
       {/* Main footer content */}
       <div className="max-w-[1400px] mx-auto px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand column */}
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 no-underline mb-5 group">
               <img src={logoImg} alt="DWC Logo" className="h-11 w-auto object-contain transition-transform group-hover:scale-105" />
               <div className="font-display font-bold leading-[1.1]">
-                <div className="text-dark">Digital Web</div>
+                <div className="text-white">Digital Web</div>
                 <div className="text-cyan">Connection</div>
               </div>
             </Link>
-            <p className="text-dark/60 text-sm leading-relaxed mb-6 max-w-[280px]">
+            <p className="text-white text-sm leading-relaxed mb-6 max-w-[280px]">
               AI-Driven Digital Marketing Agency in Ahmedabad. Helping brands grow with strategy, creativity, and research.
             </p>
             <div className="flex gap-3">
@@ -51,7 +50,7 @@ export default function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="w-10 h-10 rounded-xl bg-primary/5 border border-primary/10 flex items-center justify-center text-dark/60 transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:border-primary hover:rotate-[10deg]"
+                  className="w-10 h-10 rounded-xl bg-white border border-primary flex items-center justify-center text-dark/60 transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:border-primary hover:rotate-[10deg]"
                 >
                   {s.icon}
                 </a>
@@ -61,11 +60,11 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-display font-semibold text-dark mb-5 text-base">Services</h4>
+            <h4 className="font-display font-semibold text-white mb-5 text-base">Services</h4>
             <ul className="list-none flex flex-col gap-3">
               {services.map(s => (
                 <li key={s}>
-                  <Link to="/services" className="text-dark/55 no-underline text-sm transition-colors hover:text-primary">
+                  <Link to="/services" className="text-white/60 no-underline text-sm transition-colors hover:text-primary">
                     {s}
                   </Link>
                 </li>
@@ -75,11 +74,11 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-display font-semibold text-dark mb-5 text-base">Company</h4>
+            <h4 className="font-display font-semibold text-white mb-5 text-base">Company</h4>
             <ul className="list-none flex flex-col gap-3">
               {company.map(c => (
                 <li key={c}>
-                  <Link to="/about" className="text-dark/55 no-underline text-sm transition-colors hover:text-primary">
+                  <Link to="/about" className="text-white/60 no-underline text-sm transition-colors hover:text-primary">
                     {c}
                   </Link>
                 </li>
@@ -87,46 +86,25 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
-          <div>
-            <h4 className="font-display font-semibold text-dark mb-5 text-base">Support</h4>
-            <ul className="list-none flex flex-col gap-3">
-              {support.map(s => (
-                <li key={s}>
-                  <a href="#" className="text-dark/55 no-underline text-sm transition-colors hover:text-primary">
-                    {s}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact */}
           <div>
-            <h4 className="font-display font-semibold text-dark mb-5 text-base">Contact</h4>
+            <h4 className="font-display font-semibold text-white mb-5 text-base">Contact</h4>
             <div className="flex flex-col gap-3">
-              <a href="mailto:hello@digitalwebconnection.com" className="text-dark/55 no-underline text-sm transition-colors hover:text-primary break-all">
+              <a href="mailto:hello@digitalwebconnection.com" className="text-white/60 no-underline text-sm transition-colors hover:text-primary break-all">
                 hello@digitalwebconnection.com
               </a>
-              <span className="text-dark/55 text-sm">Ahmedabad, Gujarat, India</span>
+              <span className="text-white/60 text-sm">Ahmedabad, Gujarat, India</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-primary/8 px-8 py-6">
-        <div className="max-w-[1400px] mx-auto flex flex-wrap justify-between items-center gap-4">
-          <p className="text-dark/40 text-[0.75rem] font-mono">
-            © 2025 Digital Web Connection. All rights reserved.
+      <div className="border-t border-white/10 px-8 py-6">
+        <div className="max-w-[1400px] mx-auto flex flex-wrap justify-center items-center gap-4">
+          <p className="text-white text-[0.75rem] font-mono">
+            © 2026 Digital Web Connection. All rights reserved.
           </p>
-          <div className="flex gap-6">
-            {['Privacy Policy', 'Terms of Service'].map(t => (
-              <a key={t} href="#" className="text-dark/40 no-underline text-[0.75rem] transition-colors hover:text-primary">
-                {t}
-              </a>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
