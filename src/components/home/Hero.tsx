@@ -31,7 +31,7 @@ export default function Hero() {
           gravity={0.1}
           friction={0.99}
           wallBounce={0.9}
-          followCursor={true}
+          followCursor={false}
           colors={['#0D5EF6', '#04B9CA', '#333333']}
           minSize={0.6}
           maxSize={1.0}

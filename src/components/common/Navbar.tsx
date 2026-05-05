@@ -45,15 +45,15 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 left-0 right-0 z-[9990] transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)] 
           ${hidden ? '-translate-y-full' : 'translate-y-0'} 
-          ${scrolled ? 'bg-black/70 backdrop-blur-md py-3 shadow-lg' : 'bg-transparent py-6'}`}
+          ${scrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}
       >
         <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
           {/* Logo */}
           <Link 
             to="/" 
-            className={`flex items-center transition-all duration-400 ${scrolled ? 'h-[50px]' : 'h-[70px]'}`}
+            className={`flex items-center transition-all duration-400 ${scrolled ? 'h-[74px]' : 'h-[118px]'}`}
           >
-            <img src={logoImg} alt="DWC Logo" className="h-full w-auto object-contain" />
+            <img src={logoImg} alt="DWC Logo" className="h-full w-auto object-contain block" />
           </Link>
 
           {/* Desktop Nav */}
