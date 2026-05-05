@@ -1,5 +1,7 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import logoImg from '../../assets/dark_logo.jpg'
+import VariableProximity from '../ui/VariableProximity'
 
 const services = ['Social Media Marketing', 'Digital Consultancy', 'Email Marketing', 'Link Generation', 'Online Presence Analysis']
 const company = ['Our Team', 'About Us', 'Contact Us']
@@ -20,12 +22,22 @@ const socials = [
 ]
 
 export default function Footer() {
+  const containerRef = useRef(null);
+
   return (
     <footer className="bg-black relative overflow-hidden border-t border-white noise-overlay">
       {/* Big display text */}
-      <div className="pt-12 px-8 text-center overflow-hidden">
-        <div className="font-display font-bold text-[clamp(2.5rem,8vw,7rem)] leading-none text-white/60 [text-stroke:1px_rgba(255,255,255,0.15)] tracking-tighter opacity-80 uppercase">
-          HELLO! WE'RE LISTENING
+      <div className="pt-12 px-8 text-center overflow-hidden no-splash">
+        <div ref={containerRef} style={{ position: 'relative' }} className="font-display font-bold text-[clamp(2.5rem,8vw,7rem)] leading-none text-white/60 [text-stroke:1px_rgba(255,255,255,0.15)] tracking-tighter opacity-80 uppercase cursor-default no-splash">
+          <VariableProximity
+            label="HELLO! WE'RE LISTENING"
+            className="variable-proximity-demo"
+            fromFontVariationSettings="'wght' 400, 'opsz' 9"
+            toFontVariationSettings="'wght' 1000, 'opsz' 40"
+            containerRef={containerRef}
+            radius={100}
+            falloff="linear"
+          />
         </div>
       </div>
 

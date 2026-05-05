@@ -86,7 +86,7 @@ export default function Stats() {
         </div>
 
         {/* Magic Bento Grid */}
-        <div className="mb-20 flex justify-center">
+        <div className="mb-20 flex justify-center no-splash">
           <MagicBento 
             items={bentoItems} 
             enableStars={true}

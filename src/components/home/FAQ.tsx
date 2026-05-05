@@ -28,119 +28,62 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(null)
 
   const toggleFAQ = (index: number) => {
-    setOpen(open === index ? null : index)
+    setOpen((prev) => (prev === index ? null : index))
   }
 
   return (
-    <section className="bg-[#020303] py-20">
-      <div className="max-w-[860px] mx-auto px-6">
-
-        {/* Heading */}
-        <div className="text-center mb-14">
+    <section className="bg-[#020303] py-20 sm:py-24">
+      <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+        
+        {/* text - start */}
+        <div className="mb-10 md:mb-16">
           <h2
             data-aos="fade-up"
-            className="font-display font-bold text-[clamp(2rem,5vw,3rem)] text-white tracking-tight mb-4"
+            className="mb-4 text-center font-display text-[clamp(2rem,5vw,3rem)] font-bold text-white md:mb-6 tracking-tight"
           >
             Still Have <span className="gradient-text">Qs?</span>
           </h2>
+
           <p
             data-aos="fade-up"
             data-aos-delay="100"
-            className="text-white/60 text-lg leading-relaxed"
+            className="mx-auto max-w-screen-md text-center text-white/60 md:text-lg"
           >
             Find answers to common questions about our services.
           </p>
         </div>
+        {/* text - end */}
 
-        {/* Accordion */}
-        <div className="flex flex-col gap-3">
+        <div className="mx-auto flex max-w-[860px] flex-col border-t border-white/10">
           {faqs.map((faq, i) => {
             const isOpen = open === i
 
             return (
-              <div
-                key={i}
-                data-aos="fade-up"
+              <div 
+                key={i} 
+                className="border-b border-white/10" 
+                data-aos="fade-up" 
                 data-aos-delay={`${i * 60}`}
-                className={`
-                  relative rounded-2xl select-none
-                  border transition-all duration-400 overflow-hidden
-                  ${isOpen
-                    ? 'border-white/10 bg-white/5'
-                    : 'border-white/5 bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/10'
-                  }
-                `}
               >
-                {/* Left accent bar */}
-                <div
-                  className={`
-                    absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl transition-all duration-400
-                    ${isOpen
-                      ? 'bg-gradient-to-b from-primary via-primary/70 to-transparent opacity-100'
-                      : 'opacity-0'
-                    }
-                  `}
-                />
-
-                {/* Header row */}
-                <div className="flex items-center gap-5 px-6 py-5">
-
-                  {/* Number badge */}
-                  <span
-                    className={`
-                      font-mono text-xs font-bold shrink-0 w-7 h-7 rounded-full flex items-center justify-center
-                      transition-all duration-300
-                      ${isOpen
-                        ? 'bg-primary/20 text-primary'
-                        : 'bg-white/5 text-white/25'
-                      }
-                    `}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-
-                  {/* Question */}
-                  <span
-                    className={`
-                      flex-1 font-display font-semibold text-[clamp(0.92rem,2vw,1.05rem)] leading-snug
-                      transition-colors duration-300
-                      ${isOpen ? 'text-white' : 'text-white/70'}
-                    `}
-                  >
+                <button
+                  type="button"
+                  onClick={() => toggleFAQ(i)}
+                  aria-expanded={isOpen}
+                  className={`w-full flex cursor-pointer justify-between items-center gap-4 py-5 transition duration-200 ${
+                    isOpen ? 'text-primary' : 'text-white hover:text-primary active:text-primary'
+                  }`}
+                >
+                  <span className="font-display font-semibold transition duration-100 md:text-lg text-left">
                     {faq.q}
                   </span>
 
-                  {/* Arrow Button Only */}
-                  <button
-                    type="button"
-                    onClick={() => toggleFAQ(i)}
-                    className={`
-                      shrink-0 w-9 h-9 rounded-full flex items-center justify-center
-                      border transition-all duration-300
-                      ${isOpen
-                        ? 'border-primary/50 bg-primary/15 text-primary'
-                        : 'border-white/10 bg-white/5 text-white/40'
-                      }
-                    `}
-                    aria-label={isOpen ? 'Close FAQ' : 'Open FAQ'}
-                  >
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-400 ${
-                        isOpen ? 'rotate-180' : 'rotate-0'
-                      }`}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M6 9l6 6 6-6" />
+                  <span className={`text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                     </svg>
-                  </button>
-                </div>
+                  </span>
+                </button>
 
-                {/* Answer */}
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
@@ -148,12 +91,12 @@ export default function FAQ() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{
-                        duration: 0.3,
-                        ease: 'easeInOut',
+                        duration: 0.35,
+                        ease: [0.4, 0, 0.2, 1],
                       }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-6 pl-[4.5rem] text-white/55 font-body text-[0.93rem] leading-relaxed">
+                      <p className="mb-6 text-white/55 font-body md:text-[0.95rem] leading-relaxed pr-8">
                         {faq.a}
                       </p>
                     </motion.div>
