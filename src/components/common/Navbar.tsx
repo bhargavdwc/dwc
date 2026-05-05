@@ -51,6 +51,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link 
             to="/" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className={`flex items-center transition-all duration-400 ${scrolled ? 'h-[74px]' : 'h-[118px]'}`}
           >
             <img src={logoImg} alt="DWC Logo" className="h-full w-auto object-contain block" />
