@@ -6,6 +6,7 @@ import Stats from '../components/home/Stats'
 import Services from '../components/home/Services'
 import Testimonials from '../components/home/Testimonials'
 import ContactForm from '../components/home/ContactForm'
+import AboutTeaser from '../components/home/AboutTeaser';
 import FAQ from '../components/home/FAQ'
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       <Stats />
       <Services />
       <Testimonials />
+      <AboutTeaser />
       <ContactForm />
       <FAQ />
     </main>

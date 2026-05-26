@@ -1,158 +1,264 @@
-import { useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
-import ScrollReveal from '../ui/ScrollReveal'
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CardSwap, { Card } from '../ui/CardSwap';
 
-export default function AboutSnippet() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const glowRef = useRef<HTMLDivElement>(null)
+import analyticsImg from '../../assets/hero_analytics.png';
+import brandImg from '../../assets/hero_brand.png';
+import seoImg from '../../assets/hero_seo.png';
+import socialImg from '../../assets/hero_social.png';
 
-  useGSAP(() => {
-    // Smooth background glow pulse
-    gsap.to(glowRef.current, {
-      scale: 1.2,
-      opacity: 0.2,
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    })
+gsap.registerPlugin(ScrollTrigger);
 
-    // Stats counting animation
-    const stats = [8, 500, 100];
-    const countElements = document.querySelectorAll('.stat-item .count');
-    
-    countElements.forEach((el, i) => {
-      gsap.to(el, {
-        innerText: stats[i],
-        duration: 2,
-        snap: { innerText: 1 },
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 90%',
+
+
+const AboutSection = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      /* Heading word-split reveal */
+      if (headRef.current) {
+        const words = headRef.current.textContent!.split(' ');
+        headRef.current.innerHTML = words
+          .map((w: string) => `<span class="ab-word"><span class="ab-word-inner">${w}</span></span>`)
+          .join(' ');
+        gsap.fromTo(
+          (headRef.current as HTMLElement).querySelectorAll('.ab-word-inner'),
+          { y: '110%' },
+          {
+            y: '0%', duration: 1, stagger: 0.06, ease: 'expo.out',
+            scrollTrigger: { trigger: headRef.current, start: 'top 82%', once: true }
+          }
+        );
+      }
+
+      /* Body + button fade up */
+      gsap.fromTo(
+        [bodyRef.current, btnRef.current],
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.9, stagger: 0.15, ease: 'expo.out',
+          scrollTrigger: { trigger: bodyRef.current, start: 'top 82%', once: true }
         }
-      });
-    });
+      );
 
-    // Magnetic Button Effect
-    const magneticBtn = document.querySelector('.magnetic-button');
-    if (magneticBtn) {
-      magneticBtn.addEventListener('mousemove', (e: any) => {
-        const { left, top, width, height } = magneticBtn.getBoundingClientRect();
-        const x = e.clientX - (left + width / 2);
-        const y = e.clientY - (top + height / 2);
-        
-        gsap.to(magneticBtn, {
-          x: x * 0.3,
-          y: y * 0.3,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-      });
+      /* Stats counter */
+      if (statsRef.current) {
+        gsap.fromTo(
+          (statsRef.current as HTMLElement).querySelectorAll('.ab-stat'),
+          { y: 40, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'expo.out',
+            scrollTrigger: { trigger: statsRef.current, start: 'top 85%', once: true }
+          }
+        );
+      }
+    }, sectionRef);
 
-      magneticBtn.addEventListener('mouseleave', () => {
-        gsap.to(magneticBtn, {
-          x: 0,
-          y: 0,
-          duration: 0.6,
-          ease: 'elastic.out(1, 0.3)'
-        });
-      });
-    }
-  }, { scope: sectionRef })
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#020202] py-8 lg:py-12 overflow-hidden flex flex-col items-center"
-      id="about-snippet"
+      style={{ background: '#060608', position: 'relative', overflow: 'hidden' }}
+      className="py-10 lg:py-12"
+      data-bg="#060608"
+      data-text="#ffffff"
     >
-      {/* Immersive Background Glows */}
-      <div 
-        ref={glowRef}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" 
-      />
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '64px 64px' }} />
+      {/* Ambient glow */}
+      <div style={{
+        position: 'absolute', top: '50%', right: '-10%',
+        width: 600, height: 600,
+        background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)',
+        transform: 'translateY(-50%)',
+        pointerEvents: 'none'
+      }} />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
-        {/* Subtle Tagline */}
-        <div className="mb-12">
-          <span className="font-mono text-primary text-[0.65rem] tracking-[0.4em] uppercase font-bold border border-primary/20 px-6 py-2 rounded-full bg-primary/5">
-            The Agency Philosophy
-          </span>
-        </div>
+          {/* ── LEFT: Company Details ── */}
+          <div>
+            {/* Eyebrow */}
+            <p style={{
+              fontFamily: 'Outfit, sans-serif',
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.35)',
+              marginBottom: 24,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 12,
+            }}>
+              <span style={{
+                display: 'inline-block', width: 28, height: 1,
+                background: 'linear-gradient(90deg,#3b82f6,#06b6d4)'
+              }} />
+              About DWC Studio
+            </p>
 
-        {/* Main Immersive Heading */}
-        <div className="max-w-[1000px] text-center mb-12 lg:mb-16">
-          <ScrollReveal
-            baseOpacity={0}
-            enableBlur={true}
-            baseRotation={2}
-            blurStrength={12}
-            containerClassName="w-full"
-            textClassName="font-display font-bold text-white leading-[1.1] tracking-tight text-[clamp(1.5rem,4vw,3.5rem)]"
-          >
-            Leading Branding and Advertising Agency in Ahmedabad.
-          </ScrollReveal>
-        </div>
+            {/* Heading */}
+            <h2
+              ref={headRef}
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontSize: 'clamp(2.4rem, 4.5vw, 4.8rem)',
+                fontWeight: 700,
+                lineHeight: 1.02,
+                letterSpacing: '-0.02em',
+                color: '#ffffff',
+                marginBottom: 28,
+                overflow: 'hidden',
+              }}
+            >
+              We Build Brands That Are Impossible to Ignore
+            </h2>
 
-        {/* Secondary Description */}
-        <div className="max-w-7xl text-center mb-16 lg:mb-24">
-          <ScrollReveal
-            baseOpacity={0.1}
-            enableBlur={true}
-            baseRotation={0}
-            blurStrength={8}
-            containerClassName="w-full"
-            textClassName="font-body text-white/60 text-xs lg:text-sm leading-relaxed"
-          >
-            Your brand deserves a digital presence that works as hard as you do. At Digital Web Connection, we go beyond basic marketing — we create strategies that help businesses across India stand out, attract the right audience, and drive measurable results.
-          </ScrollReveal>
-        </div>
-
-        {/* Dynamic Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-20 w-full max-w-5xl mb-20 items-center">
-          <div className="flex flex-col items-center group stat-item">
-            <span className="text-primary font-display font-black text-4xl lg:text-6xl mb-3 transition-transform duration-500 group-hover:scale-110">
-              <span className="count">0</span>+
-            </span>
-            <span className="text-white/30 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-center">Years of Mastery</span>
-          </div>
-
-          <div className="flex flex-col items-center group stat-item border-y md:border-y-0 md:border-x border-white/5 py-8 md:py-0 md:px-12">
-            <span className="text-white font-display font-black text-4xl lg:text-6xl mb-3 transition-transform duration-500 group-hover:scale-110">
-              <span className="count">0</span>+
-            </span>
-            <span className="text-white/30 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-center">Projects Delivered</span>
-          </div>
-
-          <div className="flex flex-col items-center group stat-item">
-            <span className="text-primary font-display font-black text-4xl lg:text-6xl mb-3 transition-transform duration-500 group-hover:scale-110">
-              <span className="count">0</span>%
-            </span>
-            <span className="text-white/30 font-mono text-[0.6rem] uppercase tracking-[0.25em] text-center">Satisfaction</span>
-          </div>
-        </div>
-
-        {/* Enhanced Call to Action */}
-        <div className="relative group mt-4 magnetic-button">
-          <div className="absolute inset-0 bg-primary/20 blur-2xl group-hover:blur-3xl transition-all duration-500 rounded-full scale-110 opacity-0 group-hover:opacity-100" />
-          <Link
-            to="/about"
-            className="group relative inline-flex items-center gap-5 px-10 py-5 bg-white text-black rounded-full font-display font-bold text-lg hover:bg-primary transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] overflow-hidden"
-          >
-            <span className="relative z-10 tracking-wide">The DWC Story</span>
-            <div className="relative z-10 w-10 h-10 rounded-full bg-black flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-45">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
+            {/* Body */}
+            <div ref={bodyRef}>
+              <p style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: '1rem',
+                lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 16
+              }}>
+                DWC Studio started as a boutique consultancy with a single mission — bridge the gap between creative brilliance and data precision. Today, 40+ specialists across strategy, content, paid media, SEO, and brand identity work together under one roof.
+              </p>
+              <p style={{
+                fontFamily: 'DM Sans, sans-serif', fontSize: '1rem',
+                lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 36
+              }}>
+                We don't just run campaigns — we build marketing ecosystems that make brands unstoppable in their markets.
+              </p>
             </div>
-          </Link>
-        </div>
 
+
+            {/* CTA */}
+            <div ref={btnRef}>
+              <a
+                href="/about"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 10,
+                  fontFamily: 'Outfit, sans-serif', fontSize: 13, fontWeight: 600,
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#ffffff', textDecoration: 'none',
+                  background: 'rgba(59,130,246,0.12)',
+                  border: '1px solid rgba(59,130,246,0.4)',
+                  borderRadius: 100, padding: '14px 28px',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = '#3b82f6';
+                  e.currentTarget.style.borderColor = '#3b82f6';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(59,130,246,0.12)';
+                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)';
+                }}
+              >
+                Discover Our Story
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* ── RIGHT: CardSwap ── */}
+          <div style={{ position: 'relative', height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <CardSwap
+
+              width={520}
+              height={500}
+              cardDistance={55}
+              verticalDistance={65}
+              delay={3000}
+              pauseOnHover={true}
+              skewAmount={5}
+              easing="elastic"
+
+            >
+              <Card>
+                <img
+                  src={brandImg}
+                  alt="Brand Strategy"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16, display: 'block' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+                  borderRadius: '0 0 16px 16px', padding: '28px 20px 16px',
+                }}>
+                  <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: 15, color: '#fff', margin: 0 }}>Brand Identity</p>
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: '4px 0 0' }}>Visual storytelling that converts</p>
+                </div>
+              </Card>
+
+              <Card>
+                <img
+                  src={analyticsImg}
+                  alt="Analytics & Growth"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16, display: 'block' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+                  borderRadius: '0 0 16px 16px', padding: '28px 20px 16px',
+                }}>
+                  <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: 15, color: '#fff', margin: 0 }}>Data & Analytics</p>
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: '4px 0 0' }}>Insights that drive growth</p>
+                </div>
+              </Card>
+
+              <Card>
+                <img
+                  src={seoImg}
+                  alt="SEO Strategy"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16, display: 'block' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+                  borderRadius: '0 0 16px 16px', padding: '28px 20px 16px',
+                }}>
+                  <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: 15, color: '#fff', margin: 0 }}>SEO & Performance</p>
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: '4px 0 0' }}>Rank higher, reach further</p>
+                </div>
+              </Card>
+
+              <Card>
+                <img
+                  src={socialImg}
+                  alt="Social Media"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 16, display: 'block' }}
+                />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)',
+                  borderRadius: '0 0 16px 16px', padding: '28px 20px 16px',
+                }}>
+                  <p style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: 15, color: '#fff', margin: 0 }}>Social Media</p>
+                  <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: '4px 0 0' }}>Communities that advocate for you</p>
+                </div>
+              </Card>
+            </CardSwap>
+          </div>
+
+        </div>
       </div>
+
+      <style>{`
+        .ab-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+        .ab-word-inner { display: inline-block; }
+      `}</style>
     </section>
-  )
-}
+  );
+};
+
+export default AboutSection;

@@ -76,7 +76,7 @@ export default function Hero() {
         <div className="explore-btn opacity-0 translate-y-[20px] mt-5">
           <Link
             to="/services"
-            className="inline-flex items-center gap-2 text-black bg-white font-display font-medium text-[0.85rem] no-underline px-6 py-2.5 rounded-full border border-white transition-all duration-300 hover:text-primary hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,255,255,0.2)] shadow-[0_4px_15px_rgba(255,255,255,0.1)]"
+            className="inline-flex items-center gap-2 text-black bg-white font-display font-medium text-[0.85rem] no-underline px-6 py-2.5 rounded-full border border-white transition-all duration-300 hover:text-white hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(255,255,255,0.2)] shadow-[0_4px_15px_rgba(255,255,255,0.1)] hover:bg-blue-600"
           >
             Explore All Services
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>

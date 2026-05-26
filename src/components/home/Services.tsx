@@ -1,133 +1,96 @@
-import { useEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import ScrollStack, { ScrollStackItem } from '../ui/ScrollStack'
+  import { useRef } from 'react';
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollTrigger);
 
-const services = [
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
-      </svg>
-    ),
-    title: 'Social Media Marketing',
-    description: 'We create data-driven social media strategies that boost engagement, build brand awareness, and drive meaningful connections with your audience.',
-    path: '/services/social-media-marketing',
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-      </svg>
-    ),
-    title: 'Website Development',
-    description: 'Our expert team designs and develops high-performance websites that are visually stunning, user-friendly, and optimized for maximum conversions.',
-    path: '/services',
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
-      </svg>
-    ),
-    title: 'Paid Media Marketing',
-    description: 'Real results through strategic paid marketing campaigns that boost visibility, generate quality leads, and maximize your ROI.',
-    path: '/services/pay-per-click-ppc',
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-      </svg>
-    ),
-    title: 'Search Engine Optimization',
-    description: 'We craft personalized SEO campaigns that enhance customer relationships, increase engagement, and drive conversions through funnel.',
-    path: '/services/search-engine-optimization',
-  },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    ),
-    title: 'Graphic Design And Video Editing',
-    description: 'Craft eye-catching designs and engaging videos that elevate your brand and make every visual truly unforgettable.',
-    path: '/services',
-  }
-]
+  const cards = [
+    { num: '01', title: 'Digital Strategy', desc: 'We dissect your market, audience, and competition to build bespoke roadmaps that turn ambition into measurable growth.', color: 'bg-white', text: 'text-black', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800' },
+    { num: '02', title: 'Content & Media', desc: 'From scroll-stopping social content to cinematic brand films — we craft stories that captivate and convert.', color: 'bg-[#121212]', text: 'text-white', image: 'https://images.unsplash.com/photo-1542204165-65bf26472b9b?auto=format&fit=crop&q=80&w=800' },
+    { num: '03', title: 'Growth Engine', desc: 'Every rupee of ad spend, optimised. Every organic search opportunity, captured. We engineer visibility.', color: 'bg-white', text: 'text-black', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800' },
+    { num: '04', title: 'Brand Identity', desc: 'The right message, the right platform, the right moment. We amplify your brand across every channel.', color: 'bg-[#121212]', text: 'text-white', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800' },
+  ];
 
-export default function Services() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const ServicesOverview = () => {
+    const containerRef = useRef(null);
 
-  useEffect(() => {
-    // GSAP animation temporarily removed to ensure visibility
-  }, [])
-
-
-  return (
-    <section ref={sectionRef} className="bg-[#020303] py-8 relative">
-      <div className="max-w-[1400px] mx-auto px-8">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+    useGSAP(() => {
+      const cardsElements = gsap.utils.toArray<HTMLElement>('.stack-card');
+      
+      cardsElements.forEach((card, index) => {
+        // Logic for the card that is CURRENTLY being covered by the next card
+        if (index < cardsElements.length - 1) {
+          const nextCard = cardsElements[index + 1];
           
-          {/* Left Side: Sticky Text */}
-          <div className="lg:sticky lg:top-32 lg:pb-32 space-y-6">
-            <div data-aos="fade-right" className="inline-block font-mono text-[0.72rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/25 rounded-full px-4 py-1.5 mb-2">
-              What We Offer
-            </div>
-            <h2 data-aos="fade-right" className="font-display font-bold text-[clamp(2rem,4vw,3.2rem)] text-white tracking-tight leading-[1.1]">
-              Our Comprehensive{' '}
-              <span className="gradient-text block mt-2">Digital Marketing</span>{' '}
-              Services in Ahmedabad
+          gsap.to(card as HTMLElement, {
+            // Scale down slightly and fade as the next card slides over
+            scale: 1 - (cardsElements.length - index) * 0.02, 
+            opacity: 0.3,
+            transformOrigin: "top center", // CRITICAL for layered look
+            scrollTrigger: {
+              trigger: nextCard,
+              start: "top 90%",
+              end: "top 15%",
+              scrub: true,
+            }
+          });
+        }
+      });
+
+    }, { scope: containerRef });
+
+    return (
+      <section ref={containerRef} className="relative w-full bg-[#000000] py-4 px-6">
+        <div className="max-w-7xl mx-auto relative">
+          
+          {/* Heading */}
+          <div className="mb-12 text-center">
+            <h2 className="font-serif text-[clamp(2.5rem,5vw,5rem)] text-white">
+              Our Expertise
             </h2>
-            <p data-aos="fade-left" className="text-white/80 max-w-[500px] leading-relaxed text-[1.05rem] pt-4">
-              Every business is unique, and your marketing strategy should reflect that. As a leading Digital Marketing Agency in Ahmedabad, we design customised solutions tailored to your goals, target audience, and industry.
-            </p>
-          </div>
-          
-          {/* Right Side: Scroll Stack Cards */}
-          <div className="relative pt-10 lg:pt-0">
-            <ScrollStack 
-              useWindowScroll={true} 
-              itemDistance={20} 
-              itemScale={0.03} 
-              itemStackDistance={40}
-              blurAmount={1}
-              rotationAmount={0}
-              baseScale={0.9}
-            >
-              {services.map((service, i) => (
-                <ScrollStackItem key={i}>
-                  <div className="flex flex-col h-full group">
-                    <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 mb-6 bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-[0_8px_32px_rgba(0,0,0,0.1)] group-hover:bg-white group-hover:text-primary group-hover:scale-105">
-                      {service.icon}
-                    </div>
-                    <h3 className="font-display font-bold text-[1.5rem] text-white mb-3 leading-snug drop-shadow-md">
-                      {service.title}
-                    </h3>
-                    <p className="font-body text-[1.05rem] text-white/90 leading-relaxed mb-8 drop-shadow-sm">
-                      {service.description}
-                    </p>
-                    <Link
-                      to={service.path}
-                      className="mt-auto self-start inline-flex items-center gap-2 font-display font-bold text-[0.95rem] text-white bg-white/20 backdrop-blur-sm border border-white/20 px-6 py-2.5 rounded-full hover:bg-white hover:text-primary transition-all duration-300 shadow-lg"
-                    >
-                      Learn More
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                    </Link>
-                  </div>
-                </ScrollStackItem>
-              ))}
-            </ScrollStack>
           </div>
 
+          {/* Stack Container */}
+          <div className="flex flex-col items-center w-full relative pb-[10vh]">
+            {cards.map((c, i) => (
+              <div 
+                key={i} 
+                className={`stack-card sticky w-full min-h-[480px]  p-10 sm:p-16 shadow-[0_-20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between gap-12 border border-black/5 ${c.color} ${c.text}`}
+                style={{ 
+                  // This creates the "Layered" offset: 
+                  // Each card sits 30px lower than the previous one's top
+                  top: `calc(10vh + ${i * 30}px)`, 
+                  zIndex: i 
+                }}
+              >
+                <div className="w-full md:w-1/2 flex flex-col gap-6">
+                  <span className="font-serif text-8xl font-bold opacity-10">
+                    {c.num}
+                  </span>
+                  <h3 className="font-serif text-5xl font-bold leading-tight">
+                    {c.title}
+                  </h3>
+                  <p className="text-lg opacity-70 max-w-md">
+                    {c.desc}
+                  </p>
+                </div>
+
+                {/* Decorative Visual */}
+                <div className="w-full md:w-1/2 h-[300px] rounded-xl overflow-hidden relative border border-current/10 group">
+                  <img 
+                    src={c.image} 
+                    alt={c.title} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
+    );
+  };
 
-      </div>
-    </section>
-  )
-}
-
+  export default ServicesOverview;

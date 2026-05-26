@@ -26,9 +26,9 @@ export default function ServicePageTemplate({
   whatWeOffer, steps, pricing
 }: ServicePageProps) {
   return (
-    <main className="bg-white">
+    <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-24 px-8 text-center relative noise-overlay overflow-hidden min-h-[70vh] flex items-center bg-white">
+      <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center ">
         <div 
           className="absolute inset-0 opacity-[0.15] -z-10" 
           style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 70%)` }} 
@@ -41,21 +41,21 @@ export default function ServicePageTemplate({
           >
             {subtitle}
           </div>
-          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-dark tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
             {title.split(/\n|\\n/).map((line, i) => (
               <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                 {line}
               </span>
             ))}
           </h1>
-          <p data-aos="fade-up" data-aos-delay="100" className="text-dark/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+          <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
             {description}
           </p>
           <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
             <Link 
               to="/contact" 
               data-cursor="button" 
-              className="shimmer-btn inline-flex items-center gap-2 text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+              className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
               style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
             >
               Get Started
@@ -64,7 +64,7 @@ export default function ServicePageTemplate({
             <Link 
               to="/projects" 
               data-cursor="link" 
-              className="inline-flex items-center gap-2 bg-transparent text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-dark/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+              className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
               style={{ '--hover-color': color } as any}
             >
               View Achievements
@@ -74,10 +74,10 @@ export default function ServicePageTemplate({
       </section>
 
       {/* What We Offer */}
-      <section className="bg-[#f8faff] py-24 px-8 noise-overlay">
+      <section className="bg-black py-24 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
-            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-dark tracking-tight">
+            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-white tracking-tight">
               Where <span className="gradient-text">Strategy Meets</span> Digital Success
             </h2>
           </div>
@@ -102,10 +102,10 @@ export default function ServicePageTemplate({
       </section>
 
       {/* 3-Step Process */}
-      <section className="bg-white py-24 px-8">
+      <section className="bg-black py-24 px-8">
         <div className="max-w-[1100px] mx-auto">
           <div className="text-center mb-20">
-            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-dark tracking-tight">
+            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-white tracking-tight">
               Achieve Incredible Results in <span className="gradient-text">Just {steps.length} Easy Steps!</span>
             </h2>
           </div>
@@ -127,8 +127,8 @@ export default function ServicePageTemplate({
                   >
                     {step.number}
                   </div>
-                  <h3 className="font-display font-bold text-dark text-lg mb-3">{step.title}</h3>
-                  <p className="font-body text-dark/60 text-sm leading-relaxed max-w-[240px] mx-auto">{step.desc}</p>
+                  <h3 className="font-display font-bold text-white text-lg mb-3">{step.title}</h3>
+                  <p className="font-body text-white/60 text-sm leading-relaxed max-w-[240px] mx-auto">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -139,10 +139,10 @@ export default function ServicePageTemplate({
       <Testimonials />
 
       {/* Pricing */}
-      <section className="bg-[#f8faff] py-24 px-8 noise-overlay">
+      <section className="bg-black py-24 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
-            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-dark tracking-tight">
+            <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-white tracking-tight">
               Pricing & <span className="gradient-text">Plans</span>
             </h2>
           </div>

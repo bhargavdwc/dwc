@@ -3,7 +3,7 @@ import ServicePageTemplate from './ServicePageTemplate'
 export default function ServiceSEO() {
   return (
     <ServicePageTemplate
-      title="Search Engine\nOptimization"
+      title="Search Engine\n Optimization"
       subtitle="SEO Services"
       description="We help businesses grow with data-driven SEO strategies that deliver sustainable organic traffic growth, improved search rankings, and measurable ROI."
       color="#0D5EF6"

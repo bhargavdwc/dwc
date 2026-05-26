@@ -43,7 +43,7 @@ export default function Testimonials() {
   const prev = () => setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="relative py-8 overflow-hidden bg-[#020303]">
+    <section className="relative pb-12 pt-0 overflow-hidden bg-[#020303]">
       <style>{`
         .testimonial-profile-card .pc-card {
           height: 280px !important;

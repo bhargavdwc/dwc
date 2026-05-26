@@ -29,17 +29,17 @@ export default function About() {
   }, [])
 
   return (
-    <main className="bg-white">
+    <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-24 px-8 bg-[#f8faff] text-center relative noise-overlay overflow-hidden">
+      <section className="pt-40 pb-24 px-8 bg-black text-center relative noise-overlay overflow-hidden">
         <div className="max-w-[900px] mx-auto relative z-10">
           <div className="about-hero-text inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-5 py-1.5 mb-6">
             Our Story
           </div>
-          <h1 className="about-hero-text font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-dark tracking-tighter leading-[1.1] mb-6">
+          <h1 className="about-hero-text font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
             We bridge the gap between <span className="gradient-text">Brands & People</span>
           </h1>
-          <p className="about-hero-text font-body text-xl text-dark/60 leading-relaxed max-w-2xl mx-auto">
+          <p className="about-hero-text font-body text-xl text-white/60 leading-relaxed max-w-2xl mx-auto">
             At Digital Web Connection, we don't just provide services; we build relationships. Our mission is to empower businesses with the tools and strategies they need to thrive in a digital-first world.
           </p>
         </div>
@@ -49,20 +49,20 @@ export default function About() {
       <section className="py-28 px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div data-aos="fade-right">
-            <h2 className="font-display font-bold text-4xl lg:text-5xl text-dark mb-6 tracking-tight leading-tight">
+            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 tracking-tight leading-tight">
               Driven by Data, <br/><span className="text-primary">Defined by Creativity</span>
             </h2>
-            <p className="text-dark/65 leading-relaxed text-lg mb-10">
+            <p className="text-white/65 leading-relaxed text-lg mb-10">
               We believe that every successful digital campaign is a perfect blend of analytical precision and creative intuition. Our approach is rooted in understanding your audience's behavior and crafting experiences that resonate with them on a deeper level.
             </p>
             <div className="grid grid-cols-2 gap-8">
               <div>
                 <div className="text-4xl lg:text-5xl font-bold text-primary font-display mb-1">95%</div>
-                <div className="text-[0.85rem] text-dark/50 uppercase tracking-widest font-semibold">Client Retention</div>
+                <div className="text-[0.85rem] text-white/50 uppercase tracking-widest font-semibold">Client Retention</div>
               </div>
               <div>
                 <div className="text-4xl lg:text-5xl font-bold text-cyan font-display mb-1">12M+</div>
-                <div className="text-[0.85rem] text-dark/50 uppercase tracking-widest font-semibold">Ad Spend Managed</div>
+                <div className="text-[0.85rem] text-white/50 uppercase tracking-widest font-semibold">Ad Spend Managed</div>
               </div>
             </div>
           </div>
@@ -81,9 +81,9 @@ export default function About() {
       </section>
 
       {/* Experience Timeline */}
-      <section className="py-28 px-8 bg-[#f8faff] noise-overlay">
+      <section className="py-28 px-8 bg-black">
         <div className="max-w-[1000px] mx-auto">
-          <h2 className="font-display font-bold text-4xl text-dark text-center mb-16 tracking-tight" data-aos="fade-up">Our Journey</h2>
+          <h2 className="font-display font-bold text-4xl text-white text-center mb-16 tracking-tight" data-aos="fade-up">Our Journey</h2>
           <div className="flex flex-col gap-1">
             {[
               { year: '2017', title: 'The Beginning', desc: 'DWC was founded with a vision to transform the digital landscape of Ahmedabad.' },
@@ -95,8 +95,8 @@ export default function About() {
                 <div className="text-2xl font-bold text-primary font-display min-w-[80px] pt-1">{item.year}</div>
                 <div className="pb-16 border-l-2 border-primary/10 pl-10 md:pl-16 relative last:pb-0">
                   <div className="absolute left-[-6px] top-3 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary/10 group-hover:scale-125 transition-transform duration-300" />
-                  <h3 className="font-display font-bold text-dark text-xl mb-3">{item.title}</h3>
-                  <p className="text-dark/60 leading-relaxed max-w-xl">{item.desc}</p>
+                  <h3 className="font-display font-bold text-white text-xl mb-3">{item.title}</h3>
+                  <p className="text-white/60 leading-relaxed max-w-xl">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -108,8 +108,8 @@ export default function About() {
       <section className="py-28 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-20">
-            <h2 className="font-display font-bold text-4xl lg:text-5xl text-dark mb-6 tracking-tight">The Minds Behind <span className="gradient-text">DWC</span></h2>
-            <p className="text-dark/60 max-w-xl mx-auto text-lg leading-relaxed">Meet our expert team of strategists, creators, and technologists dedicated to your growth.</p>
+            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 tracking-tight">The Minds Behind <span className="gradient-text">DWC</span></h2>
+            <p className="text-white/60 max-w-xl mx-auto text-lg leading-relaxed">Meet our expert team of strategists, creators, and technologists dedicated to your growth.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, i) => (
@@ -135,8 +135,8 @@ export default function About() {
       </section>
 
       {/* CTA strip */}
-      <section className="bg-white py-24 px-8 text-center border-t border-primary/10 relative noise-overlay">
-        <h2 data-aos="zoom-in" className="font-display font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-dark tracking-tight mb-10 leading-tight">
+      <section className="bg-black py-24 px-8 text-center border-t border-primary/10 relative">
+        <h2 data-aos="zoom-in" className="font-display font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-white tracking-tight mb-10 leading-tight">
           Ready to Start Your <span className="gradient-text">Journey?</span>
         </h2>
         <Link to="/contact" data-cursor="button" className="shimmer-btn inline-flex items-center gap-3 bg-brand-gradient text-dark font-display font-bold px-10 py-4 rounded-full no-underline shadow-[0_10px_30px_rgba(13,94,246,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(13,94,246,0.35)]">

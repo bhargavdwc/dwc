@@ -13,7 +13,12 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="bg-[#020303] py-24">
+    <section className="bg-[#020303] py-8">
+      <div className="text-center mb-16">
+          <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,4vw,3rem)] text-white tracking-tight">
+            Let's <span className="bg-brand-gradient bg-clip-text text-transparent italic font-serif">Connect</span>
+          </h2>
+        </div>
       <div className="max-w-[1300px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* Left */}
         <div>
