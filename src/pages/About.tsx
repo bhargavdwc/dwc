@@ -6,16 +6,40 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const team = [
-  { name: 'Sagar Patel', role: 'Founder & CEO', initials: 'SP', color: '#0D5EF6' },
-  { name: 'Kushal Shah', role: 'Technical Head', initials: 'KS', color: '#04B9CA' },
-  { name: 'Anjali Varma', role: 'Marketing Strategy', initials: 'AV', color: '#7C3AED' },
-  { name: 'Rahul Mehra', role: 'Creative Director', initials: 'RM', color: '#F59E0B' },
+  {
+    name: 'Sagar Patel',
+    role: 'Founder & CEO',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&q=80',
+    bio: 'A growth-focused leader directing business strategy and partnerships with over 8 years of digital marketing expertise.',
+    color: '#0D5EF6'
+  },
+  {
+    name: 'Kushal Shah',
+    role: 'Technical Head',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&q=80',
+    bio: 'Oversees core systems and high-scale web development, engineering intelligent marketing solutions.',
+    color: '#04B9CA'
+  },
+  {
+    name: 'Anjali Varma',
+    role: 'Marketing Strategy',
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop&q=80',
+    bio: 'Crafts data-driven, customer-centric acquisition strategies that yield high conversion and scale.',
+    color: '#7C3AED'
+  },
+  {
+    name: 'Rahul Mehra',
+    role: 'Creative Director',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&q=80',
+    bio: 'Shapes original brand experiences and drives cross-channel creative design with flawless visual execution.',
+    color: '#F59E0B'
+  },
 ]
 
 export default function About() {
   useEffect(() => {
     window.scrollTo(0, 0)
-    
+
     const ctx = gsap.context(() => {
       gsap.from('.about-hero-text', {
         y: 40,
@@ -31,7 +55,21 @@ export default function About() {
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-24 px-8 bg-black text-center relative noise-overlay overflow-hidden">
+      <section className="pt-40 pb-28 px-8 text-center relative overflow-hidden">
+        {/* Full-width Background Image & Soft Gradient Overlay */}
+        <div className="absolute inset-0 z-0 select-none pointer-events-none">
+          <img
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80"
+            alt="Digital network connection background"
+            className="w-full h-full object-cover"
+          />
+          {/* Black Overlap Mask */}
+          <div className="absolute inset-0 bg-black/10" />
+          {/* Subtle gradient overlays to dissolve edges into the black theme */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+        </div>
+
         <div className="max-w-[900px] mx-auto relative z-10">
           <div className="about-hero-text inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-5 py-1.5 mb-6">
             Our Story
@@ -46,11 +84,11 @@ export default function About() {
       </section>
 
       {/* Philosophy */}
-      <section className="py-28 px-8">
+      <section className="py-12 px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div data-aos="fade-right">
             <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 tracking-tight leading-tight">
-              Driven by Data, <br/><span className="text-primary">Defined by Creativity</span>
+              Driven by Data, <br /><span className="text-primary">Defined by Creativity</span>
             </h2>
             <p className="text-white/65 leading-relaxed text-lg mb-10">
               We believe that every successful digital campaign is a perfect blend of analytical precision and creative intuition. Our approach is rooted in understanding your audience's behavior and crafting experiences that resonate with them on a deeper level.
@@ -67,45 +105,276 @@ export default function About() {
             </div>
           </div>
           <div className="relative" data-aos="fade-left">
-            <div className="aspect-square bg-gradient-to-br from-[#f0f5ff] to-[#f0fbff] rounded-[32px] relative overflow-hidden border border-primary/10 shadow-inner">
-              <div className="grid-pattern absolute inset-0 opacity-40" />
-              <div className="absolute inset-[15%] bg-white rounded-3xl shadow-[0_30px_60px_rgba(13,94,246,0.12)] flex items-center justify-center p-8">
-                <div className="text-center">
-                  <div className="font-display text-5xl font-bold bg-brand-gradient bg-clip-text text-transparent">DWC</div>
-                  <div className="font-body text-sm font-medium text-dark/40 mt-3 tracking-widest uppercase">Est. 2017</div>
-                </div>
-              </div>
+            <div className="aspect-[3/2] w-full rounded-xl overflow-hidden border border-white/10 shadow-2xl relative group">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80"
+                alt="Creative Marketing Team Collaborating"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Experience Timeline */}
-      <section className="py-28 px-8 bg-black">
-        <div className="max-w-[1000px] mx-auto">
-          <h2 className="font-display font-bold text-4xl text-white text-center mb-16 tracking-tight" data-aos="fade-up">Our Journey</h2>
-          <div className="flex flex-col gap-1">
-            {[
-              { year: '2017', title: 'The Beginning', desc: 'DWC was founded with a vision to transform the digital landscape of Ahmedabad.' },
-              { year: '2019', title: 'National Expansion', desc: 'Successfully delivered over 100+ projects across major cities in India.' },
-              { year: '2021', title: 'Tech Integration', desc: 'Integrated advanced AI and data analytics into our core marketing strategies.' },
-              { year: '2025', title: 'Market Leaders', desc: 'Recognized as one of the top digital agencies, managing 50M+ in digital impact.' }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-10 md:gap-16 items-start group" data-aos="fade-up" data-aos-delay={i * 100}>
-                <div className="text-2xl font-bold text-primary font-display min-w-[80px] pt-1">{item.year}</div>
-                <div className="pb-16 border-l-2 border-primary/10 pl-10 md:pl-16 relative last:pb-0">
-                  <div className="absolute left-[-6px] top-3 w-2.5 h-2.5 rounded-full bg-primary ring-4 ring-primary/10 group-hover:scale-125 transition-transform duration-300" />
-                  <h3 className="font-display font-bold text-white text-xl mb-3">{item.title}</h3>
-                  <p className="text-white/60 leading-relaxed max-w-xl">{item.desc}</p>
+      <section className="py-12 px-8 bg-black relative overflow-hidden">
+        {/* Subtle mesh background glows */}
+        <div className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-[140px] pointer-events-none z-0" />
+
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          {/* Centered Heading */}
+          <div className="text-center mb-20">
+            <div data-aos="fade-up" className="inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-5 py-1.5 mb-6">
+              Our Legacy
+            </div>
+            <h2 className="font-display font-bold text-4xl lg:text-5xl text-white tracking-tight mb-6" data-aos="fade-up">
+              The Journey of <span className="gradient-text">Innovation</span>
+            </h2>
+            <p className="font-body text-zinc-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+              We broke standard timeline patterns. Here is an interactive map of the key milestones and technological leaps that fueled our transformation.
+            </p>
+          </div>
+
+          {/* Symmetrical Bento Timeline Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none">
+            
+            {/* Card 1: 2017 - The Beginning (Span 4) */}
+            <div 
+              data-aos="fade-up" 
+              className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(13,94,246,0.3)'
+                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(13,94,246,0.15)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'
+              }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary">
+                    2017
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                    Ground Zero
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 tracking-wide group-hover:text-primary transition-colors duration-300">
+                  The Beginning
+                </h3>
+                <p className="font-body text-zinc-400 text-sm leading-relaxed">
+                  Digital Web Connection was founded in Ahmedabad, Gujarat, with a clear mission: to revolutionize the brand landscape through fresh creative strategies and robust web foundations.
+                </p>
+              </div>
+
+              {/* Graphic Element */}
+              <div className="relative w-full h-32 flex items-center justify-center overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8">
+                {/* Grid coordinate system */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:16px_16px]" />
+                
+                {/* Glowing radar rings */}
+                <div className="absolute w-24 h-24 rounded-full border border-primary/20 animate-[ping_4s_infinite_ease-in-out]" />
+                <div className="absolute w-16 h-16 rounded-full border border-primary/40 animate-[spin_12s_linear_infinite] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#0D5EF6] shadow-[0_0_12px_#0D5EF6]" />
+                </div>
+                {/* Crosshair lines */}
+                <div className="absolute w-32 h-[1px] bg-white/5" />
+                <div className="absolute h-32 w-[1px] bg-white/5" />
+              </div>
+            </div>
+
+            {/* Card 2: 2019 - National Expansion (Span 8) */}
+            <div 
+              data-aos="fade-up" 
+              data-aos-delay="100"
+              className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(4,185,202,0.3)'
+                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(4,185,202,0.15)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'
+              }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-cyan/30 bg-cyan/10 text-cyan">
+                    2019
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                    100+ Deliveries
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 tracking-wide group-hover:text-cyan transition-colors duration-300">
+                  National Expansion
+                </h3>
+                <p className="font-body text-zinc-400 text-sm leading-relaxed max-w-2xl">
+                  We successfully delivered over 100+ creative digital products and multi-channel marketing campaigns, establishing our footprint across major business hubs in India.
+                </p>
+              </div>
+
+              {/* Graphic Element */}
+              <div className="relative w-full h-32 flex items-center justify-between px-6 md:px-12 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8">
+                {/* Connection path line */}
+                <div className="absolute left-[10%] right-[10%] top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-[#0D5EF6]/30 via-[#04B9CA] to-[#0D5EF6]/30 z-0" />
+                
+                {/* Ahmedabad Node */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-primary/40 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.15)]">AHM</div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Origin</span>
+                </div>
+
+                {/* Mumbai Node */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-cyan/40 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.15)] animate-pulse">MUM</div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Hub</span>
+                </div>
+
+                {/* Bangalore Node */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-cyan/40 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.15)]">BLR</div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Tech</span>
+                </div>
+
+                {/* Delhi Node */}
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-primary/40 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.15)]">DEL</div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Core</span>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Card 3: 2021 - Tech Integration (Span 8) */}
+            <div 
+              data-aos="fade-up" 
+              className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(124,58,237,0.3)'
+                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(124,58,237,0.15)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'
+              }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-purple/30 bg-purple/10 text-purple">
+                    2021
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                    AI Core Integrated
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 tracking-wide group-hover:text-purple transition-colors duration-300">
+                  Tech & AI Integration
+                </h3>
+                <p className="font-body text-zinc-400 text-sm leading-relaxed max-w-2xl">
+                  We pioneered custom AI-driven organic strategies and built our own proprietary data-analytics systems, merging engineering precision with creative marketing solutions.
+                </p>
+              </div>
+
+              {/* Graphic Element */}
+              <div className="relative w-full h-32 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8 px-6 flex items-center justify-between">
+                {/* Grid Overlay */}
+                <div className="absolute inset-0 bg-[radial-gradient(rgba(124,58,237,0.04)_1px,transparent_1px)] bg-[size:12px_12px]" />
+                
+                {/* Interactive Neural Core */}
+                <div className="relative z-10 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-purple/10 border border-purple/30 flex items-center justify-center relative">
+                    <div className="absolute inset-0 rounded-xl bg-purple/20 animate-pulse pointer-events-none" />
+                    <svg className="w-6 h-6 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.26m4.5-5.26v5.26M3 9h5.25M3 14.25h5.25m12.75-5.25h-5.25m5.25 5.25h-5.25M9.75 15.64v5.26m4.5-5.26v5.26m-9.504-12.042l3.72 3.72m8.294-3.72l-3.72 3.72m0 8.294l3.72 3.72m-12.042 0l3.72-3.72" />
+                    </svg>
+                  </div>
+                  <div className="flex flex-col text-left">
+                    <span className="text-xs font-mono text-white tracking-wider font-semibold">DWC_AI_ENGINE_V2</span>
+                    <span className="text-[9px] font-mono text-purple tracking-widest uppercase mt-0.5">System Operational</span>
+                  </div>
+                </div>
+
+                {/* Simulated performance chart bars */}
+                <div className="relative z-10 flex gap-2 items-end h-16">
+                  {[45, 75, 55, 90, 65, 80].map((val, idx) => (
+                    <div key={idx} className="w-1.5 h-16 bg-zinc-900 rounded-full overflow-hidden flex items-end">
+                      <div 
+                        className="w-full rounded-full animate-[pulse_2s_infinite_ease-in-out]" 
+                        style={{ 
+                          height: `${val}%`, 
+                          backgroundColor: '#7C3AED',
+                          boxShadow: '0 0 8px #7C3AED',
+                          animationDelay: `${idx * 150}ms`
+                        }} 
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: 2025 - Global Impact (Span 4) */}
+            <div 
+              data-aos="fade-up" 
+              data-aos-delay="100"
+              className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(245,158,11,0.3)'
+                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(245,158,11,0.15)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)'
+              }}
+            >
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-amber/30 bg-amber/10 text-amber">
+                    2025
+                  </span>
+                  <span className="text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                    Market Leaders
+                  </span>
+                </div>
+                <h3 className="font-display font-bold text-white text-xl md:text-2xl mb-3 tracking-wide group-hover:text-amber transition-colors duration-300">
+                  Global Impact
+                </h3>
+                <p className="font-body text-zinc-400 text-sm leading-relaxed">
+                  Recognized as one of the country's premier digital impact agencies, managing substantial advertising asset portfolios and guiding brand scaling journeys globally.
+                </p>
+              </div>
+
+              {/* Graphic Element */}
+              <div className="relative w-full h-32 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8 flex flex-col items-center justify-center">
+                {/* Glowing radial gradient backdrop */}
+                <div className="absolute inset-0 bg-radial-gradient from-amber/10 via-transparent to-transparent opacity-40 pointer-events-none" />
+                <div className="text-center relative z-10">
+                  <div className="text-4xl md:text-5xl font-black font-display tracking-tight text-[#F59E0B] shadow-sm select-none">
+                    50M+
+                  </div>
+                  <div className="text-[9px] font-mono text-zinc-500 uppercase tracking-widest mt-1.5">
+                    Worldwide Brand Reach
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
+
+
       {/* Team */}
-      <section className="py-28 px-8">
+      <section className="py-12 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-20">
             <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 tracking-tight">The Minds Behind <span className="gradient-text">DWC</span></h2>
@@ -113,21 +382,99 @@ export default function About() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {team.map((member, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
-                className="group p-10 rounded-3xl bg-white border border-primary/8 text-center transition-all duration-500 shadow-[0_10px_30px_rgba(13,94,246,0.03)] hover:-translate-y-2"
-                style={{ '--hover-shadow': `${member.color}26` } as any}
+                className="group p-8 rounded-xl bg-zinc-950/80 border border-white/5 text-center transition-all duration-500 hover:-translate-y-2 relative overflow-hidden flex flex-col items-center h-full"
+                style={{
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = `0 20px 40px -10px ${member.color}25`
+                  e.currentTarget.style.borderColor = `${member.color}40`
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'
+                }}
               >
-                <div 
-                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-dark font-display border-[3px] border-dark shadow-lg transition-transform duration-500 group-hover:scale-110"
-                  style={{ background: `linear-gradient(135deg, ${member.color}, #04B9CA)` }}
+                {/* Avatar with Glow Border */}
+                <div
+                  className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-[3px] shadow-lg transition-all duration-500 group-hover:scale-105"
+                  style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = member.color
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                  }}
                 >
-                  {member.initials}
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                 </div>
-                <h3 className="font-display font-bold text-dark text-lg mb-1">{member.name}</h3>
-                <p className="font-body text-dark/50 text-sm font-medium">{member.role}</p>
+
+                {/* Name */}
+                <h3 className="font-display font-bold text-white text-xl mb-1 transition-colors duration-300">
+                  {member.name}
+                </h3>
+
+                {/* Role */}
+                <p
+                  className="font-mono text-[11px] font-bold uppercase tracking-wider mb-4 transition-colors duration-300"
+                  style={{ color: member.color }}
+                >
+                  {member.role}
+                </p>
+
+                {/* Biography description */}
+                <p className="font-body text-zinc-400 text-[13px] leading-relaxed max-w-[240px] mx-auto border-t border-white/5 pt-4 group-hover:text-zinc-300 transition-colors duration-300">
+                  {member.bio}
+                </p>
+
+                {/* Social Links (Static at bottom of card, perfectly aligned) */}
+                <div className="mt-auto pt-6 flex justify-center gap-3 relative z-20 w-full">
+                  {/* LinkedIn */}
+                  <a
+                    href="#"
+                    aria-label={`${member.name} LinkedIn`}
+                    className="w-8 h-8 rounded-full border border-white/10 bg-zinc-900/50 text-zinc-400 hover:text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = member.color
+                      e.currentTarget.style.color = '#ffffff'
+                      e.currentTarget.style.backgroundColor = member.color
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                      e.currentTarget.style.color = '#a1a1aa'
+                      e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.5)'
+                    }}
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                  </a>
+                  {/* Instagram */}
+                  <a
+                    href="#"
+                    aria-label={`${member.name} Instagram`}
+                    className="w-8 h-8 rounded-full border border-white/10 bg-zinc-900/50 text-zinc-400 hover:text-white flex items-center justify-center transition-all duration-200 cursor-pointer"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = member.color
+                      e.currentTarget.style.color = '#ffffff'
+                      e.currentTarget.style.backgroundColor = member.color
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'
+                      e.currentTarget.style.color = '#a1a1aa'
+                      e.currentTarget.style.backgroundColor = 'rgba(24, 24, 27, 0.5)'
+                    }}
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                  </a>
+                </div>
+
               </div>
             ))}
           </div>
@@ -135,15 +482,84 @@ export default function About() {
       </section>
 
       {/* CTA strip */}
-      <section className="bg-black py-24 px-8 text-center border-t border-primary/10 relative">
-        <h2 data-aos="zoom-in" className="font-display font-bold text-[clamp(1.8rem,4vw,2.8rem)] text-white tracking-tight mb-10 leading-tight">
-          Ready to Start Your <span className="gradient-text">Journey?</span>
-        </h2>
-        <Link to="/contact" data-cursor="button" className="shimmer-btn inline-flex items-center gap-3 bg-brand-gradient text-dark font-display font-bold px-10 py-4 rounded-full no-underline shadow-[0_10px_30px_rgba(13,94,246,0.25)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(13,94,246,0.35)]">
-          Let's Talk Business
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </Link>
+      <section className="relative py-12 px-8 bg-black overflow-hidden">
+        <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
+
+          {/* Rounded Box Container */}
+          <div className="relative overflow-hidden bg-zinc-950/90 border border-white/5 rounded-2xl shadow-2xl py-12 px-6 md:px-10 flex flex-col items-center">
+
+            {/* Background Visual Enhancements inside the box */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="absolute inset-0 grid-pattern opacity-25 z-0" />
+
+            <div className="relative z-10 max-w-7xl mx-auto text-center flex flex-col items-center">
+              {/* Pill Badge */}
+              <div
+                data-aos="fade-up"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-xs font-display font-semibold text-primary tracking-wider uppercase mb-6 shadow-sm"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+                Let's Collaborate
+              </div>
+
+              {/* Heading */}
+              <h2
+                data-aos="fade-up"
+                data-aos-delay="100"
+                className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-6 max-w-7xl"
+              >
+                Ready to Start Your <span className="gradient-text">Journey?</span>
+              </h2>
+
+              {/* Description Content */}
+              <p
+                data-aos="fade-up"
+                data-aos-delay="200"
+                className="font-body text-zinc-400 text-sm md:text-base lg:text-lg leading-relaxed max-w-3xl mb-10"
+              >
+                Partner with Digital Web Connection to build high-performance search campaigns, creative social marketing, and state-of-the-art web products that accelerate your business worldwide.
+              </p>
+
+              {/* Action Buttons Row */}
+              <div
+                data-aos="fade-up"
+                data-aos-delay="300"
+                className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full"
+              >
+                {/* Primary Action Button */}
+                <Link
+                  to="/contact"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white text-black hover:bg-zinc-100 transition-all duration-300 font-display font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-sm md:text-base"
+                >
+                  Let's Talk Business
+                  <svg
+                    className="transform group-hover:translate-x-1 transition-transform duration-200"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+
+                {/* Secondary Action Link */}
+                <Link
+                  to="/services"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/10 bg-zinc-900/50 hover:bg-zinc-900 text-white hover:text-white transition-all duration-300 font-display font-semibold px-8 py-4 rounded-full text-sm md:text-base hover:border-white/20"
+                >
+                  Explore Services
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
       </section>
+
     </main>
   )
 }

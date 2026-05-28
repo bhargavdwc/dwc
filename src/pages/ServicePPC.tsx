@@ -3,10 +3,11 @@ import ServicePageTemplate from './ServicePageTemplate'
 export default function ServicePPC() {
   return (
     <ServicePageTemplate
-      title="Pay-Per-Click\nAdvertising"
+      title="Pay-Per-Click\n Advertising"
       subtitle="PPC Management"
       description="Drive instant, highly targeted traffic to your business with expertly managed Google Ads campaigns that maximize ROI and minimize wasted spend."
       color="#7C3AED"
+      bgImage="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=1600&auto=format&fit=crop&q=80"
       whatWeOffer={[
         { title: 'Google Search Ads', desc: 'Appear at the top of Google search results when potential customers are actively looking for your products or services.' },
         { title: 'Display Advertising', desc: 'Reach your target audience across millions of websites with visually engaging banner and display ads.' },

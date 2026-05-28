@@ -81,21 +81,29 @@ export default function Navbar() {
                   </button>
                   
                   {/* Mega Dropdown */}
-                  <div className={`absolute top-full left-0 w-[600px] bg-white shadow-2xl rounded-2xl p-8 transition-all duration-300 border border-gray-100
+                  <div className={`absolute top-full left-0 w-[600px] bg-zinc-950/95 backdrop-blur-xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] rounded-2xl p-8 transition-all duration-300 border border-white/10 overflow-hidden
                     ${megaOpen ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible translate-y-6'}`}
                   >
-                    <div className="mb-4 pb-4 border-bottom border-primary/15">
+                    {/* Glowing radial backdrop inside dropdown */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-cyan/5 to-transparent pointer-events-none rounded-2xl" />
+
+                    <div className="mb-4 pb-4 border-b border-white/5 relative z-10">
                       <span className="font-mono text-[0.7rem] text-cyan tracking-[0.15em] uppercase font-bold">Our Services</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-2 gap-2 relative z-10">
                       {link.sub?.map((sub) => (
                         <Link
                           key={sub.path}
                           to={sub.path}
-                          className="p-4 rounded-xl no-underline transition-colors duration-200 hover:bg-primary/5 group/item"
+                          className="p-4 rounded-xl no-underline transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5 group/item"
                         >
-                          <div className="text-dark font-display font-semibold text-sm mb-1 group-hover/item:text-primary transition-colors">{sub.label}</div>
-                          <div className="text-dark/50 text-[0.8rem] leading-relaxed">{sub.desc}</div>
+                          <div className="text-white font-display font-semibold text-sm mb-1 group-hover/item:text-primary transition-colors flex items-center gap-1.5">
+                            {sub.label}
+                            <svg className="w-3.5 h-3.5 opacity-0 -translate-x-1.5 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                          </div>
+                          <div className="text-zinc-400 text-[0.78rem] leading-relaxed group-hover/item:text-zinc-300 transition-colors">{sub.desc}</div>
                         </Link>
                       ))}
                     </div>
@@ -142,28 +150,33 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 bg-white z-[9980] flex flex-col items-center justify-center gap-6 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] 
-          ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        className={`fixed inset-0 bg-black/98 backdrop-blur-xl z-[9980] flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] 
+          ${mobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
       >
-        {navLinks.map((link, i) => (
+        {/* Soft floating background visual aura */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0" />
+
+        <div className="flex flex-col items-center gap-6 relative z-10">
+          {navLinks.map((link, i) => (
+            <Link
+              key={link.path || link.label}
+              to={link.path || '/services'}
+              className={`text-white no-underline font-display font-bold text-[clamp(1.8rem,6vw,2.8rem)] transition-all duration-400 hover:text-primary
+                ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+              style={{ transitionDelay: `${i * 0.05}s` }}
+            >
+              {link.label}
+            </Link>
+          ))}
           <Link
-            key={link.path || link.label}
-            to={link.path || '/services'}
-            className={`text-dark no-underline font-display font-bold text-[clamp(1.5rem,5vw,2.5rem)] transition-all duration-400
+            to="/contact"
+            className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400 hover:scale-105 active:scale-95
               ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-            style={{ transitionDelay: `${i * 0.07}s` }}
+            style={{ transitionDelay: `${navLinks.length * 0.05}s` }}
           >
-            {link.label}
+            Get Free Consultation
           </Link>
-        ))}
-        <Link
-          to="/contact"
-          className={`mt-4 bg-brand-gradient text-dark font-display font-semibold px-10 py-4 rounded-full no-underline transition-opacity duration-400
-            ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
-          style={{ transitionDelay: `${navLinks.length * 0.07}s` }}
-        >
-          Get Free Consultation
-        </Link>
+        </div>
       </div>
     </>
   )

@@ -32,7 +32,7 @@ export default function FAQ() {
   }
 
   return (
-    <section className="bg-[#020303] py-10 sm:py-14">
+    <section className="bg-[#020303] py-12 sm:py-14">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
         
         {/* text - start */}

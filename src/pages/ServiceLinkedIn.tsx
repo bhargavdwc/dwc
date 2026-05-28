@@ -3,10 +3,11 @@ import ServicePageTemplate from './ServicePageTemplate'
 export default function ServiceLinkedIn() {
   return (
     <ServicePageTemplate
-      title="LinkedIn\nMarketing"
+      title="LinkedIn\n Marketing"
       subtitle="LinkedIn B2B Marketing"
       description="Establish authority, generate high-quality B2B leads, and grow your professional network with strategic LinkedIn marketing campaigns."
       color="#0A66C2"
+      bgImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&auto=format&fit=crop&q=80"
       whatWeOffer={[
         { title: 'LinkedIn Page Optimization', desc: 'Transform your company page into a powerful lead generation tool with compelling content and SEO optimization.' },
         { title: 'Content Strategy', desc: 'Position your brand as an industry leader with thought leadership articles, company updates, and engaging posts.' },

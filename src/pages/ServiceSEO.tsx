@@ -7,6 +7,7 @@ export default function ServiceSEO() {
       subtitle="SEO Services"
       description="We help businesses grow with data-driven SEO strategies that deliver sustainable organic traffic growth, improved search rankings, and measurable ROI."
       color="#0D5EF6"
+      bgImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop&q=80"
       whatWeOffer={[
         { title: 'Technical SEO Audit', desc: 'Comprehensive audit of your website structure, speed, mobile optimization, and Core Web Vitals to eliminate ranking barriers.' },
         { title: 'Keyword Strategy', desc: 'In-depth keyword research to identify high-intent search terms your ideal customers are actively using.' },
