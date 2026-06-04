@@ -215,7 +215,7 @@ export default function ServicePageTemplate({
       <Testimonials />
 
       {/* Pricing */}
-      <section className="bg-black py-12 px-8">
+      <section className="bg-black py-4 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
             <h2 data-aos="fade-up" className="font-display font-bold text-3xl lg:text-4xl text-white tracking-tight">

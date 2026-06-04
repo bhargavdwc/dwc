@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import Home from './pages/Home'
 import Navbar from './components/common/Navbar'
 import Footer from './components/common/Footer'
@@ -11,46 +10,46 @@ import BackToTop from './components/common/BackToTop'
 import useLenis from './hooks/useLenis'
 import SplashCursor from './components/ui/SplashCursor'
 
-const About = lazy(() => import('./pages/About'))
-const Services = lazy(() => import('./pages/Services'))
-const ServiceSEO = lazy(() => import('./pages/ServiceSEO'))
-const ServiceSMM = lazy(() => import('./pages/ServiceSMM'))
-const ServicePPC = lazy(() => import('./pages/ServicePPC'))
-const ServiceMeta = lazy(() => import('./pages/ServiceMeta'))
-const ServiceLinkedIn = lazy(() => import('./pages/ServiceLinkedIn'))
-const Projects = lazy(() => import('./pages/Projects'))
-const Insights = lazy(() => import('./pages/Insights'))
-const Contact = lazy(() => import('./pages/Contact'))
-const NotFound = lazy(() => import('./pages/NotFound'))
+import About from './pages/About'
+import Services from './pages/Services'
+import ServiceSEO from './pages/ServiceSEO'
+import ServiceSMM from './pages/ServiceSMM'
+import ServicePPC from './pages/ServicePPC'
+import ServiceMeta from './pages/ServiceMeta'
+import ServiceLinkedIn from './pages/ServiceLinkedIn'
+import Projects from './pages/Projects'
+import Insights from './pages/Insights'
+import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if ((window as any).lenis) {
+      ;(window as any).lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
   }, [pathname])
   return null
 }
 
 function AnimatedRoutes() {
-  const location = useLocation()
-
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-        <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-        <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-        <Route path="/services/search-engine-optimization" element={<PageWrapper><ServiceSEO /></PageWrapper>} />
-        <Route path="/services/social-media-marketing" element={<PageWrapper><ServiceSMM /></PageWrapper>} />
-        <Route path="/services/pay-per-click-ppc" element={<PageWrapper><ServicePPC /></PageWrapper>} />
-        <Route path="/services/meta-ads" element={<PageWrapper><ServiceMeta /></PageWrapper>} />
-        <Route path="/services/linkedin-marketing" element={<PageWrapper><ServiceLinkedIn /></PageWrapper>} />
-        <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
-        <Route path="/insights" element={<PageWrapper><Insights /></PageWrapper>} />
-        <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-        <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
-      </Routes>
-    </AnimatePresence>
+    <Routes>
+      <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+      <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
+      <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+      <Route path="/services/search-engine-optimization" element={<PageWrapper><ServiceSEO /></PageWrapper>} />
+      <Route path="/services/social-media-marketing" element={<PageWrapper><ServiceSMM /></PageWrapper>} />
+      <Route path="/services/pay-per-click-ppc" element={<PageWrapper><ServicePPC /></PageWrapper>} />
+      <Route path="/services/meta-ads" element={<PageWrapper><ServiceMeta /></PageWrapper>} />
+      <Route path="/services/linkedin-marketing" element={<PageWrapper><ServiceLinkedIn /></PageWrapper>} />
+      <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
+      <Route path="/insights" element={<PageWrapper><Insights /></PageWrapper>} />
+      <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
+      <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+    </Routes>
   )
 }
 
@@ -63,7 +62,7 @@ function App() {
       <SplashCursor />
       <ScrollProgress />
       <Navbar />
-      <Suspense fallback={null}>
+      <Suspense fallback={<div className="min-h-screen bg-transparent" />}>
         <AnimatedRoutes />
       </Suspense>
       <Footer />

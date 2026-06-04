@@ -77,7 +77,7 @@ export default function About() {
           <h1 className="about-hero-text font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
             We bridge the gap between <span className="gradient-text">Brands & People</span>
           </h1>
-          <p className="about-hero-text font-body text-xl text-white/60 leading-relaxed max-w-2xl mx-auto">
+          <p className="about-hero-text font-body text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
             At Digital Web Connection, we don't just provide services; we build relationships. Our mission is to empower businesses with the tools and strategies they need to thrive in a digital-first world.
           </p>
         </div>
@@ -371,8 +371,6 @@ export default function About() {
         </div>
       </section>
 
-
-
       {/* Team */}
       <section className="py-12 px-8">
         <div className="max-w-[1200px] mx-auto">
@@ -554,12 +552,9 @@ export default function About() {
                 </Link>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
-
     </main>
   )
 }

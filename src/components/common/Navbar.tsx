@@ -81,7 +81,7 @@ export default function Navbar() {
                   </button>
                   
                   {/* Mega Dropdown */}
-                  <div className={`absolute top-full left-0 w-[600px] bg-zinc-950/95 backdrop-blur-xl shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] rounded-2xl p-8 transition-all duration-300 border border-white/10 overflow-hidden
+                  <div className={`absolute top-full left-0 w-[600px] bg-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] rounded-2xl p-8 transition-all duration-300 border border-white/10 overflow-hidden
                     ${megaOpen ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible translate-y-6'}`}
                   >
                     {/* Glowing radial backdrop inside dropdown */}
@@ -95,6 +95,7 @@ export default function Navbar() {
                         <Link
                           key={sub.path}
                           to={sub.path}
+                          onClick={() => setMegaOpen(false)}
                           className="p-4 rounded-xl no-underline transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5 group/item"
                         >
                           <div className="text-white font-display font-semibold text-sm mb-1 group-hover/item:text-primary transition-colors flex items-center gap-1.5">

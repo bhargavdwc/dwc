@@ -23,6 +23,7 @@ export default function useLenis() {
     })
 
     lenisRef.current = lenis
+    ;(window as any).lenis = lenis
 
     // Sync ScrollTrigger with Lenis
     lenis.on('scroll', ScrollTrigger.update)
@@ -35,6 +36,7 @@ export default function useLenis() {
 
     return () => {
       lenis.destroy()
+      delete (window as any).lenis
       gsap.ticker.remove((time) => {
         lenis.raf(time * 1000)
       })
