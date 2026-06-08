@@ -23,14 +23,28 @@ import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const location = useLocation()
   useEffect(() => {
+    if (location.hash) {
+      const targetElement = document.querySelector(location.hash)
+      if (targetElement) {
+        setTimeout(() => {
+          if ((window as any).lenis) {
+            ;(window as any).lenis.scrollTo(targetElement, { duration: 1.2 })
+          } else {
+            targetElement.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
+        return
+      }
+    }
+    
     if ((window as any).lenis) {
       ;(window as any).lenis.scrollTo(0, { immediate: true })
     } else {
       window.scrollTo(0, 0)
     }
-  }, [pathname])
+  }, [location.pathname, location.hash])
   return null
 }
 

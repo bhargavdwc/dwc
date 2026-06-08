@@ -3,6 +3,8 @@
 @theme {
   --color-primary: #0D5EF6;
   --color-cyan: #04B9CA;
+  --color-purple: #7C3AED;
+  --color-amber: #F59E0B;
   --color-dark: #060B18;
   --color-dark-mid: #0A1628;
   
@@ -17,6 +19,7 @@
   --animate-marquee-reverse: marquee-reverse 30s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
+  --animate-flow: flow 4s linear infinite;
 
   @keyframes marquee {
     0% { transform: translateX(0); }
@@ -33,6 +36,9 @@
   @keyframes pulse-glow {
     0%, 100% { box-shadow: 0 0 20px rgba(13, 94, 246, 0.25); }
     50% { box-shadow: 0 0 60px rgba(13, 94, 246, 0.6); }
+  }
+  @keyframes flow {
+    to { stroke-dashoffset: -180; }
   }
 }
 

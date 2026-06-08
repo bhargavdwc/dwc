@@ -9,7 +9,7 @@ const projects = [
   { title: 'BrandForce — Website + SEO', category: 'Web Dev + SEO', industry: 'Agency', result: 'Page 1 for 45 Keywords', color: '#EF4444', bg: 'from-red-900 to-red-700', type: 'webdev' },
 ]
 
-function renderProjectVisual(type: string, color: string) {
+function renderProjectVisual(type: string) {
   switch (type) {
     case 'seo':
       return (
@@ -192,7 +192,7 @@ export default function Projects() {
         </div>
 
         <div className="max-w-[900px] mx-auto relative z-10">
-          <div data-aos="fade-down" className="inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-5 py-1.5 mb-6">
+          <div data-aos="fade-down" className="inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/20 rounded-full px-5 py-1.5 mb-6 shadow-md">
             Our Work
           </div>
           <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
@@ -201,11 +201,28 @@ export default function Projects() {
           <p data-aos="fade-up" data-aos-delay="150" className="font-body text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
             Discover how we've helped businesses across industries achieve measurable digital transformation goals.
           </p>
+          <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center mt-10">
+            <Link 
+              to="/contact" 
+              data-cursor="button" 
+              className="group inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg bg-brand-gradient hover:shadow-[0_8px_30px_rgba(13,94,246,0.3)] text-sm md:text-base"
+            >
+              Start Your Project
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transform group-hover:translate-x-1 transition-transform duration-200"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </Link>
+            <a 
+              href="#showcase" 
+              data-cursor="link" 
+              className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 text-sm md:text-base"
+            >
+              Explore Case Studies
+            </a>
+          </div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="bg-black py-12 px-8 relative overflow-hidden">
+      <section id="showcase" className="bg-black py-12 px-8 relative overflow-hidden">
         {/* Subtle mesh background glows */}
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[140px] pointer-events-none z-0" />
         <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 w-[500px] h-[500px] bg-cyan/5 rounded-full blur-[140px] pointer-events-none z-0" />
@@ -245,7 +262,7 @@ export default function Projects() {
               >
                 {/* Visual Preview Section (Top) */}
                 <div className="relative h-48 md:h-52 w-full overflow-hidden bg-black/30 border-b border-white/5">
-                  {renderProjectVisual(project.type, project.color)}
+                  {renderProjectVisual(project.type)}
                   {/* Glowing mask at hover */}
                   <div className="absolute -inset-1 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10" style={{ backgroundColor: `${project.color}08` }} />
                 </div>
@@ -412,51 +429,107 @@ export default function Projects() {
                 label: 'Avg Organic Traffic Growth',
                 desc: 'Consistently ranking clients in competitive local & international markets.',
                 color: '#0D5EF6',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
+                  </svg>
+                )
               },
               {
                 metric: '5x ROAS',
                 label: 'Paid Advertising Yield',
                 desc: 'Direct revenue generation driven by strategic audience targeting.',
                 color: '#04B9CA',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243l-1.59-1.59" />
+                  </svg>
+                )
               },
               {
                 metric: '95%',
                 label: 'Client Growth Retention',
                 desc: 'Partnerships backed by transparent reporting and recurring ROI.',
                 color: '#7C3AED',
+                icon: (
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                  </svg>
+                )
               },
             ].map((stat, idx) => (
               <div
                 key={idx}
                 data-aos="fade-up"
                 data-aos-delay={`${idx * 100}`}
-                className="group relative flex flex-col justify-between bg-zinc-950/80 rounded-xl border border-white/5 p-8 transition-all duration-500 hover:-translate-y-1.5 no-splash h-72 text-center items-center"
+                className="group relative flex flex-col justify-center bg-zinc-950/40 backdrop-blur-md rounded-2xl border border-white/5 p-10 transition-all duration-700 hover:-translate-y-2 overflow-hidden min-h-[320px] text-center items-center isolate no-splash"
                 style={{
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = `0 20px 40px -10px ${stat.color}20`
-                  e.currentTarget.style.borderColor = `${stat.color}30`
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)'
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'
+                  boxShadow: '0 10px 40px -10px rgba(0,0,0,0.8)',
                 }}
               >
+                {/* Dynamic Background Glow on Hover */}
                 <div 
-                  className="w-16 h-16 rounded-full flex items-center justify-center mb-6 relative"
-                  style={{ background: `${stat.color}08`, border: `1px solid ${stat.color}15` }}
-                >
-                  <div className="w-2.5 h-2.5 rounded-full animate-pulse" style={{ backgroundColor: stat.color, boxShadow: `0 0 10px ${stat.color}` }} />
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 pointer-events-none"
+                  style={{ 
+                    background: `radial-gradient(circle at center, ${stat.color}15 0%, transparent 70%)` 
+                  }}
+                />
+                
+                {/* Top Border Glow Line */}
+                <div 
+                  className="absolute top-0 left-0 right-0 h-[2px] w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left pointer-events-none"
+                  style={{ 
+                    background: `linear-gradient(90deg, transparent, ${stat.color}, transparent)`,
+                    boxShadow: `0 2px 15px ${stat.color}80`
+                  }}
+                />
+
+                {/* Redesigned Icon Container */}
+                <div className="relative w-24 h-24 flex items-center justify-center mb-8">
+                  {/* Outer spinning dashed ring */}
+                  <div 
+                    className="absolute inset-0 rounded-full border border-dashed opacity-30 transition-transform duration-[3000ms] group-hover:rotate-180 group-hover:opacity-100"
+                    style={{ borderColor: stat.color }}
+                  />
+                  
+                  {/* Inner glowing circle */}
+                  <div 
+                    className="absolute inset-2 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${stat.color}15, transparent)`, 
+                      border: `1px solid ${stat.color}30`,
+                      boxShadow: `inset 0 0 20px ${stat.color}10, 0 0 20px ${stat.color}20`
+                    }}
+                  >
+                    {/* SVG Icon */}
+                    <div 
+                      className="text-white transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_currentColor]"
+                      style={{ color: stat.color }}
+                    >
+                      {stat.icon}
+                    </div>
+                  </div>
+
+                  {/* Little accent dots */}
+                  <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 group-hover:-translate-y-2 group-hover:translate-x-2" style={{ backgroundColor: stat.color, boxShadow: `0 0 10px ${stat.color}` }} />
+                  <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200 group-hover:translate-y-2 group-hover:-translate-x-2" style={{ backgroundColor: stat.color, boxShadow: `0 0 10px ${stat.color}` }} />
                 </div>
-                <div>
-                  <div className="text-4xl md:text-5xl font-black font-display tracking-tight mb-2 select-none" style={{ color: stat.color, filter: `drop-shadow(0 0 10px ${stat.color}15)` }}>
+                
+                <div className="relative z-10 w-full">
+                  <div 
+                    className="text-5xl md:text-6xl font-black font-display tracking-tighter mb-4 select-none transition-all duration-500 group-hover:scale-105" 
+                    style={{ 
+                      color: stat.color, 
+                      filter: `drop-shadow(0 0 20px ${stat.color}30)`,
+                      textShadow: `0 0 30px ${stat.color}40`
+                    }}
+                  >
                     {stat.metric}
                   </div>
-                  <h3 className="font-display font-bold text-white text-base md:text-lg mb-2">
+                  <h3 className="font-display font-bold text-white text-lg md:text-xl mb-3 group-hover:text-white transition-colors duration-300">
                     {stat.label}
                   </h3>
-                  <p className="font-body text-zinc-500 text-xs md:text-sm leading-relaxed">
+                  <p className="font-body text-zinc-400 group-hover:text-zinc-300 transition-colors duration-300 text-sm leading-relaxed max-w-[250px] mx-auto">
                     {stat.desc}
                   </p>
                 </div>

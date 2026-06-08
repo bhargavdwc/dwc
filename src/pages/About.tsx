@@ -38,8 +38,6 @@ const team = [
 
 export default function About() {
   useEffect(() => {
-    window.scrollTo(0, 0)
-
     const ctx = gsap.context(() => {
       gsap.from('.about-hero-text', {
         y: 40,
@@ -71,7 +69,7 @@ export default function About() {
         </div>
 
         <div className="max-w-[900px] mx-auto relative z-10">
-          <div className="about-hero-text inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-primary/8 border border-primary/20 rounded-full px-5 py-1.5 mb-6">
+          <div className="about-hero-text inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/20 rounded-full px-5 py-1.5 mb-6">
             Our Story
           </div>
           <h1 className="about-hero-text font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
@@ -222,31 +220,109 @@ export default function About() {
 
               {/* Graphic Element */}
               <div className="relative w-full h-32 flex items-center justify-between px-6 md:px-12 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8">
-                {/* Connection path line */}
-                <div className="absolute left-[10%] right-[10%] top-1/2 -translate-y-1/2 h-[1px] bg-gradient-to-r from-[#0D5EF6]/30 via-[#04B9CA] to-[#0D5EF6]/30 z-0" />
+                {/* Grid coordinate system */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
                 
+                {/* SVG connection path with animated flow particles */}
+                <svg className="absolute left-10 right-10 md:left-20 md:right-20 top-1/2 -translate-y-1/2 w-[calc(100%-5rem)] md:w-[calc(100%-10rem)] h-1 z-0 overflow-visible pointer-events-none" fill="none">
+                  <line x1="0%" y1="50%" x2="100%" y2="50%" stroke="rgba(4,185,202,0.15)" strokeWidth="2" strokeDasharray="4 4" />
+                  <line 
+                    x1="0%" 
+                    y1="50%" 
+                    x2="100%" 
+                    y2="50%" 
+                    stroke="url(#flow-gradient)" 
+                    strokeWidth="3" 
+                    strokeDasharray="20 100" 
+                    className="animate-flow" 
+                  />
+                  <defs>
+                    <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#0D5EF6" stopOpacity="0" />
+                      <stop offset="50%" stopColor="#04B9CA" stopOpacity="1" />
+                      <stop offset="100%" stopColor="#0D5EF6" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
                 {/* Ahmedabad Node */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-primary/40 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.15)]">AHM</div>
-                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Origin</span>
+                <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
+                  {/* Glow Backdrop */}
+                  <div className="absolute -inset-3 rounded-full bg-primary/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-primary/20 transition-all duration-500" />
+                  
+                  {/* Outer Orbit Ring + Inner Core */}
+                  <div className="w-11 h-11 rounded-full border border-dashed border-primary/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-primary/60">
+                    <div className="absolute inset-0 rounded-full animate-[spin_10s_linear_infinite]">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#0D5EF6]" />
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-zinc-950 border border-primary/50 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.3)] transition-all duration-300 group-hover/node:scale-105 group-hover/node:bg-primary group-hover/node:text-white">
+                      AHM
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-2 uppercase tracking-wider group-hover/node:text-white transition-colors duration-300 flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                    Origin
+                  </span>
                 </div>
 
                 {/* Mumbai Node */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-cyan/40 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.15)] animate-pulse">MUM</div>
-                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Hub</span>
+                <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
+                  {/* Glow Backdrop */}
+                  <div className="absolute -inset-3 rounded-full bg-cyan/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-cyan/20 transition-all duration-500" />
+                  
+                  {/* Outer Orbit Ring + Inner Core */}
+                  <div className="w-11 h-11 rounded-full border border-dashed border-cyan/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-cyan/60">
+                    <div className="absolute inset-0 rounded-full animate-[spin_8s_linear_infinite]">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan shadow-[0_0_8px_#04B9CA]" />
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-zinc-950 border border-cyan/50 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.3)] transition-all duration-300 group-hover/node:scale-105 group-hover/node:bg-cyan group-hover/node:text-black">
+                      MUM
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-2 uppercase tracking-wider group-hover/node:text-white transition-colors duration-300 flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-cyan animate-ping" />
+                    Hub
+                  </span>
                 </div>
 
                 {/* Bangalore Node */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-cyan/40 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.15)]">BLR</div>
-                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Tech</span>
+                <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
+                  {/* Glow Backdrop */}
+                  <div className="absolute -inset-3 rounded-full bg-cyan/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-cyan/20 transition-all duration-500" />
+                  
+                  {/* Outer Orbit Ring + Inner Core */}
+                  <div className="w-11 h-11 rounded-full border border-dashed border-cyan/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-cyan/60">
+                    <div className="absolute inset-0 rounded-full animate-[spin_12s_linear_infinite]">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan shadow-[0_0_8px_#04B9CA]" />
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-zinc-950 border border-cyan/50 flex items-center justify-center font-mono text-[9px] text-cyan font-bold shadow-[0_0_15px_rgba(4,185,202,0.3)] transition-all duration-300 group-hover/node:scale-105 group-hover/node:bg-cyan group-hover/node:text-black">
+                      BLR
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-2 uppercase tracking-wider group-hover/node:text-white transition-colors duration-300 flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-cyan animate-pulse" />
+                    Tech
+                  </span>
                 </div>
 
                 {/* Delhi Node */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-8 h-8 rounded-full bg-zinc-900 border border-primary/40 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.15)]">DEL</div>
-                  <span className="text-[9px] font-mono text-zinc-500 mt-1.5 uppercase tracking-wider">Core</span>
+                <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
+                  {/* Glow Backdrop */}
+                  <div className="absolute -inset-3 rounded-full bg-primary/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-primary/20 transition-all duration-500" />
+                  
+                  {/* Outer Orbit Ring + Inner Core */}
+                  <div className="w-11 h-11 rounded-full border border-dashed border-primary/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-primary/60">
+                    <div className="absolute inset-0 rounded-full animate-[spin_10s_linear_infinite_reverse]">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_#0D5EF6]" />
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-zinc-950 border border-primary/50 flex items-center justify-center font-mono text-[9px] text-primary font-bold shadow-[0_0_15px_rgba(13,94,246,0.3)] transition-all duration-300 group-hover/node:scale-105 group-hover/node:bg-primary group-hover/node:text-white">
+                      DEL
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-mono text-zinc-500 mt-2 uppercase tracking-wider group-hover/node:text-white transition-colors duration-300 flex items-center gap-1.5">
+                    <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                    Core
+                  </span>
                 </div>
               </div>
             </div>
@@ -372,7 +448,7 @@ export default function About() {
       </section>
 
       {/* Team */}
-      <section className="py-12 px-8">
+      <section id="team" className="py-12 px-8">
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-20">
             <h2 className="font-display font-bold text-4xl lg:text-5xl text-white mb-6 tracking-tight">The Minds Behind <span className="gradient-text">DWC</span></h2>

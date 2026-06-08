@@ -44,7 +44,7 @@ export default function Contact() {
             <div className="flex flex-col gap-6 mb-12">
               {[
                 { icon: '📍', label: 'Office Address', value: 'Ahmedabad, Gujarat, India — 380015' },
-                { icon: '📧', label: 'Email', value: 'hello@digitalwebconnection.com' },
+                { icon: '📧', label: 'Email', value: 'service@digitalwebconnection.com' },
                 { icon: '📞', label: 'Phone', value: '+91 98765 43210' },
                 { icon: '🕐', label: 'Response Time', value: 'Within 24 hours guaranteed' },
               ].map((item, i) => (

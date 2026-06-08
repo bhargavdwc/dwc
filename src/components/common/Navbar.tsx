@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import logoImg from '../../assets/dark_logo.jpg'
+import logoImg from '../../assets/1.png'
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -47,14 +47,18 @@ export default function Navbar() {
           ${hidden ? '-translate-y-full' : 'translate-y-0'} 
           ${scrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}
       >
-        <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link 
             to="/" 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={`flex items-center transition-all duration-400 ${scrolled ? 'h-[74px]' : 'h-[118px]'}`}
+            className="flex items-center shrink-0"
           >
-            <img src={logoImg} alt="DWC Logo" className="h-full w-auto object-contain block" />
+            <img 
+              src={logoImg} 
+              alt="DWC Logo" 
+              className={`w-auto object-contain transition-all duration-400 ${scrolled ? 'h-10 md:h-12' : 'h-12 md:h-16'}`} 
+            />
           </Link>
 
           {/* Desktop Nav */}
