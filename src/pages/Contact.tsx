@@ -113,14 +113,16 @@ export default function Contact() {
             {/* Social */}
             <div data-aos="fade-up" className="flex gap-3 flex-wrap">
               {[
-                { name: 'LinkedIn', color: 'hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10' },
-                { name: 'Instagram', color: 'hover:text-[#E1306C] hover:border-[#E1306C] hover:bg-[#E1306C]/10' },
-                { name: 'Facebook', color: 'hover:text-[#1877F2] hover:border-[#1877F2] hover:bg-[#1877F2]/10' },
-                { name: 'Twitter/X', color: 'hover:text-[#1DA1F2] hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/10' },
+                { name: 'LinkedIn', href: 'https://in.linkedin.com/company/digitalwebconnection', color: 'hover:text-[#0A66C2] hover:border-[#0A66C2] hover:bg-[#0A66C2]/10' },
+                { name: 'Instagram', href: 'https://www.instagram.com/digitalwebconnection/', color: 'hover:text-[#E1306C] hover:border-[#E1306C] hover:bg-[#E1306C]/10' },
+                { name: 'Facebook', href: 'https://www.facebook.com/p/Digitalwebconnection-100092036863467/', color: 'hover:text-[#1877F2] hover:border-[#1877F2] hover:bg-[#1877F2]/10' },
+                { name: 'Twitter/X', href: 'https://x.com/Digiwebconnect', color: 'hover:text-[#1DA1F2] hover:border-[#1DA1F2] hover:bg-[#1DA1F2]/10' },
               ].map(s => (
                 <a
                   key={s.name}
-                  href="#"
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`px-5 py-2.5 rounded-full border border-white/20 text-white/70 no-underline text-sm font-display font-semibold transition-all duration-300 ${s.color}`}
                 >
                   {s.name}
@@ -222,7 +224,7 @@ export default function Contact() {
         {/* Full-width Google Map */}
         <div
           data-aos="fade-up"
-          className="mt-16 rounded-[32px] overflow-hidden border border-white/10 h-[400px] bg-zinc-950/60 shadow-2xl relative"
+          className="mt-16 rounded-xl overflow-hidden border border-white/10 h-[400px] bg-zinc-950/60 shadow-2xl relative"
         >
           <iframe
             src="https://maps.google.com/maps?q=Titanium+City+Center+-+Corporate+Offices,+Prahladnagar,+Ahmedabad,+Gujarat,+India&t=&z=17&ie=UTF8&iwloc=&output=embed"
