@@ -19,6 +19,7 @@ import ServiceMeta from './pages/ServiceMeta'
 import ServiceLinkedIn from './pages/ServiceLinkedIn'
 import Projects from './pages/Projects'
 import Insights from './pages/Insights'
+import InsightDetail from './pages/InsightDetail'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
@@ -61,6 +62,7 @@ function AnimatedRoutes() {
       <Route path="/services/linkedin-marketing" element={<PageWrapper><ServiceLinkedIn /></PageWrapper>} />
       <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
       <Route path="/insights" element={<PageWrapper><Insights /></PageWrapper>} />
+      <Route path="/insights/:slug" element={<PageWrapper><InsightDetail /></PageWrapper>} />
       <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
       <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
     </Routes>

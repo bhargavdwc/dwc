@@ -129,9 +129,8 @@ export default function Contact() {
                 </a>
               ))}
             </div>
-
           </div>
-
+          
           {/* Right — Form */}
           <div data-aos="fade-left">
             <form

@@ -22,7 +22,7 @@ export default function ServicePPC() {
         { number: '03', title: 'Launch & Monitor', desc: 'Launch campaigns with A/B tested ad copies and landing pages, monitoring performance from day one.' },
         { number: '04', title: 'Optimize & Scale', desc: 'Weekly optimizations — bid adjustments, negative keywords, ad rotation — to maximize ROI and scale winners.' },
       ]}
-      pricing={[
+      pricing={[ 
         {
           name: 'Starter',
           price: '₹10,000',

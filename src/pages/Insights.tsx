@@ -8,16 +8,16 @@ import about_visual from "../assets/about_visual.png"
 import insight_hero2 from "../assets/insight_hero2.jpg"
 import insight_hero3 from "../assets/insight_hero3.jpg"
 
-const posts = [
-  { category: 'SEO', date: 'Apr 28, 2025', title: 'The Ultimate Guide to Local SEO for Ahmedabad Businesses in 2025', excerpt: 'Learn how to dominate local search results and attract customers right in your neighborhood with these proven Local SEO strategies.', image: hero_seo },
-  { category: 'Social Media', date: 'Apr 20, 2025', title: 'Instagram Reels vs. TikTok: Where Should Your Brand Focus in 2025?', excerpt: 'A data-driven comparison of Instagram Reels and TikTok performance to help you decide where to invest your short-form video content strategy.', image: hero_social },
-  { category: 'PPC', date: 'Apr 15, 2025', title: 'Google Ads Smart Bidding Strategies That Actually Work', excerpt: 'Discover the most effective Smart Bidding strategies in Google Ads and how to set them up for maximum ROAS with real-world examples.', image: hero_analytics },
-  { category: 'Content', date: 'Apr 10, 2025', title: 'How AI is Changing Content Marketing in 2025 (And What It Means for You)', excerpt: 'Explore how AI tools are transforming content creation, SEO, and digital marketing — and how to stay ahead of the curve.', image: about_visual },
-  { category: 'Meta Ads', date: 'Apr 05, 2025', title: 'Facebook Ads Are Still Powerful: Here\'s How to Make Them Work', excerpt: 'Meta Ads continue to deliver strong ROI when done right. Here are the strategies top brands are using to win on Facebook and Instagram.', image: insight_hero2 },
-  { category: 'LinkedIn', date: 'Mar 28, 2025', title: 'LinkedIn Lead Generation: A Complete Playbook for B2B Businesses', excerpt: 'Master LinkedIn lead generation with organic content, LinkedIn Ads, and automation strategies that turn connections into clients.', image: insight_hero3 },
+export const posts = [
+  { slug: 'ultimate-guide-local-seo-ahmedabad-2025', category: 'SEO', date: 'Apr 28, 2025', title: 'The Ultimate Guide to Local SEO for Ahmedabad Businesses in 2025', excerpt: 'Learn how to dominate local search results and attract customers right in your neighborhood with these proven Local SEO strategies.', image: hero_seo },
+  { slug: 'instagram-reels-vs-tiktok-2025', category: 'Social Media', date: 'Apr 20, 2025', title: 'Instagram Reels vs. TikTok: Where Should Your Brand Focus in 2025?', excerpt: 'A data-driven comparison of Instagram Reels and TikTok performance to help you decide where to invest your short-form video content strategy.', image: hero_social },
+  { slug: 'google-ads-smart-bidding-strategies', category: 'PPC', date: 'Apr 15, 2025', title: 'Google Ads Smart Bidding Strategies That Actually Work', excerpt: 'Discover the most effective Smart Bidding strategies in Google Ads and how to set them up for maximum ROAS with real-world examples.', image: hero_analytics },
+  { slug: 'how-ai-is-changing-content-marketing-2025', category: 'Content', date: 'Apr 10, 2025', title: 'How AI is Changing Content Marketing in 2025 (And What It Means for You)', excerpt: 'Explore how AI tools are transforming content creation, SEO, and digital marketing — and how to stay ahead of the curve.', image: about_visual },
+  { slug: 'facebook-ads-still-powerful', category: 'Meta Ads', date: 'Apr 05, 2025', title: 'Facebook Ads Are Still Powerful: Here\'s How to Make Them Work', excerpt: 'Meta Ads continue to deliver strong ROI when done right. Here are the strategies top brands are using to win on Facebook and Instagram.', image: insight_hero2 },
+  { slug: 'linkedin-lead-generation-playbook', category: 'LinkedIn', date: 'Mar 28, 2025', title: 'LinkedIn Lead Generation: A Complete Playbook for B2B Businesses', excerpt: 'Master LinkedIn lead generation with organic content, LinkedIn Ads, and automation strategies that turn connections into clients.', image: insight_hero3 },
 ]
 
-const categoryColors: Record<string, string> = {
+export const categoryColors: Record<string, string> = {
   SEO: '#0D5EF6', 'Social Media': '#04B9CA', PPC: '#7C3AED',
   Content: '#F59E0B', 'Meta Ads': '#EF4444', LinkedIn: '#0A66C2',
 }
@@ -84,14 +84,15 @@ export default function Insights() {
                 className="group bg-black rounded-xl overflow-hidden border border-white/20"
               >
                 {/* Image area */}
-                <div
-                  className="h-56 flex items-center justify-center relative overflow-hidden"
+                <Link
+                  to={`/insights/${post.slug}`}
+                  className="block h-56 flex items-center justify-center relative overflow-hidden"
                   style={{ background: `linear-gradient(135deg, ${categoryColors[post.category]}15, ${categoryColors[post.category]}05)` }}
                 >
                   <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100" />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-700" />
                   <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none mix-blend-overlay" />
-                </div>
+                </Link>
 
                 {/* Content */}
                 <div className="p-8">
@@ -104,14 +105,16 @@ export default function Insights() {
                     </span>
                     <span className="font-mono text-[0.72rem] text-white font-medium">{post.date}</span>
                   </div>
-                  <h3 className="font-display font-bold text-white text-xl leading-tight mb-4 group-hover:text-primary transition-colors duration-300">
-                    {post.title}
-                  </h3>
+                  <Link to={`/insights/${post.slug}`}>
+                    <h3 className="font-display font-bold text-white text-xl leading-tight mb-4 group-hover:text-primary transition-colors duration-300">
+                      {post.title}
+                    </h3>
+                  </Link>
                   <p className="font-body text-white/55 text-[0.9rem] leading-relaxed mb-8 line-clamp-3">
                     {post.excerpt}
                   </p>
                   <Link
-                    to="/insights"
+                    to={`/insights/${post.slug}`}
                     className="inline-flex items-center gap-2 font-display font-bold text-sm text-primary group/link"
                   >
                     Read Full Article
