@@ -283,7 +283,7 @@ export default function InsightDetail() {
       <main className="bg-[#060B18] min-h-screen pt-40 pb-24 px-8 text-center flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[150px] pointer-events-none z-0" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-cyan/10 rounded-full blur-[150px] pointer-events-none z-0" />
-        <div className="relative z-10">
+        <div className="relative z-10">u
           <h1 className="font-display font-bold text-3xl text-white mb-6">Insight Not Found</h1>
           <p className="text-zinc-400 mb-8 max-w-md">The article you are looking for might have been moved or deleted.</p>
           <Link to="/insights" className="shimmer-btn inline-flex items-center gap-3 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full shadow-lg">

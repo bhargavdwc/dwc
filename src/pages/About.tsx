@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import DotBackground from '../components/three/DotBackground'
+import purple3dLoop from '../assets/purple_3d_loop.png'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -37,6 +39,34 @@ const team = [
 ]
 
 export default function About() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+    
+    // Relative coordinates for cursor spotlight glow
+    const x = clientX - left
+    const y = clientY - top
+    setMousePos({ x, y })
+    
+    // 3D parallax tilt rotation calculations
+    const tx = ((clientX - left) / width - 0.5) * 20
+    const ty = ((clientY - top) / height - 0.5) * -20
+    setTilt({ x: tx, y: ty })
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    setTilt({ x: 0, y: 0 })
+  }
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.about-hero-text', {
@@ -53,31 +83,73 @@ export default function About() {
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-28 px-8 text-center relative overflow-hidden">
-        {/* Full-width Background Image & Soft Gradient Overlay */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80"
-            alt="Digital network connection background"
-            className="w-full h-full object-cover"
-          />
-          {/* Black Overlap Mask */}
-          <div className="absolute inset-0 bg-black/10" />
-          {/* Subtle gradient overlays to dissolve edges into the black theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-        </div>
+      <section 
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
+      >
+        {/* Subtle Cybernetic Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-        <div className="max-w-[900px] mx-auto relative z-10">
-          <div className="about-hero-text inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/20 rounded-full px-5 py-1.5 mb-6">
-            Our Story
+        {/* Subtle, soft drift particles */}
+        <DotBackground variant="float" opacity={0.12} />
+
+        {/* Dynamic Cursor Spotlight Glow */}
+        {isHovered && (
+          <div 
+            className="hidden lg:block absolute w-[500px] h-[500px] bg-primary/10 rounded-full blur-[130px] pointer-events-none z-0 transition-opacity duration-300"
+            style={{
+              left: `${mousePos.x - 250}px`,
+              top: `${mousePos.y - 250}px`,
+            }}
+          />
+        )}
+
+        {/* Ambient Blue/Cyan Glowing Orbs */}
+        <div className="absolute top-[20%] right-[10%] w-[45vw] h-[45vw] bg-primary/10 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDuration: '10s' }} />
+        <div className="absolute bottom-[10%] left-[10%] w-[35vw] h-[35vw] bg-cyan/10 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
+
+        <div className="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+          
+          {/* Left Side: Content Column */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            {/* Translucent pill badge */}
+            <div className="bg-white border border-primary/20 rounded-full inline-flex items-center gap-2.5 px-4.5 py-1.5 mb-8 select-none backdrop-blur-md shadow-[0_0_15px_rgba(13,94,246,0.12)] hover:shadow-[0_0_25px_rgba(13,94,246,0.25)] hover:scale-[1.03] transition-all duration-300 cursor-pointer">
+            <span className="font-mono text-sm text-primary tracking-wider">AVAILABLE FOR PROJECTS</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="about-hero-text font-display font-bold text-white text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tighter mb-6">
+              Transform your ideas <br className="hidden md:block" />
+              into <span className="gradient-text">digital success</span> <br className="hidden md:block" />
+              with us!
+            </h1>
+
+            {/* Paragraph Description */}
+            <p className="about-hero-text font-body text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
+              We're your partner in product design, website creation, and branding for every stage of your business.
+            </p>  
           </div>
-          <h1 className="about-hero-text font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
-            We bridge the gap between <span className="gradient-text">Brands & People</span>
-          </h1>
-          <p className="about-hero-text font-body text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
-            At Digital Web Connection, we don't just provide services; we build relationships. Our mission is to empower businesses with the tools and strategies they need to thrive in a digital-first world.
-          </p>
+
+          {/* Right Side: The 3D Loop Visual */}
+          <div className="lg:col-span-5 flex justify-center items-center relative">
+            {/* Ambient cyan backlight behind the 3D loop */}
+            <div className="absolute w-[350px] h-[350px] bg-cyan/15 rounded-full blur-[100px] pointer-events-none z-0" />
+            
+            <img
+              src={purple3dLoop}
+              alt="3D Iridescent abstract purple ribbon torus knot sculpture"
+              className="w-full max-w-[340px] xl:max-w-[420px] h-auto object-contain relative z-10 animate-float"
+              style={{ 
+                animationDuration: '8s',
+                transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+                transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)',
+                filter: isHovered ? 'drop-shadow(0 15px 30px rgba(13,94,246,0.3))' : 'drop-shadow(0 5px 15px rgba(13,94,246,0.1))',
+              }}
+            />
+          </div>
+
         </div>
       </section>
 
@@ -138,10 +210,10 @@ export default function About() {
 
           {/* Symmetrical Bento Timeline Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none">
-            
+
             {/* Card 1: 2017 - The Beginning (Span 4) */}
-            <div 
-              data-aos="fade-up" 
+            <div
+              data-aos="fade-up"
               className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
@@ -174,7 +246,7 @@ export default function About() {
               <div className="relative w-full h-32 flex items-center justify-center overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8">
                 {/* Grid coordinate system */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:16px_16px]" />
-                
+
                 {/* Glowing radar rings */}
                 <div className="absolute w-24 h-24 rounded-full border border-primary/20 animate-[ping_4s_infinite_ease-in-out]" />
                 <div className="absolute w-16 h-16 rounded-full border border-primary/40 animate-[spin_12s_linear_infinite] flex items-center justify-center">
@@ -187,8 +259,8 @@ export default function About() {
             </div>
 
             {/* Card 2: 2019 - National Expansion (Span 8) */}
-            <div 
-              data-aos="fade-up" 
+            <div
+              data-aos="fade-up"
               data-aos-delay="100"
               className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
@@ -222,19 +294,19 @@ export default function About() {
               <div className="relative w-full h-32 flex items-center justify-between px-6 md:px-12 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8">
                 {/* Grid coordinate system */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:16px_16px] pointer-events-none" />
-                
+
                 {/* SVG connection path with animated flow particles */}
                 <svg className="absolute left-10 right-10 md:left-20 md:right-20 top-1/2 -translate-y-1/2 w-[calc(100%-5rem)] md:w-[calc(100%-10rem)] h-1 z-0 overflow-visible pointer-events-none" fill="none">
                   <line x1="0%" y1="50%" x2="100%" y2="50%" stroke="rgba(4,185,202,0.15)" strokeWidth="2" strokeDasharray="4 4" />
-                  <line 
-                    x1="0%" 
-                    y1="50%" 
-                    x2="100%" 
-                    y2="50%" 
-                    stroke="url(#flow-gradient)" 
-                    strokeWidth="3" 
-                    strokeDasharray="20 100" 
-                    className="animate-flow" 
+                  <line
+                    x1="0%"
+                    y1="50%"
+                    x2="100%"
+                    y2="50%"
+                    stroke="url(#flow-gradient)"
+                    strokeWidth="3"
+                    strokeDasharray="20 100"
+                    className="animate-flow"
                   />
                   <defs>
                     <linearGradient id="flow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -249,7 +321,7 @@ export default function About() {
                 <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
                   {/* Glow Backdrop */}
                   <div className="absolute -inset-3 rounded-full bg-primary/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-primary/20 transition-all duration-500" />
-                  
+
                   {/* Outer Orbit Ring + Inner Core */}
                   <div className="w-11 h-11 rounded-full border border-dashed border-primary/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-primary/60">
                     <div className="absolute inset-0 rounded-full animate-[spin_10s_linear_infinite]">
@@ -269,7 +341,7 @@ export default function About() {
                 <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
                   {/* Glow Backdrop */}
                   <div className="absolute -inset-3 rounded-full bg-cyan/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-cyan/20 transition-all duration-500" />
-                  
+
                   {/* Outer Orbit Ring + Inner Core */}
                   <div className="w-11 h-11 rounded-full border border-dashed border-cyan/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-cyan/60">
                     <div className="absolute inset-0 rounded-full animate-[spin_8s_linear_infinite]">
@@ -289,7 +361,7 @@ export default function About() {
                 <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
                   {/* Glow Backdrop */}
                   <div className="absolute -inset-3 rounded-full bg-cyan/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-cyan/20 transition-all duration-500" />
-                  
+
                   {/* Outer Orbit Ring + Inner Core */}
                   <div className="w-11 h-11 rounded-full border border-dashed border-cyan/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-cyan/60">
                     <div className="absolute inset-0 rounded-full animate-[spin_12s_linear_infinite]">
@@ -309,7 +381,7 @@ export default function About() {
                 <div className="relative z-10 flex flex-col items-center group/node cursor-pointer">
                   {/* Glow Backdrop */}
                   <div className="absolute -inset-3 rounded-full bg-primary/10 opacity-50 blur-md group-hover/node:opacity-100 group-hover/node:bg-primary/20 transition-all duration-500" />
-                  
+
                   {/* Outer Orbit Ring + Inner Core */}
                   <div className="w-11 h-11 rounded-full border border-dashed border-primary/30 flex items-center justify-center relative transition-colors duration-300 group-hover/node:border-primary/60">
                     <div className="absolute inset-0 rounded-full animate-[spin_10s_linear_infinite_reverse]">
@@ -328,8 +400,8 @@ export default function About() {
             </div>
 
             {/* Card 3: 2021 - Tech Integration (Span 8) */}
-            <div 
-              data-aos="fade-up" 
+            <div
+              data-aos="fade-up"
               className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
@@ -362,7 +434,7 @@ export default function About() {
               <div className="relative w-full h-32 overflow-hidden rounded-2xl bg-black/40 border border-white/5 mt-8 px-6 flex items-center justify-between">
                 {/* Grid Overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(rgba(124,58,237,0.04)_1px,transparent_1px)] bg-[size:12px_12px]" />
-                
+
                 {/* Interactive Neural Core */}
                 <div className="relative z-10 flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-purple/10 border border-purple/30 flex items-center justify-center relative">
@@ -381,14 +453,14 @@ export default function About() {
                 <div className="relative z-10 flex gap-2 items-end h-16">
                   {[45, 75, 55, 90, 65, 80].map((val, idx) => (
                     <div key={idx} className="w-1.5 h-16 bg-zinc-900 rounded-full overflow-hidden flex items-end">
-                      <div 
-                        className="w-full rounded-full animate-[pulse_2s_infinite_ease-in-out]" 
-                        style={{ 
-                          height: `${val}%`, 
+                      <div
+                        className="w-full rounded-full animate-[pulse_2s_infinite_ease-in-out]"
+                        style={{
+                          height: `${val}%`,
                           backgroundColor: '#7C3AED',
                           boxShadow: '0 0 8px #7C3AED',
                           animationDelay: `${idx * 150}ms`
-                        }} 
+                        }}
                       />
                     </div>
                   ))}
@@ -397,8 +469,8 @@ export default function About() {
             </div>
 
             {/* Card 4: 2025 - Global Impact (Span 4) */}
-            <div 
-              data-aos="fade-up" 
+            <div
+              data-aos="fade-up"
               data-aos-delay="100"
               className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}

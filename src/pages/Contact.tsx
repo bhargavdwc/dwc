@@ -1,12 +1,26 @@
 import { useState } from 'react'
 import FAQ from '../components/home/FAQ'
-import contact_hero from '../assets/contact_hero1.jpg'
+import DotBackground from '../components/three/DotBackground'
+import contact3dVisual from '../assets/contact_3d_visual.png'
 
 const services = ['Search Engine Optimization', 'Social Media Marketing', 'Pay-Per-Click (PPC)', 'Meta Ads', 'LinkedIn Marketing', 'Website Development', 'Graphic Design', 'Content Marketing', 'Other']
 
 export default function Contact() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', company: '', service: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+    setMousePos({ x: clientX - left, y: clientY - top })
+    setTilt({
+      x: ((clientX - left) / width - 0.5) * 16,
+      y: ((clientY - top) / height - 0.5) * -16
+    })
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -15,34 +29,105 @@ export default function Contact() {
   }
 
   return (
-    <main className="bg-white">
-      {/* Hero */}
-      <section className="pt-40 pb-28 px-8 text-center relative overflow-hidden bg-black">
-        {/* Full-width Background Image & Soft Gradient Overlay */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img src={contact_hero} alt="Contact Us" className="w-full h-full object-cover" />
-          {/* Black Overlap Mask */}
-          <div className="absolute inset-0 bg-black/20" />
-          {/* Subtle gradient overlays to dissolve edges into the black theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+    <main className="bg-black">
+
+      {/* ─── HERO: Split-Screen Communication Hub ─── */}
+      <section
+        className="lg:pt-28 pt-20 pb-20 md:pb-28 px-6 md:px-12 relative overflow-hidden bg-black"
+        onMouseMove={handleHeroMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => { setIsHovered(false); setTilt({ x: 0, y: 0 }) }}
+      >
+        {/* Cybernetic grid bg */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.025)_1px,transparent_1px)] bg-[size:42px_42px] pointer-events-none" />
+
+        {/* DotBackground particles */}
+        <DotBackground variant="float" opacity={0.10} />
+
+        {/* Mouse spotlight */}
+        {isHovered && (
+          <div
+            className="absolute w-[500px] h-[500px] bg-cyan/5 rounded-full blur-[150px] pointer-events-none z-0"
+            style={{ left: `${mousePos.x - 250}px`, top: `${mousePos.y - 250}px` }}
+          />
+        )}
+
+        {/* Ambient glows */}
+        <div className="absolute top-1/2 right-[5%] -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-cyan/5 rounded-full blur-[120px] md:blur-[160px] pointer-events-none" />
+        <div className="absolute bottom-[10%] left-[5%] w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-primary/6 rounded-full blur-[80px] md:blur-[100px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
+
+        {/* 12-col split grid */}
+        <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+
+          {/* ── LEFT: Text Content ── */}
+          <div className="lg:col-span-6 flex flex-col items-start text-left lg:-mt-10 -mt-5 w-full">
+
+            {/* Badge */}
+            <div
+              data-aos="fade-down"
+              className="inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.2em] uppercase text-cyan bg-cyan/8 border border-cyan/25 rounded-full px-5 py-1.5 mb-7 shadow-[0_0_20px_rgba(4,185,202,0.15)] hover:shadow-[0_0_35px_rgba(4,185,202,0.3)] transition-shadow duration-300 cursor-default select-none bg-white"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
+              Get In Touch
+            </div>
+
+            {/* Headline */}
+            <h1
+              data-aos="fade-up"
+              className="font-display font-bold text-[clamp(2.4rem,4.5vw,4rem)] text-white tracking-tighter leading-[1.1] mb-5"
+            >
+              Let's Build{' '}<br className="hidden lg:block" />
+              Something{' '}
+              <span className="gradient-text">Amazing</span>
+            </h1>
+
+            {/* Description */}
+            <p
+              data-aos="fade-up"
+              data-aos-delay="100"
+              className="font-body text-lg text-zinc-400 leading-relaxed mb-10 max-w-[540px]"
+            >
+              Collaborate with our team to launch campaigns that win customers, elevate your brand, and drive real measurable growth.
+            </p>
+
+            {/* CTA Buttons */}
+            <div data-aos="fade-up" data-aos-delay="150" className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="tel:+919876543210"
+                className="inline-flex items-center gap-2 bg-brand-gradient text-dark font-display font-semibold px-7 py-3.5 rounded-full shadow-[0_0_25px_rgba(4,185,202,0.3)] hover:shadow-[0_0_40px_rgba(4,185,202,0.55)] hover:-translate-y-0.5 transition-all duration-300 shimmer-btn"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.58 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                Call Us Now
+              </a>
+            </div>
+          </div>
+
+          {/* ── RIGHT: 3D Visual ── */}
+          <div className="lg:col-span-6 flex justify-center items-center relative lg:-mt-16 -mt-8 w-full">
+            {/* Ambient cyan backlight behind the 3D visual */}
+            <div className="absolute w-[240px] h-[240px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] bg-cyan/15 rounded-full blur-[80px] md:blur-[100px] pointer-events-none z-0" />
+
+            <img
+              src={contact3dVisual}
+              alt="3D Iridescent Contact Visual"
+              className="w-full max-w-[280px] md:max-w-[380px] lg:max-w-[460px] xl:max-w-[550px] h-auto object-contain relative z-10 animate-float"
+              style={{
+                animationDuration: '8s',
+                transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+                transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)',
+                filter: isHovered ? 'drop-shadow(0 15px 30px rgba(13,94,246,0.3))' : 'drop-shadow(0 5px 15px rgba(13,94,246,0.1))',
+              }}
+            />
+          </div>
+
         </div>
 
-        <div className="relative z-10 max-w-[900px] mx-auto w-full">
-          <div data-aos="fade-down" className="inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/20 rounded-full px-5 py-1.5 mb-6 shadow-md">
-            Get In Touch
-          </div>
-          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
-            Let's Build Something <span className="gradient-text">Amazing</span>
-          </h1>
-          <p data-aos="fade-up" data-aos-delay="150" className="font-body text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
-            We look forward to hearing about your project. Let's collaborate, win new customers, and move your brand forward.
-          </p>
-        </div>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       </section>
 
       {/* Contact layout */}
-      <section className="bg-black py-12 px-8">
+      <section id="contact-form-section" className="bg-black px-8">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Left — Info */}
@@ -130,7 +215,7 @@ export default function Contact() {
               ))}
             </div>
           </div>
-          
+
           {/* Right — Form */}
           <div data-aos="fade-left">
             <form

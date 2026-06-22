@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import insights_hero from "../assets/insight_hero1.jpg"
+import gsap from 'gsap'
+import DotBackground from '../components/three/DotBackground'
+import insights3DVisual from '../assets/insights_3d_visual.png'
 import hero_seo from "../assets/hero_seo.png"
 import hero_social from "../assets/hero_social.png"
 import hero_analytics from "../assets/hero_analytics.png"
@@ -24,38 +26,158 @@ export const categoryColors: Record<string, string> = {
 
 export default function Insights() {
   const [selectedCat, setSelectedCat] = useState('All')
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
   const cats = ['All', ...Object.keys(categoryColors)]
   const filtered = selectedCat === 'All' ? posts : posts.filter(p => p.category === selectedCat)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+
+    const x = clientX - left
+    const y = clientY - top
+    setMousePos({ x, y })
+
+    const tx = ((clientX - left) / width - 0.5) * 20
+    const ty = ((clientY - top) / height - 0.5) * -20
+    setTilt({ x: tx, y: ty })
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    setTilt({ x: 0, y: 0 })
+  }
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.insights-hero-text', {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out'
+      })
+    })
+    return () => ctx.revert()
+  }, [])
 
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-28 px-8 text-center relative overflow-hidden">
-        {/* Full-width Background Image & Soft Gradient Overlay */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img src={insights_hero} alt="Insights" className='w-full h-full object-cover' />
-          {/* Black Overlap Mask */}
-          <div className="absolute inset-0 bg-black/20" />
-          {/* Subtle gradient overlays to dissolve edges into the black theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+      <section
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
+      >
+        {/* Subtle Circuit Board Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0">
+          <svg className="w-full h-full" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="circuit" width="240" height="240" patternUnits="userSpaceOnUse">
+                <path d="M10 10 L60 10 L80 30 L150 30 L170 50 L200 50" fill="none" stroke="white" strokeWidth="1.5" />
+                <path d="M10 90 L50 90 L70 70 L120 70 L140 90 L190 90" fill="none" stroke="white" strokeWidth="1.5" />
+                <path d="M100 10 L100 50 L120 70 L120 120 L140 140 L140 190" fill="none" stroke="white" strokeWidth="1.5" />
+                <circle cx="60" cy="10" r="3" fill="white" />
+                <circle cx="150" cy="30" r="3" fill="white" />
+                <circle cx="120" cy="70" r="3" fill="white" />
+                <circle cx="70" cy="70" r="3" fill="white" />
+                <circle cx="140" cy="90" r="3" fill="white" />
+                <circle cx="100" cy="50" r="3" fill="white" />
+                <circle cx="120" cy="120" r="3" fill="white" />
+                <circle cx="140" cy="140" r="3" fill="white" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#circuit)" />
+          </svg>
         </div>
-        {/* Hero Content */}
-        <div className="max-w-[900px] mx-auto relative z-10">
-          <div data-aos="fade-down" className="inline-block font-mono text-[0.72rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/15 rounded-full px-4 py-1.5 mb-6">
-            Knowledge Hub
+
+        {/* Subtle Cybernetic Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(135,94,246,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(135,94,246,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
+
+        {/* Subtle, soft drift particles */}
+        <DotBackground variant="float" opacity={0.12} />
+
+        {/* Dynamic Cursor Spotlight Glow */}
+        {isHovered && (
+          <div
+            className="hidden lg:block absolute w-[500px] h-[500px] bg-cyan/5 rounded-full blur-[130px] pointer-events-none z-0 transition-opacity duration-300"
+            style={{
+              left: `${mousePos.x - 250}px`,
+              top: `${mousePos.y - 250}px`,
+            }}
+          />
+        )}
+
+        <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center relative z-10">
+          {/* Left Side: Content Column */}
+          <div className="lg:col-span-6 flex flex-col items-start text-left">
+            {/* Translucent pill badge */}
+            <div className="insights-hero-text bg-cyan/5 border border-cyan/50 text-cyan rounded-full inline-flex items-center px-5 py-1.5 mb-8 select-none backdrop-blur-md shadow-[0_0_15px_rgba(4,185,202,0.25)] hover:shadow-[0_0_25px_rgba(4,185,202,0.45)] hover:scale-[1.03] transition-all duration-300 cursor-pointer">
+              <span className="font-mono text-xs tracking-widest uppercase font-semibold">KNOWLEDGE HUB</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="insights-hero-text font-display font-bold text-white text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tighter mb-6">
+              Latest Insights & <br className="hidden md:block" />
+              <span className="gradient-text">Thought Leadership</span>
+            </h1>
+
+            {/* Paragraph Description */}
+            <p className="insights-hero-text font-body text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
+              Stay updated with the latest trends, insights, and best practices in digital marketing, SEO, PPC, and brand strategy.
+            </p>
+
+            {/* Action Buttons Row */}
+            <div className="insights-hero-text flex flex-wrap gap-4 items-center">
+              <a
+                href="#articles"
+                data-cursor="button"
+                className="group inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg bg-brand-gradient hover:shadow-[0_8px_30px_rgba(13,94,246,0.3)] text-sm md:text-base"
+              >
+                Read Articles
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transform group-hover:translate-x-1 transition-transform duration-200"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </a>
+              <Link
+                to="/contact"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 text-sm md:text-base"
+              >
+                Subscribe
+              </Link>
+            </div>
           </div>
-          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
-            Latest Insights & <span className="gradient-text">Thought Leadership</span>
-          </h1>
-          <p data-aos="fade-up" data-aos-delay="150" className="text-white/65 leading-relaxed text-lg lg:text-xl">
-            Stay updated with the latest trends, insights, and best practices in digital marketing.
-          </p>
+
+          {/* Right Side: The 3D Visual */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end items-center relative">
+            {/* Ambient purple backlight behind the 3D visual */}
+            <div className="absolute w-[450px] h-[450px] bg-purple/10 rounded-full blur-[120px] pointer-events-none z-0" />
+            <div className="absolute w-[350px] h-[350px] bg-cyan/5 rounded-full blur-[100px] pointer-events-none z-0" />
+
+            <img
+              src={insights3DVisual}
+              alt="3D Iridescent abstract knowledge prism visual representation of strategic insight"
+              className="w-full max-w-[520px] xl:max-w-[620px] h-auto object-contain relative z-10 animate-float"
+              style={{
+                animationDuration: '8s',
+                transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+                transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)',
+                filter: isHovered ? 'drop-shadow(0 15px 35px rgba(124,58,237,0.25))' : 'drop-shadow(0 5px 15px rgba(124,58,237,0.08))',
+              }}
+            />
+          </div>
         </div>
       </section>
 
       {/* Filter tabs */}
-      <section className="bg-black pb-12 px-8 py-12">
+      <section id="articles" className="bg-black pb-12 px-8 py-12">
         <div className="max-w-[1200px] mx-auto flex gap-3 flex-wrap justify-center">
           {cats.map(cat => (
             <button

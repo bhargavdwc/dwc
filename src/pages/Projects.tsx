@@ -1,4 +1,8 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import DotBackground from '../components/three/DotBackground'
+import projects3dVisual from '../assets/projects_3d_visual.png'
 
 const projects = [
   { title: 'Ganesh Green — Real Estate SEO', category: 'SEO + Content', industry: 'Real Estate', result: '+340% Organic Traffic', color: '#0D5EF6', bg: 'from-blue-900 to-blue-700', type: 'seo' },
@@ -34,11 +38,11 @@ function renderProjectVisual(type: string) {
                 </linearGradient>
               </defs>
               {/* Path of organic traffic growth */}
-              <path 
-                d="M 0 90 Q 50 85 100 65 T 200 45 T 300 10" 
-                fill="none" 
-                stroke="#0D5EF6" 
-                strokeWidth="3.5" 
+              <path
+                d="M 0 90 Q 50 85 100 65 T 200 45 T 300 10"
+                fill="none"
+                stroke="#0D5EF6"
+                strokeWidth="3.5"
                 style={{ filter: 'drop-shadow(0 0 8px rgba(13,94,246,0.6))' }}
               />
               <path d="M 0 90 Q 50 85 100 65 T 200 45 T 300 10 L 300 100 L 0 100 Z" fill="url(#seoGrad)" />
@@ -92,13 +96,13 @@ function renderProjectVisual(type: string) {
             <div className="flex gap-3.5 items-end relative z-10 w-full justify-center">
               {[30, 45, 90, 60, 75, 40].map((val, idx) => (
                 <div key={idx} className="w-2 bg-zinc-900 rounded-full h-16 flex items-end">
-                  <div 
-                    className="w-full rounded-full transition-all duration-700" 
-                    style={{ 
-                      height: `${val}%`, 
+                  <div
+                    className="w-full rounded-full transition-all duration-700"
+                    style={{
+                      height: `${val}%`,
                       backgroundColor: '#7C3AED',
                       boxShadow: '0 0 10px #7C3AED',
-                    }} 
+                    }}
                   />
                 </div>
               ))}
@@ -111,7 +115,7 @@ function renderProjectVisual(type: string) {
         <div className="relative w-full h-full flex items-center justify-center p-6 overflow-hidden bg-black/40">
           <div className="absolute inset-0 bg-[radial-gradient(rgba(245,158,11,0.03)_1px,transparent_1px)] bg-[size:18px_18px]" />
           <div className="absolute inset-0 bg-radial-gradient from-amber/5 via-transparent to-transparent opacity-60 pointer-events-none" />
-          
+
           {/* Revenue Bag / Cart Graphic */}
           <div className="relative flex flex-col items-center gap-2">
             <div className="w-16 h-16 rounded-2xl bg-amber/10 border border-amber/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(245,158,11,0.1)] transition-transform duration-500 group-hover:scale-105">
@@ -173,51 +177,131 @@ function renderProjectVisual(type: string) {
 }
 
 export default function Projects() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e
+    const { left, top, width, height } = currentTarget.getBoundingClientRect()
+
+    // Relative coordinates for cursor spotlight glow
+    const x = clientX - left
+    const y = clientY - top
+    setMousePos({ x, y })
+
+    // 3D parallax tilt rotation calculations
+    const tx = ((clientX - left) / width - 0.5) * 20
+    const ty = ((clientY - top) / height - 0.5) * -20
+    setTilt({ x: tx, y: ty })
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    setTilt({ x: 0, y: 0 })
+  }
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.projects-hero-text', {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out'
+      })
+    })
+    return () => ctx.revert()
+  }, [])
+
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-28 px-8 text-center relative overflow-hidden">
-        {/* Full-width Background Image & Soft Gradient Overlay */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img
-            src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=1600&auto=format&fit=crop&q=80"
-            alt="Business analytics data visualization background"
-            className="w-full h-full object-cover"
-          />
-          {/* Black Overlap Mask */}
-          <div className="absolute inset-0 bg-black/20" />
-          {/* Subtle gradient overlays to dissolve edges into the black theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-        </div>
+      <section
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
+      >
+        {/* Subtle Cybernetic Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
-        <div className="max-w-[900px] mx-auto relative z-10">
-          <div data-aos="fade-down" className="inline-block font-mono text-[0.8rem] tracking-[0.2em] uppercase text-primary bg-white border border-primary/20 rounded-full px-5 py-1.5 mb-6 shadow-md">
-            Our Work
+        {/* Subtle, soft drift particles */}
+        <DotBackground variant="float" opacity={0.12} />
+
+        {/* Dynamic Cursor Spotlight Glow */}
+        {isHovered && (
+          <div
+            className="hidden lg:block absolute w-[500px] h-[500px] bg-primary/5 rounded-full blur-[130px] pointer-events-none z-0 transition-opacity duration-300"
+            style={{
+              left: `${mousePos.x - 250}px`,
+              top: `${mousePos.y - 250}px`,
+            }}
+          />
+        )}
+
+        <div className="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+
+          {/* Left Side: Content Column */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            {/* Translucent pill badge */}
+            <div className="projects-hero-text bg-white border border-primary/20 rounded-full inline-flex items-center gap-2.5 px-4.5 py-1.5 mb-8 select-none backdrop-blur-md shadow-[0_0_15px_rgba(13,94,246,0.12)] hover:shadow-[0_0_25px_rgba(13,94,246,0.25)] hover:scale-[1.03] transition-all duration-300 cursor-pointer">
+              <span className="font-mono text-sm text-primary tracking-wider">OUR WORK SHOWCASE</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="projects-hero-text font-display font-bold text-white text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tighter mb-6">
+              Success Stories & <br className="hidden md:block" />
+              <span className="gradient-text">Client Impact</span>
+            </h1>
+
+            {/* Paragraph Description */}
+            <p className="projects-hero-text font-body text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
+              Discover how we've helped businesses across industries achieve measurable digital transformation goals through strategy and creativity.
+            </p>
+
+            {/* Action Buttons Row */}
+            <div className="projects-hero-text flex flex-wrap gap-4 items-center mt-6">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="group inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg bg-brand-gradient hover:shadow-[0_8px_30px_rgba(13,94,246,0.3)] text-sm md:text-base"
+              >
+                Start Your Project
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transform group-hover:translate-x-1 transition-transform duration-200"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <a
+                href="#showcase"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 text-sm md:text-base"
+              >
+                Explore Case Studies
+              </a>
+            </div>
           </div>
-          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6">
-            Success Stories & <span className="gradient-text">Client Impact</span>
-          </h1>
-          <p data-aos="fade-up" data-aos-delay="150" className="font-body text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
-            Discover how we've helped businesses across industries achieve measurable digital transformation goals.
-          </p>
-          <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center mt-10">
-            <Link 
-              to="/contact" 
-              data-cursor="button" 
-              className="group inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg bg-brand-gradient hover:shadow-[0_8px_30px_rgba(13,94,246,0.3)] text-sm md:text-base"
-            >
-              Start Your Project
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="transform group-hover:translate-x-1 transition-transform duration-200"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </Link>
-            <a 
-              href="#showcase" 
-              data-cursor="link" 
-              className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 text-sm md:text-base"
-            >
-              Explore Case Studies
-            </a>
+
+          {/* Right Side: The 3D Visual */}
+          <div className="lg:col-span-5 flex justify-center items-center relative">
+            {/* Ambient cyan backlight behind the 3D visual */}
+            <div className="absolute w-[350px] h-[350px] bg-cyan/15 rounded-full blur-[100px] pointer-events-none z-0" />
+
+            <img
+              src={projects3dVisual}
+              alt="3D Iridescent abstract glass prism visual representation of creative impact"
+              className="w-full max-w-[340px] xl:max-w-[420px] h-auto object-contain relative z-10 animate-float"
+              style={{
+                animationDuration: '8s',
+                transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
+                transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)',
+                filter: isHovered ? 'drop-shadow(0 15px 30px rgba(13,94,246,0.3))' : 'drop-shadow(0 5px 15px rgba(13,94,246,0.1))',
+              }}
+            />
           </div>
+
         </div>
       </section>
 
@@ -270,7 +354,7 @@ export default function Projects() {
                 {/* Content Section (Bottom) */}
                 <div className="p-8 flex flex-col flex-grow justify-between relative z-10">
                   <div className="flex justify-between items-start gap-4 mb-6">
-                    <span 
+                    <span
                       className="font-mono text-[0.7rem] font-bold tracking-widest uppercase rounded-full px-4 py-1.5 border"
                       style={{ color: project.color, borderColor: `${project.color}20`, background: `${project.color}08` }}
                     >
@@ -280,9 +364,9 @@ export default function Projects() {
                       {project.industry}
                     </span>
                   </div>
-                  
+
                   <div className="flex-grow flex flex-col justify-between">
-                    <h3 
+                    <h3
                       className="font-display font-bold text-white text-xl lg:text-2xl mb-6 leading-tight transition-colors duration-300"
                       style={{ color: '#ffffff' }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = project.color }}
@@ -303,13 +387,13 @@ export default function Projects() {
           </div>
 
           <div className="text-center mt-16">
-            <Link 
-              to="/contact" 
-              data-cursor="button" 
+            <Link
+              to="/contact"
+              data-cursor="button"
               className="inline-flex items-center gap-3 text-white font-display font-bold px-10 py-4 rounded-full border border-white/10 bg-zinc-900/50 hover:bg-zinc-900 transition-all duration-300 hover:border-white/20"
             >
               Show All Projects
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
           </div>
         </div>
@@ -384,7 +468,7 @@ export default function Projects() {
                   <span className="font-mono text-3xl font-black text-white/10 group-hover:text-white transition-colors duration-300">
                     {item.step}
                   </span>
-                  <div 
+                  <div
                     className="w-2 h-2 rounded-full transition-all duration-300"
                     style={{ backgroundColor: item.color, boxShadow: `0 0 10px ${item.color}` }}
                   />
@@ -468,17 +552,17 @@ export default function Projects() {
                 }}
               >
                 {/* Dynamic Background Glow on Hover */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 pointer-events-none"
-                  style={{ 
-                    background: `radial-gradient(circle at center, ${stat.color}15 0%, transparent 70%)` 
+                  style={{
+                    background: `radial-gradient(circle at center, ${stat.color}15 0%, transparent 70%)`
                   }}
                 />
-                
+
                 {/* Top Border Glow Line */}
-                <div 
+                <div
                   className="absolute top-0 left-0 right-0 h-[2px] w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left pointer-events-none"
-                  style={{ 
+                  style={{
                     background: `linear-gradient(90deg, transparent, ${stat.color}, transparent)`,
                     boxShadow: `0 2px 15px ${stat.color}80`
                   }}
@@ -487,22 +571,22 @@ export default function Projects() {
                 {/* Redesigned Icon Container */}
                 <div className="relative w-24 h-24 flex items-center justify-center mb-8">
                   {/* Outer spinning dashed ring */}
-                  <div 
+                  <div
                     className="absolute inset-0 rounded-full border border-dashed opacity-30 transition-transform duration-[3000ms] group-hover:rotate-180 group-hover:opacity-100"
                     style={{ borderColor: stat.color }}
                   />
-                  
+
                   {/* Inner glowing circle */}
-                  <div 
+                  <div
                     className="absolute inset-2 rounded-full flex items-center justify-center transition-all duration-500 group-hover:scale-110"
-                    style={{ 
-                      background: `linear-gradient(135deg, ${stat.color}15, transparent)`, 
+                    style={{
+                      background: `linear-gradient(135deg, ${stat.color}15, transparent)`,
                       border: `1px solid ${stat.color}30`,
                       boxShadow: `inset 0 0 20px ${stat.color}10, 0 0 20px ${stat.color}20`
                     }}
                   >
                     {/* SVG Icon */}
-                    <div 
+                    <div
                       className="text-white transition-all duration-500 group-hover:scale-110 group-hover:drop-shadow-[0_0_10px_currentColor]"
                       style={{ color: stat.color }}
                     >
@@ -514,12 +598,12 @@ export default function Projects() {
                   <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 group-hover:-translate-y-2 group-hover:translate-x-2" style={{ backgroundColor: stat.color, boxShadow: `0 0 10px ${stat.color}` }} />
                   <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200 group-hover:translate-y-2 group-hover:-translate-x-2" style={{ backgroundColor: stat.color, boxShadow: `0 0 10px ${stat.color}` }} />
                 </div>
-                
+
                 <div className="relative z-10 w-full">
-                  <div 
-                    className="text-5xl md:text-6xl font-black font-display tracking-tighter mb-4 select-none transition-all duration-500 group-hover:scale-105" 
-                    style={{ 
-                      color: stat.color, 
+                  <div
+                    className="text-5xl md:text-6xl font-black font-display tracking-tighter mb-4 select-none transition-all duration-500 group-hover:scale-105"
+                    style={{
+                      color: stat.color,
                       filter: `drop-shadow(0 0 20px ${stat.color}30)`,
                       textShadow: `0 0 30px ${stat.color}40`
                     }}
