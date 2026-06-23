@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom'
 import FAQ from '../components/home/FAQ'
 import Testimonials from '../components/home/Testimonials'
+import ImageTrail, { type ImageTrailImage } from '../components/ui/ImageTrail'
+import AuroraHero from '../components/ui/AuroraHero'
+import PerspectiveGrid from '../components/ui/PerspectiveGrid'
+import LightLines from '../components/ui/LightLines'
+import PrismaticBurst from '../components/ui/PrismaticBurst'
 
 interface PricingPlan {
   name: string
@@ -17,77 +22,391 @@ interface ServicePageProps {
   description: string
   color?: string
   bgImage?: string
+  useImageTrail?: boolean
+  useAuroraHero?: boolean
+  usePerspectiveGrid?: boolean
+  useLightLines?: boolean
+  usePrismaticBurst?: boolean
+  imageTrailImages?: Array<string | ImageTrailImage>
   whatWeOffer: { title: string; desc: string }[]
   steps: { number: string; title: string; desc: string }[]
   pricing: PricingPlan[]
 }
 
 export default function ServicePageTemplate({
-  title, subtitle, description, color = '#0D5EF6', bgImage,
+  title, subtitle, description, color = '#0D5EF6', bgImage, useImageTrail, useAuroraHero, usePerspectiveGrid, useLightLines, usePrismaticBurst, imageTrailImages,
   whatWeOffer, steps, pricing
 }: ServicePageProps) {
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black">
-        {/* Full-width Background Image & Soft Gradient Overlay */}
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img
-            src={bgImage || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80"}
-            alt={`${title} background`}
-            className="w-full h-full object-cover opacity-60"
-          />
-          {/* Black Overlap Mask */}
-          <div className="absolute inset-0 bg-black/20" />
-          {/* Subtle gradient overlays to dissolve edges into the black theme */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-          {/* Subtle color ambient radial glow overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.25]" 
-            style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }} 
-          />
-        </div>
+      {usePerspectiveGrid ? (
+        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+          {/* Background Grid */}
+          <div className="absolute inset-0 z-1 select-none pointer-events-auto">
+            <PerspectiveGrid className="w-full h-full" fadeRadius={100} />
+          </div>
 
-        <div className="relative z-10 max-w-[900px] mx-auto w-full">
-          <div 
-            data-aos="fade-down" 
-            className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md"
-            style={{ color: color, borderColor: `${color}30` }}
-          >
-            {subtitle}
+          {/* Ambient radial glow overlay */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            {/* Black Overlap Mask */}
+            <div className="absolute inset-0 bg-black/10" />
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.25]"
+              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
+            />
           </div>
-          <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
-            {title.split(/\n|\\n/).map((line, i) => (
-              <span key={i} className={i === 1 ? 'gradient-text' : ''}>
-                {line}
-              </span>
-            ))}
-          </h1>
-          <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
-            {description}
-          </p>
-          <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
-            <Link 
-              to="/contact" 
-              data-cursor="button" 
-              className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
-              style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              style={{ borderColor: `${color}30` }}
             >
-              Get Started
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </Link>
-            <Link 
-              to="/projects" 
-              data-cursor="link" 
-              className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
-              style={{ '--hover-color': color } as any}
-            >
-              View Achievements
-            </Link>
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : useLightLines ? (
+        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+          {/* Light Lines Background */}
+          <LightLines 
+            className="w-full h-full"
+            gradientFrom="#02040a"
+            gradientTo="#000000"
+            lightColor="#0D5EF6"
+            lineColor="rgba(13, 94, 246, 0.15)"
+            linesOpacity={0.4}
+            lightsOpacity={0.6}
+            speedMultiplier={0.7}
+          />
+
+          {/* Ambient radial glow overlay */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.2]"
+              style={{ background: `radial-gradient(circle at 50% 50%, #0D5EF6, transparent 65%)` }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              style={{ borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : useAuroraHero ? (
+        <AuroraHero className="pt-40 pb-24 px-8 text-center bg-black min-h-[70vh] no-splash">
+          {/* Soft Gradient Overlay and Ambient Radial Glow */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            {/* Black Overlap Mask */}
+            <div className="absolute inset-0 bg-black/20" />
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.25]"
+              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              style={{ borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </AuroraHero>
+      ) : useImageTrail ? (
+        <ImageTrail
+          images={imageTrailImages}
+          className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash"
+        >
+          {/* Soft Gradient Overlay and Ambient Radial Glow */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            {/* Black Overlap Mask */}
+            <div className="absolute inset-0 bg-black/20" />
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.25]"
+              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md"
+              style={{ color: color, borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </ImageTrail>
+      ) : usePrismaticBurst ? (
+        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+          {/* Prismatic Burst Background */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-auto">
+            <PrismaticBurst
+              intensity={3.5}
+              speed={0.4}
+              animationType="rotate3d"
+              paused={false}
+              offset={{ x: 0, y: 0 }}
+              hoverDampness={0.25}
+              rayCount={24}
+              mixBlendMode="lighten"
+              colors={[color, '#04B9CA', '#ffffff']}
+            />
+          </div>
+
+          {/* Ambient radial glow overlay */}
+          <div className="absolute inset-0 z-1 select-none pointer-events-none">
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.35]"
+              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              style={{ borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : (
+        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black">
+          {/* Full-width Background Image & Soft Gradient Overlay */}
+          <div className="absolute inset-0 z-0 select-none pointer-events-none">
+            <img
+              src={bgImage || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=80"}
+              alt={`${title} background`}
+              className="w-full h-full object-cover opacity-60"
+            />
+            {/* Black Overlap Mask */}
+            <div className="absolute inset-0 bg-black/20" />
+            {/* Subtle gradient overlays to dissolve edges into the black theme */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
+            {/* Subtle color ambient radial glow overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.25]"
+              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
+            />
+          </div>
+
+          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+            <div
+              data-aos="fade-down"
+              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md"
+              style={{ color: color, borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* What We Offer */}
       <section className="bg-black py-12 px-8">
@@ -105,15 +424,15 @@ export default function ServicePageTemplate({
                 data-aos-delay={`${i * 80}`}
                 className="group bg-zinc-950/60 border border-white/5 rounded-2xl p-8 transition-all duration-500 shadow-2xl hover:border-white/10 hover:-translate-y-1.5"
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `${color}35`
-                  e.currentTarget.style.boxShadow = `0 15px 30px -5px ${color}10`
+                  e.currentTarget.style.borderColor = `${color}70`
+                  e.currentTarget.style.boxShadow = `0 15px 30px -5px ${color}25`
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'
                   e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.4)'
                 }}
               >
-                <div 
+                <div
                   className="w-10 h-1 rounded-full mb-6"
                   style={{ background: `linear-gradient(90deg, ${color}, #04B9CA)` }}
                 />
@@ -129,13 +448,13 @@ export default function ServicePageTemplate({
       <section className="bg-black py-12 px-8 relative overflow-hidden">
         {/* Soft background ambient mesh glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-primary/5 rounded-full blur-[120px] pointer-events-none z-0" />
-        
+
         <div className="max-w-[1200px] mx-auto relative z-10">
-          
+
           {/* Header */}
           <div className="text-center mb-20">
-            <div 
-              data-aos="fade-down" 
+            <div
+              data-aos="fade-down"
               className="inline-block font-mono text-[0.7rem] font-bold tracking-[0.2em] uppercase rounded-full px-4 py-1.5 mb-6 border"
               style={{ color: color, backgroundColor: `${color}15`, borderColor: `${color}30` }}
             >
@@ -161,14 +480,14 @@ export default function ServicePageTemplate({
                   className="group relative flex flex-col items-stretch text-left"
                 >
                   {/* Step Card */}
-                  <div 
+                  <div
                     className="flex-grow rounded-xl bg-zinc-950/40 border border-white/5 p-8 transition-all duration-500 hover:-translate-y-1.5 hover:border-white/10 relative flex flex-col justify-between min-h-[280px]"
                     style={{
                       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4)',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = `${color}30`;
-                      e.currentTarget.style.boxShadow = `0 20px 40px -10px ${color}12`;
+                      e.currentTarget.style.borderColor = `${color}70`;
+                      e.currentTarget.style.boxShadow = `0 20px 40px -10px ${color}25`;
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
@@ -179,11 +498,11 @@ export default function ServicePageTemplate({
                     <div>
                       {/* Step Indicator Badge */}
                       <div className="flex items-center justify-between mb-8">
-                        <div 
+                        <div
                           className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center bg-zinc-900 font-mono font-black text-sm text-white shadow-inner relative group-hover:scale-105 transition-all duration-500"
                         >
                           {/* Pulsing colored center core */}
-                          <div 
+                          <div
                             className="absolute -inset-0.5 rounded-full opacity-[0.1] group-hover:opacity-[0.25] transition-opacity duration-300"
                             style={{ backgroundColor: color }}
                           />
@@ -200,7 +519,7 @@ export default function ServicePageTemplate({
                     </div>
 
                     {/* Bottom Dynamic Accent Bar */}
-                    <div 
+                    <div
                       className="h-1 w-12 rounded-full mt-8 opacity-40 group-hover:w-full group-hover:opacity-100 transition-all duration-500"
                       style={{ background: `linear-gradient(90deg, ${color}, #04B9CA)` }}
                     />
@@ -211,7 +530,6 @@ export default function ServicePageTemplate({
           </div>
         </div>
       </section>
-
       <Testimonials />
 
       {/* Pricing */}
@@ -228,26 +546,31 @@ export default function ServicePageTemplate({
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={`${i * 100}`}
-                className={`rounded-[2.5rem] p-8 md:p-10 transition-all duration-500 shadow-2xl relative overflow-hidden flex flex-col h-full ${
-                  plan.recommended 
-                  ? 'border-2 scale-105 z-10' 
+                className={`rounded-[2.5rem] p-8 md:p-10 transition-all duration-500 shadow-2xl relative overflow-hidden flex flex-col h-full hover:-translate-y-1.5 ${plan.recommended
+                  ? 'border-2 scale-105 z-10 hover:scale-[1.07]'
                   : 'bg-zinc-950/50 border border-white/5 hover:border-white/10'
-                }`}
-                style={{ 
+                  }`}
+                style={{
                   borderColor: plan.recommended ? color : 'rgba(255, 255, 255, 0.05)',
-                  backgroundColor: plan.recommended ? `${color}06` : undefined,
+                  backgroundColor: plan.recommended ? `${color}0d` : undefined,
                   boxShadow: plan.recommended ? `0 30px 80px ${color}15` : '0 15px 40px rgba(0, 0, 0, 0.4)'
                 }}
                 onMouseEnter={(e) => {
                   if (!plan.recommended) {
-                    e.currentTarget.style.borderColor = `${color}30`
-                    e.currentTarget.style.boxShadow = `0 25px 50px -12px ${color}12`
+                    e.currentTarget.style.borderColor = `${color}70`
+                    e.currentTarget.style.boxShadow = `0 25px 50px -12px ${color}25`
+                  } else {
+                    e.currentTarget.style.boxShadow = `0 35px 90px ${color}40`
+                    e.currentTarget.style.backgroundColor = `${color}16`
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!plan.recommended) {
                     e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)'
                     e.currentTarget.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.4)'
+                  } else {
+                    e.currentTarget.style.boxShadow = `0 30px 80px ${color}15`
+                    e.currentTarget.style.backgroundColor = `${color}0d`
                   }
                 }}
               >
@@ -256,7 +579,7 @@ export default function ServicePageTemplate({
                     {plan.badge}
                   </div>
                 )}
-                
+
                 <div className="mb-8">
                   <h3 className="font-display font-bold text-white text-xl mb-4">{plan.name}</h3>
                   <div className="flex items-baseline gap-1">
@@ -273,11 +596,11 @@ export default function ServicePageTemplate({
                 <div className="border-t border-white/5 pt-8 mb-10 space-y-4 flex-1">
                   {plan.features.map((f, j) => (
                     <div key={j} className="flex items-start gap-3">
-                      <div 
+                      <div
                         className="w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 shadow-sm"
                         style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)` }}
                       >
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="3.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="black" strokeWidth="3.5"><polyline points="20 6 9 17 4 12" /></svg>
                       </div>
                       <span className="font-body text-zinc-400 text-sm leading-relaxed">{f}</span>
                     </div>
@@ -287,10 +610,9 @@ export default function ServicePageTemplate({
                 <Link
                   to="/contact"
                   data-cursor="button"
-                  className={`w-full py-4 rounded-2xl font-display font-bold text-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:shadow-xl ${
-                    plan.recommended ? 'text-black font-extrabold' : 'bg-transparent border-2 border-white/10 text-white hover:border-white/20 hover:bg-white/5'
-                  }`}
-                  style={{ 
+                  className={`w-full py-4 rounded-2xl font-display font-bold text-center transition-all duration-300 shadow-lg hover:-translate-y-1 hover:shadow-xl ${plan.recommended ? 'text-black font-extrabold' : 'bg-transparent border-2 border-white/10 text-white hover:border-white/20 hover:bg-white/5'
+                    }`}
+                  style={{
                     background: plan.recommended ? `linear-gradient(135deg, ${color}, #04B9CA)` : undefined,
                     borderColor: !plan.recommended ? 'rgba(255, 255, 255, 0.1)' : undefined
                   }}
@@ -302,7 +624,6 @@ export default function ServicePageTemplate({
           </div>
         </div>
       </section>
-
       <FAQ />
     </main>
   )

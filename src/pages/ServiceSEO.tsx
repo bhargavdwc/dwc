@@ -7,7 +7,57 @@ export default function ServiceSEO() {
       subtitle="SEO Services"
       description="We help businesses grow with data-driven SEO strategies that deliver sustainable organic traffic growth, improved search rankings, and measurable ROI."
       color="#0D5EF6"
-      bgImage="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop&q=80"
+      useImageTrail={true}
+      imageTrailImages={[
+        {
+          src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=480&q=80",
+          alt: "Analytics dashboard showing charts and web traffic data"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=480&q=80",
+          alt: "SEO chart growth and website metrics on screen"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1562577309-4932fdd64cd1?auto=format&fit=crop&w=480&q=80",
+          alt: "SEO auditing dashboard displaying web analysis"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=480&q=80",
+          alt: "Data analytics graphs and statistics sheet"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=480&q=80",
+          alt: "Team workspace with performance metrics and design sketches"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=480&q=80",
+          alt: "SEO strategy brainstorming session with digital marketers"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=480&q=80",
+          alt: "SEO search keyword planning and research on screen"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=480&q=80",
+          alt: "Team discussing digital marketing strategy and analytics graph"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=480&q=80",
+          alt: "Presentation slide showing traffic conversion metrics and data"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1542744094-3a31f103e35f?auto=format&fit=crop&w=480&q=80",
+          alt: "Workspace with SEO ranking charts on desktop screen"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=480&q=80",
+          alt: "Web designer structuring site content layout for indexing"
+        },
+        {
+          src: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=480&q=80",
+          alt: "Launch data showing traffic growth trends"
+        }
+      ]}
       whatWeOffer={[
         { title: 'Technical SEO Audit', desc: 'Comprehensive audit of your website structure, speed, mobile optimization, and Core Web Vitals to eliminate ranking barriers.' },
         { title: 'Keyword Strategy', desc: 'In-depth keyword research to identify high-intent search terms your ideal customers are actively using.' },

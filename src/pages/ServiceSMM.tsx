@@ -7,7 +7,7 @@ export default function ServiceSMM() {
       subtitle="SMM Services"
       description="Build a powerful brand presence, grow an engaged community, and drive real business results across Instagram, Facebook, LinkedIn, and more."
       color="#04B9CA"
-      bgImage="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&auto=format&fit=crop&q=80"
+      usePerspectiveGrid={true}
       whatWeOffer={[
         { title: 'Social Media Strategy', desc: 'Custom content strategies tailored to your brand voice, target audience, and business goals.' },
         { title: 'Content Creation', desc: 'Stunning graphics, videos, reels, and carousels that stop the scroll and drive engagement.' },
