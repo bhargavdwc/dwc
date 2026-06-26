@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import FAQ from '../components/home/FAQ'
 import DotBackground from '../components/three/DotBackground'
-import contact3dVisual from '../assets/contact_3d_visual.png'
+import contact3dVisual from '../assets/ChatGPT_Image_Jun_25__2026__12_41_38_PM-removebg-preview.png'
 
 const services = ['Search Engine Optimization', 'Social Media Marketing', 'Pay-Per-Click (PPC)', 'Meta Ads', 'LinkedIn Marketing', 'Website Development', 'Graphic Design', 'Content Marketing', 'Other']
 
 export default function Contact() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', company: '', service: '', message: '' })
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [isHovered, setIsHovered] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -22,10 +22,32 @@ export default function Contact() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus('loading')
-    setTimeout(() => setStatus('success'), 2000)
+    try {
+      const target = e.target as HTMLFormElement
+      const formData = new FormData(target)
+      // Combine first + last name into a single "name" field for Web3Forms
+      formData.set('name', `${form.firstName} ${form.lastName}`.trim())
+      formData.append('access_key', 'a825aac6-7cd8-4618-b763-f274d1f0d081')
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      })
+      const data = await response.json()
+      if (data.success) {
+        setStatus('success')
+        setForm({ firstName: '', lastName: '', email: '', company: '', service: '', message: '' })
+        setTimeout(() => setStatus('idle'), 3000)
+      } else {
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 4000)
+      }
+    } catch {
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 4000)
+    }
   }
 
   return (
@@ -33,11 +55,14 @@ export default function Contact() {
 
       {/* ─── HERO: Split-Screen Communication Hub ─── */}
       <section
-        className="lg:pt-28 pt-20 pb-20 md:pb-28 px-6 md:px-12 relative overflow-hidden bg-black"
+        className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
         onMouseMove={handleHeroMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => { setIsHovered(false); setTilt({ x: 0, y: 0 }) }}
       >
+        {/* Giant rotated background element on the right-side top corner */}
+        <div className="absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-[#0D5EF6] via-[#088BF1] to-[#04B9CA] rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl" />
+
         {/* Cybernetic grid bg */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.025)_1px,transparent_1px)] bg-[size:42px_42px] pointer-events-none" />
 
@@ -67,7 +92,6 @@ export default function Contact() {
               data-aos="fade-down"
               className="inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.2em] uppercase text-cyan bg-cyan/8 border border-cyan/25 rounded-full px-5 py-1.5 mb-7 shadow-[0_0_20px_rgba(4,185,202,0.15)] hover:shadow-[0_0_35px_rgba(4,185,202,0.3)] transition-shadow duration-300 cursor-default select-none bg-white"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse" />
               Get In Touch
             </div>
 
@@ -103,7 +127,7 @@ export default function Contact() {
           </div>
 
           {/* ── RIGHT: 3D Visual ── */}
-          <div className="lg:col-span-6 flex justify-center items-center relative lg:-mt-16 -mt-8 w-full">
+          <div className="lg:col-span-6 flex justify-center items-center relative lg:-mt-16 -mt-8 w-full z-10">
             {/* Ambient cyan backlight behind the 3D visual */}
             <div className="absolute w-[240px] h-[240px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] bg-cyan/15 rounded-full blur-[80px] md:blur-[100px] pointer-events-none z-0" />
 
@@ -119,15 +143,11 @@ export default function Contact() {
               }}
             />
           </div>
-
         </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none" />
       </section>
 
       {/* Contact layout */}
-      <section id="contact-form-section" className="bg-black px-8">
+      <section id="contact-form-section" className="bg-black px-8 relative overflow-hidden py-12">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Left — Info */}
@@ -217,24 +237,26 @@ export default function Contact() {
           </div>
 
           {/* Right — Form */}
-          <div data-aos="fade-left">
+          <div data-aos="fade-left" className="w-full">
             <form
               onSubmit={handleSubmit}
-              className="contact-form-container bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 md:p-12 shadow-[0_0_50px_rgba(4,185,202,0.1)]"
+              className="contact-form-container bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 md:p-12 shadow-[0_0_50px_rgba(4,185,202,0.1)] relative z-10"
             >
+              {/* Hidden Web3Forms honeypot to prevent spam */}
+              <input type="checkbox" name="botcheck" className="hidden" />
               <div className="grid gap-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div className="relative group">
                     <input
                       className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent"
-                      type="text" placeholder="First Name" required value={form.firstName} onChange={e => setForm(s => ({ ...s, firstName: e.target.value }))} id="first-name"
+                      type="text" name="first_name" placeholder="First Name" required value={form.firstName} onChange={e => setForm(s => ({ ...s, firstName: e.target.value }))} id="first-name"
                     />
                     <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="first-name">First Name</label>
                   </div>
                   <div className="relative group">
                     <input
                       className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent"
-                      type="text" placeholder="Last Name" required value={form.lastName} onChange={e => setForm(s => ({ ...s, lastName: e.target.value }))} id="last-name"
+                      type="text" name="last_name" placeholder="Last Name" required value={form.lastName} onChange={e => setForm(s => ({ ...s, lastName: e.target.value }))} id="last-name"
                     />
                     <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="last-name">Last Name</label>
                   </div>
@@ -242,21 +264,21 @@ export default function Contact() {
                 <div className="relative group">
                   <input
                     className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent"
-                    type="email" placeholder="Email" required value={form.email} onChange={e => setForm(s => ({ ...s, email: e.target.value }))} id="contact-email-main"
+                    type="email" name="email" placeholder="Email" required value={form.email} onChange={e => setForm(s => ({ ...s, email: e.target.value }))} id="contact-email-main"
                   />
                   <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="contact-email-main">Email Address</label>
                 </div>
                 <div className="relative group">
                   <input
                     className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-6 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent"
-                    type="text" placeholder="Company" value={form.company} onChange={e => setForm(s => ({ ...s, company: e.target.value }))} id="company-name"
+                    type="text" name="company" placeholder="Company" value={form.company} onChange={e => setForm(s => ({ ...s, company: e.target.value }))} id="company-name"
                   />
                   <label className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="company-name">Your Company Name</label>
                 </div>
                 <div className="relative group">
                   <select
                     className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-4 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 appearance-none"
-                    value={form.service} onChange={e => setForm(s => ({ ...s, service: e.target.value }))} id="service-select"
+                    name="service" value={form.service} onChange={e => setForm(s => ({ ...s, service: e.target.value }))} id="service-select"
                   >
                     <option value="" className="text-dark bg-white">Select a Service</option>
                     {services.map(s => <option key={s} value={s} className="text-dark bg-white">{s}</option>)}
@@ -268,16 +290,18 @@ export default function Contact() {
                 <div className="relative group">
                   <textarea
                     className="peer w-full bg-black/20 border border-white/10 rounded-xl px-4 pt-8 pb-2 text-white text-sm outline-none transition-all duration-300 focus:border-cyan focus:bg-black/40 focus:ring-4 focus:ring-cyan/10 placeholder-transparent min-h-[120px] resize-y"
-                    placeholder="Project Requirements" rows={4} value={form.message} onChange={e => setForm(s => ({ ...s, message: e.target.value }))} id="project-message"
+                    name="message" placeholder="Project Requirements" rows={4} value={form.message} onChange={e => setForm(s => ({ ...s, message: e.target.value }))} id="project-message"
                   />
                   <label className="absolute left-4 top-6 -translate-y-1/2 text-white/50 text-sm transition-all duration-300 pointer-events-none peer-focus:top-3 peer-focus:translate-y-0 peer-focus:text-[0.7rem] peer-focus:text-cyan peer-[:not(:placeholder-shown)]:top-3 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-[0.7rem] peer-[:not(:placeholder-shown)]:text-cyan" htmlFor="project-message">About Your Project Requirements</label>
                 </div>
 
                 <button
                   type="submit"
-                  disabled={status !== 'idle'}
+                  disabled={status === 'loading' || status === 'success'}
                   className={`w-full p-4 rounded-xl font-display font-semibold text-base transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden shadow-lg group
-                    ${status === 'success' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white' : 'bg-brand-gradient text-dark hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(4,185,202,0.4)]'}`}
+                    ${status === 'success' ? 'bg-gradient-to-r from-emerald-500 to-emerald-600 text-white' :
+                    status === 'error' ? 'bg-gradient-to-r from-red-500 to-rose-600 text-white' :
+                    'bg-brand-gradient text-dark hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(4,185,202,0.4)]'}`}
                 >
                   {status === 'idle' && (
                     <>
@@ -297,6 +321,12 @@ export default function Contact() {
                     <>
                       <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                       Message Sent!
+                    </>
+                  )}
+                  {status === 'error' && (
+                    <>
+                      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                      Failed — Try Again
                     </>
                   )}
                 </button>

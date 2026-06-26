@@ -13,7 +13,7 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="bg-[#020303] py-8">
+    <section className="bg-[#020303] py-12 relative overflow-hidden">
       <div className="text-center mb-16">
           <h2 data-aos="fade-up" className="font-display font-bold text-[clamp(2rem,4vw,3rem)] text-white tracking-tight">
             Let's <span className="bg-brand-gradient bg-clip-text text-transparent italic font-serif">Connect</span>
@@ -53,10 +53,10 @@ export default function ContactForm() {
         </div>
 
         {/* Right — Form */}
-        <div data-aos="fade-left">
+        <div data-aos="fade-left" className="w-full">
           <form
             onSubmit={handleSubmit}
-            className="contact-form-container bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 md:p-10 shadow-[0_0_50px_rgba(4,185,202,0.1)]"
+            className="contact-form-container bg-white/5 backdrop-blur-xl border border-white/10 rounded-[20px] p-8 md:p-10 shadow-[0_0_50px_rgba(4,185,202,0.1)] relative z-10"
           >
             <div className="grid gap-5">
               {/* Name */}

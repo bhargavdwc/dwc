@@ -46,12 +46,12 @@ export default function About() {
   const handleMouseMove = (e: React.MouseEvent) => {
     const { clientX, clientY, currentTarget } = e
     const { left, top, width, height } = currentTarget.getBoundingClientRect()
-    
+
     // Relative coordinates for cursor spotlight glow
     const x = clientX - left
     const y = clientY - top
     setMousePos({ x, y })
-    
+
     // 3D parallax tilt rotation calculations
     const tx = ((clientX - left) / width - 0.5) * 20
     const ty = ((clientY - top) / height - 0.5) * -20
@@ -83,12 +83,15 @@ export default function About() {
   return (
     <main className="bg-black">
       {/* Hero */}
-      <section 
+      <section
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
       >
+        {/* Giant rotated background element on the right-side top corner */}
+        <div className="absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-[#7C3AED] via-[#EC4899] to-[#F59E0B] rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl" />
+
         {/* Subtle Cybernetic Grid Overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
@@ -97,7 +100,7 @@ export default function About() {
 
         {/* Dynamic Cursor Spotlight Glow */}
         {isHovered && (
-          <div 
+          <div
             className="hidden lg:block absolute w-[500px] h-[500px] bg-primary/10 rounded-full blur-[130px] pointer-events-none z-0 transition-opacity duration-300"
             style={{
               left: `${mousePos.x - 250}px`,
@@ -111,12 +114,12 @@ export default function About() {
         <div className="absolute bottom-[10%] left-[10%] w-[35vw] h-[35vw] bg-cyan/10 rounded-full blur-[120px] pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
 
         <div className="max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
-          
+
           {/* Left Side: Content Column */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Translucent pill badge */}
             <div className="bg-white border border-primary/20 rounded-full inline-flex items-center gap-2.5 px-4.5 py-1.5 mb-8 select-none backdrop-blur-md shadow-[0_0_15px_rgba(13,94,246,0.12)] hover:shadow-[0_0_25px_rgba(13,94,246,0.25)] hover:scale-[1.03] transition-all duration-300 cursor-pointer">
-            <span className="font-mono text-sm text-primary tracking-wider">AVAILABLE FOR PROJECTS</span>
+              <span className="font-mono text-sm text-primary tracking-wider">AVAILABLE FOR PROJECTS</span>
             </div>
 
             {/* Headline */}
@@ -129,19 +132,19 @@ export default function About() {
             {/* Paragraph Description */}
             <p className="about-hero-text font-body text-zinc-400 text-lg leading-relaxed max-w-xl mb-10">
               We're your partner in product design, website creation, and branding for every stage of your business.
-            </p>  
+            </p>
           </div>
 
           {/* Right Side: The 3D Loop Visual */}
           <div className="lg:col-span-5 flex justify-center items-center relative">
             {/* Ambient cyan backlight behind the 3D loop */}
             <div className="absolute w-[350px] h-[350px] bg-cyan/15 rounded-full blur-[100px] pointer-events-none z-0" />
-            
+
             <img
               src={purple3dLoop}
               alt="3D Iridescent abstract purple ribbon torus knot sculpture"
-              className="w-full max-w-[340px] xl:max-w-[420px] h-auto object-contain relative z-10 animate-float"
-              style={{ 
+              className="w-full max-w-[280px] md:max-w-[380px] lg:max-w-[460px] xl:max-w-[550px] h-auto object-contain relative z-10 animate-float"
+              style={{
                 animationDuration: '8s',
                 transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,
                 transition: 'transform 0.15s cubic-bezier(0.25, 1, 0.5, 1)',
@@ -209,12 +212,12 @@ export default function About() {
           </div>
 
           {/* Symmetrical Bento Timeline Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 select-none no-splash">
 
             {/* Card 1: 2017 - The Beginning (Span 4) */}
             <div
               data-aos="fade-up"
-              className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              className="lg:col-span-4 group relative overflow-hidden rounded-2xl bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(13,94,246,0.3)'
@@ -262,7 +265,7 @@ export default function About() {
             <div
               data-aos="fade-up"
               data-aos-delay="100"
-              className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              className="lg:col-span-8 group relative overflow-hidden rounded-2xl bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(4,185,202,0.3)'
@@ -402,7 +405,7 @@ export default function About() {
             {/* Card 3: 2021 - Tech Integration (Span 8) */}
             <div
               data-aos="fade-up"
-              className="lg:col-span-8 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              className="lg:col-span-8 group relative overflow-hidden rounded-2xl bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(124,58,237,0.3)'
@@ -472,7 +475,7 @@ export default function About() {
             <div
               data-aos="fade-up"
               data-aos-delay="100"
-              className="lg:col-span-4 group relative overflow-hidden rounded-[2.5rem] bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
+              className="lg:col-span-4 group relative overflow-hidden rounded-2xl bg-zinc-950/60 border border-white/5 p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-2xl"
               style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = 'rgba(245,158,11,0.3)'

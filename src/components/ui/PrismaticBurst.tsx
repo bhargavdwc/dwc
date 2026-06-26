@@ -68,7 +68,7 @@ vec3 rayDir(vec2 frag, vec2 res, vec2 offset, float dist){
 
 float edgeFade(vec2 frag, vec2 res, vec2 offset){
     vec2 toC = frag - 0.5 * res - offset;
-    float r = length(toC) / (0.5 * min(res.x, res.y));
+    float r = length(toC) / (1.2 * max(res.x, res.y));
     float x = clamp(r, 0.0, 1.0);
     float q = x * x * x * (x * (x * 6.0 - 15.0) + 10.0);
     return clamp(1.0 - q, 0.0, 1.0);
@@ -100,7 +100,7 @@ void main(){
 
     for (int i = 0; i < 20; ++i) {
         vec3 P = marchT * dir;
-        P.z -= 2.0;
+        P.z -= 1.2;
         float rad = length(P);
         vec3 Pl = P * (10.0 / max(rad, 1e-6));
 

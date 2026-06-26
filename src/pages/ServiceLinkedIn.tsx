@@ -8,6 +8,7 @@ export default function ServiceLinkedIn() {
       description="Establish authority, generate high-quality B2B leads, and grow your professional network with strategic LinkedIn marketing campaigns."
       color="#0A66C2"
       usePrismaticBurst={true}
+      largeHero={true}
       whatWeOffer={[
         { title: 'LinkedIn Page Optimization', desc: 'Transform your company page into a powerful lead generation tool with compelling content and SEO optimization.' },
         { title: 'Content Strategy', desc: 'Position your brand as an industry leader with thought leadership articles, company updates, and engaging posts.' },

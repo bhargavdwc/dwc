@@ -227,6 +227,9 @@ export default function Projects() {
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
       >
+        {/* Giant rotated background element on the right-side top corner */}
+        <div className="absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-[#7C3AED] via-[#A855F7] to-[#EC4899] rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl" />
+
         {/* Subtle Cybernetic Grid Overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.02)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" />
 
@@ -292,7 +295,7 @@ export default function Projects() {
             <img
               src={projects3dVisual}
               alt="3D Iridescent abstract glass prism visual representation of creative impact"
-              className="w-full max-w-[340px] xl:max-w-[420px] h-auto object-contain relative z-10 animate-float"
+              className="w-full max-w-[280px] md:max-w-[380px] lg:max-w-[460px] xl:max-w-[550px] h-auto object-contain relative z-10 animate-float"
               style={{
                 animationDuration: '8s',
                 transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg)`,

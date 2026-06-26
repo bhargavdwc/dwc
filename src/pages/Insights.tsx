@@ -77,6 +77,9 @@ export default function Insights() {
         onMouseLeave={handleMouseLeave}
         className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
       >
+        {/* Giant rotated background element on the right-side top corner */}
+        <div className="absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-[#0D5EF6] via-[#4F46E5] to-[#7C3AED] rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl" />
+
         {/* Subtle Circuit Board Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0">
           <svg className="w-full h-full" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -127,7 +130,7 @@ export default function Insights() {
             {/* Headline */}
             <h1 className="insights-hero-text font-display font-bold text-white text-[clamp(2.5rem,6vw,4.5rem)] leading-[1.1] tracking-tighter mb-6">
               Latest Insights & <br className="hidden md:block" />
-              <span className="gradient-text">Thought Leadership</span>
+              <span className="gradient-text">Leadership</span>
             </h1>
 
             {/* Paragraph Description */}

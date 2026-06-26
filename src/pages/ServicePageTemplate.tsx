@@ -3,6 +3,7 @@ import FAQ from '../components/home/FAQ'
 import Testimonials from '../components/home/Testimonials'
 import ImageTrail, { type ImageTrailImage } from '../components/ui/ImageTrail'
 import AuroraHero from '../components/ui/AuroraHero'
+import FluidMorphBg from '../components/ui/FluidMorphBg'
 import PerspectiveGrid from '../components/ui/PerspectiveGrid'
 import LightLines from '../components/ui/LightLines'
 import PrismaticBurst from '../components/ui/PrismaticBurst'
@@ -24,6 +25,7 @@ interface ServicePageProps {
   bgImage?: string
   useImageTrail?: boolean
   useAuroraHero?: boolean
+  useFluidMorphBg?: boolean
   usePerspectiveGrid?: boolean
   useLightLines?: boolean
   usePrismaticBurst?: boolean
@@ -31,17 +33,34 @@ interface ServicePageProps {
   whatWeOffer: { title: string; desc: string }[]
   steps: { number: string; title: string; desc: string }[]
   pricing: PricingPlan[]
+  largeHero?: boolean
 }
 
 export default function ServicePageTemplate({
-  title, subtitle, description, color = '#0D5EF6', bgImage, useImageTrail, useAuroraHero, usePerspectiveGrid, useLightLines, usePrismaticBurst, imageTrailImages,
-  whatWeOffer, steps, pricing
+  title, subtitle, description, color = '#0D5EF6', bgImage, useImageTrail, useAuroraHero, useFluidMorphBg, usePerspectiveGrid, useLightLines, usePrismaticBurst, imageTrailImages,
+  whatWeOffer, steps, pricing, largeHero = false
 }: ServicePageProps) {
+  const sectionClass = `pt-40 pb-24 px-8 text-center relative overflow-hidden flex items-center bg-black no-splash ${largeHero ? 'min-h-screen py-32' : 'min-h-[70vh]'}`
+
+  const containerClass = "relative z-10 mx-auto w-full pointer-events-none max-w-[900px]"
+
+  const containerInteractiveClass = "relative z-10 mx-auto w-full max-w-[900px]"
+
+  const subtitleClass = "inline-block font-mono font-black tracking-[0.2em] uppercase rounded-full border bg-white shadow-md px-5 py-2 mb-6 text-[0.78rem]"
+
+  const titleClass = "font-display font-bold text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line text-[clamp(2.5rem,6vw,4.5rem)]"
+
+  const descClass = "text-white/65 leading-relaxed mx-auto text-lg lg:text-xl max-w-2xl mb-10"
+
+  const primaryBtnClass = "shimmer-btn inline-flex items-center text-white font-display font-bold rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto px-8 py-3.5 gap-2"
+
+  const secondaryBtnClass = "inline-flex items-center bg-transparent text-white font-display font-bold rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto px-8 py-3.5 gap-2"
+
   return (
     <main className="bg-black">
       {/* Hero */}
       {usePerspectiveGrid ? (
-        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+        <section className={sectionClass}>
           {/* Background Grid */}
           <div className="absolute inset-0 z-1 select-none pointer-events-auto">
             <PerspectiveGrid className="w-full h-full" fadeRadius={100} />
@@ -61,38 +80,38 @@ export default function ServicePageTemplate({
             />
           </div>
 
-          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+          <div className={containerClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              className={`${subtitleClass} text-black`}
               style={{ borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements
@@ -101,9 +120,9 @@ export default function ServicePageTemplate({
           </div>
         </section>
       ) : useLightLines ? (
-        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+        <section className={sectionClass}>
           {/* Light Lines Background */}
-          <LightLines 
+          <LightLines
             className="w-full h-full"
             gradientFrom="#02040a"
             gradientTo="#000000"
@@ -126,38 +145,86 @@ export default function ServicePageTemplate({
             />
           </div>
 
-          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+          <div className={containerClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              className={`${subtitleClass} text-black`}
               style={{ borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                className={secondaryBtnClass}
+                style={{ '--hover-color': color } as any}
+              >
+                View Achievements
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : useFluidMorphBg ? (
+        <section className={`${sectionClass} !bg-[#282886]`}>
+          {/* FluidMorphBg fills the entire section */}
+          <div className="absolute inset-0 z-0">
+            <FluidMorphBg className="w-full h-full" duration={4} />
+          </div>
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 z-[1] bg-black/30" />
+
+          <div className={`${containerInteractiveClass} z-10`}>
+            <div
+              data-aos="fade-down"
+              className={`${subtitleClass} text-black`}
+              style={{ borderColor: `${color}30` }}
+            >
+              {subtitle}
+            </div>
+            <h1 data-aos="fade-up" className={titleClass}>
+              {title.split(/\n|\\n/).map((line, i) => (
+                <span key={i} className={i === 1 ? 'gradient-text' : ''}>
+                  {line}
+                </span>
+              ))}
+            </h1>
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
+              {description}
+            </p>
+            <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
+              <Link
+                to="/contact"
+                data-cursor="button"
+                className={primaryBtnClass}
+                style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
+              >
+                Get Started
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </Link>
+              <Link
+                to="/projects"
+                data-cursor="link"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements
@@ -166,53 +233,39 @@ export default function ServicePageTemplate({
           </div>
         </section>
       ) : useAuroraHero ? (
-        <AuroraHero className="pt-40 pb-24 px-8 text-center bg-black min-h-[70vh] no-splash">
-          {/* Soft Gradient Overlay and Ambient Radial Glow */}
-          <div className="absolute inset-0 z-0 select-none pointer-events-none">
-            {/* Black Overlap Mask */}
-            <div className="absolute inset-0 bg-black/20" />
-            {/* Subtle gradient overlays to dissolve edges into the black theme */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-            {/* Subtle color ambient radial glow overlay */}
-            <div
-              className="absolute inset-0 opacity-[0.25]"
-              style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
-            />
-          </div>
-
-          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+        <AuroraHero className={sectionClass} color={color}>
+          <div className={containerInteractiveClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              className={`${subtitleClass} text-black`}
               style={{ borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements
@@ -223,7 +276,7 @@ export default function ServicePageTemplate({
       ) : useImageTrail ? (
         <ImageTrail
           images={imageTrailImages}
-          className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash"
+          className={sectionClass}
         >
           {/* Soft Gradient Overlay and Ambient Radial Glow */}
           <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -239,38 +292,38 @@ export default function ServicePageTemplate({
             />
           </div>
 
-          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+          <div className={containerInteractiveClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md"
+              className={subtitleClass}
               style={{ color: color, borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements
@@ -279,11 +332,11 @@ export default function ServicePageTemplate({
           </div>
         </ImageTrail>
       ) : usePrismaticBurst ? (
-        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black no-splash">
+        <section className={sectionClass}>
           {/* Prismatic Burst Background */}
           <div className="absolute inset-0 z-0 select-none pointer-events-auto">
             <PrismaticBurst
-              intensity={3.5}
+              intensity={0.6}
               speed={0.4}
               animationType="rotate3d"
               paused={false}
@@ -291,7 +344,7 @@ export default function ServicePageTemplate({
               hoverDampness={0.25}
               rayCount={24}
               mixBlendMode="lighten"
-              colors={[color, '#04B9CA', '#ffffff']}
+              colors={[color, '#034B8C', '#01162C']}
             />
           </div>
 
@@ -302,43 +355,43 @@ export default function ServicePageTemplate({
             <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
             {/* Subtle color ambient radial glow overlay */}
             <div
-              className="absolute inset-0 opacity-[0.35]"
+              className="absolute inset-0 opacity-[0.12]"
               style={{ background: `radial-gradient(circle at 50% 50%, ${color}, transparent 65%)` }}
             />
           </div>
 
-          <div className="relative z-10 max-w-[900px] mx-auto w-full pointer-events-none">
+          <div className={containerClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md text-black"
+              className={`${subtitleClass} text-black`}
               style={{ borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg pointer-events-auto"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5 pointer-events-auto"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements
@@ -347,7 +400,7 @@ export default function ServicePageTemplate({
           </div>
         </section>
       ) : (
-        <section className="pt-40 pb-24 px-8 text-center relative overflow-hidden min-h-[70vh] flex items-center bg-black">
+        <section className={sectionClass}>
           {/* Full-width Background Image & Soft Gradient Overlay */}
           <div className="absolute inset-0 z-0 select-none pointer-events-none">
             <img
@@ -367,38 +420,38 @@ export default function ServicePageTemplate({
             />
           </div>
 
-          <div className="relative z-10 max-w-[900px] mx-auto w-full">
+          <div className={containerInteractiveClass}>
             <div
               data-aos="fade-down"
-              className="inline-block font-mono text-[0.78rem] font-black tracking-[0.2em] uppercase rounded-full px-5 py-2 mb-6 border bg-white shadow-md"
+              className={subtitleClass}
               style={{ color: color, borderColor: `${color}30` }}
             >
               {subtitle}
             </div>
-            <h1 data-aos="fade-up" className="font-display font-bold text-[clamp(2.5rem,6vw,4.5rem)] text-white tracking-tighter leading-[1.1] mb-6 whitespace-pre-line">
+            <h1 data-aos="fade-up" className={titleClass}>
               {title.split(/\n|\\n/).map((line, i) => (
                 <span key={i} className={i === 1 ? 'gradient-text' : ''}>
                   {line}
                 </span>
               ))}
             </h1>
-            <p data-aos="fade-up" data-aos-delay="100" className="text-white/65 leading-relaxed text-lg lg:text-xl max-w-2xl mx-auto mb-10">
+            <p data-aos="fade-up" data-aos-delay="100" className={descClass}>
               {description}
             </p>
             <div data-aos="fade-up" data-aos-delay="200" className="flex flex-wrap gap-4 justify-center">
               <Link
                 to="/contact"
                 data-cursor="button"
-                className="shimmer-btn inline-flex items-center gap-2 text-white font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                className={primaryBtnClass}
                 style={{ background: `linear-gradient(135deg, ${color}, #04B9CA)`, boxShadow: `0 8px 30px ${color}40` }}
               >
                 Get Started
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg width={largeHero ? "20" : "18"} height={largeHero ? "20" : "18"} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </Link>
               <Link
                 to="/projects"
                 data-cursor="link"
-                className="inline-flex items-center gap-2 bg-transparent text-white font-display font-bold px-8 py-3.5 rounded-full no-underline border-2 border-white/10 transition-all duration-300 hover:text-primary hover:border-primary hover:bg-primary/5"
+                className={secondaryBtnClass}
                 style={{ '--hover-color': color } as any}
               >
                 View Achievements

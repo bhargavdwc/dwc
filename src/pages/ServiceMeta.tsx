@@ -7,7 +7,7 @@ export default function ServiceMeta() {
       subtitle="Facebook & Instagram Ads"
       description="Reach billions of potential customers on Facebook and Instagram with creative, data-driven Meta ad campaigns that drive awareness, leads, and sales."
       color="#F59E0B"
-      useAuroraHero={true}
+      useFluidMorphBg={true}
       whatWeOffer={[
         { title: 'Facebook Ads', desc: 'Precision-targeted Facebook ad campaigns that reach your ideal customers based on demographics, interests, and behaviors.' },
         { title: 'Instagram Ads', desc: 'Visually stunning Instagram ads — Stories, Reels, Feed — that capture attention and drive action.' },

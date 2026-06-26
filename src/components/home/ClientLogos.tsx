@@ -31,7 +31,7 @@ export default function ClientLogos() {
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=200%', // Scroll for 2 full viewports
+      end: () => window.innerWidth < 768 ? '+=50%' : '+=150%', // Responsive scroll distance
       pin: true,
       scrub: true,
       onUpdate: (self) => {
@@ -43,7 +43,7 @@ export default function ClientLogos() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#020202] h-screen overflow-hidden relative flex flex-col items-center pt-10 lg:pt-14"
+      className="bg-[#020202] h-auto overflow-hidden relative flex flex-col items-center pt-10 lg:pt-14 pb-8 lg:pb-12"
       id="clients"
     >
       {/* Immersive Background Glows */}
@@ -66,10 +66,9 @@ export default function ClientLogos() {
           </h2>
         </div>
 
-        {/* Circular Gallery Container */}
         <div
           ref={containerRef}
-          className="relative h-[500px] lg:h-[600px] w-screen left-1/2 -translate-x-1/2 -mt-16 lg:-mt-32"
+          className="relative h-[380px] lg:h-[600px] w-screen left-1/2 -translate-x-1/2 -mt-10 lg:-mt-32"
         >
           <CircularGallery
             items={clients}
@@ -83,7 +82,7 @@ export default function ClientLogos() {
         </div>
 
         {/* Dynamic Progress Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-4 opacity-40">
+        <div className="flex items-center justify-center gap-4 opacity-40 mt-4 lg:mt-8">
           <div className="w-32 h-[1px] bg-white/10 relative overflow-hidden">
             <div
               className="absolute top-0 left-0 h-full bg-primary transition-transform duration-100 ease-linear"

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DotBackground from '../three/DotBackground';
@@ -18,6 +18,26 @@ const AGENCY_IMAGES = [
 
 const AboutTeaser = () => {
   const sectionRef = useRef(null);
+  const [minRadius, setMinRadius] = useState(380);
+  const [opWidth, setOpWidth] = useState('260px');
+  const [opHeight, setOpHeight] = useState('320px');
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setMinRadius(200);
+        setOpWidth('200px');
+        setOpHeight('240px');
+      } else {
+        setMinRadius(380);
+        setOpWidth('260px');
+        setOpHeight('320px');
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   /* Word split heading */
   useEffect(() => {
@@ -85,21 +105,20 @@ const AboutTeaser = () => {
 
         {/* Right — DomeGallery */}
         <div
-          className="relative"
-          style={{ height: 520 }}
+          className="relative h-[280px] lg:h-[520px]"
           data-aos="fade-left"
           data-aos-duration="1200"
         >
           <DomeGallery
             images={AGENCY_IMAGES}
             fit={0.48}
-            minRadius={380}
+            minRadius={minRadius}
             overlayBlurColor="#111111"
             grayscale={false}
             imageBorderRadius="16px"
             openedImageBorderRadius="20px"
-            openedImageWidth="260px"
-            openedImageHeight="320px"
+            openedImageWidth={opWidth}
+            openedImageHeight={opHeight}
             dragSensitivity={18}
             dragDampening={1.8}
           />

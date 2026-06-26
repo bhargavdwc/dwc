@@ -171,7 +171,7 @@ const AboutSection = () => {
           </div>
 
           {/* ── RIGHT: CardSwap ── */}
-          <div style={{ position: 'relative', height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="hidden lg:flex" style={{ position: 'relative', height: 520, alignItems: 'center', justifyContent: 'center' }}>
             <CardSwap
 
               width={520}
