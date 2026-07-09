@@ -17,18 +17,26 @@ const company = [
 ]
 
 const socials = [
-  { label: 'LinkedIn', icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-  ), href: 'https://in.linkedin.com/company/digitalwebconnection' },
-  { label: 'Instagram', icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-  ), href: 'https://www.instagram.com/digitalwebconnection/' },
-  { label: 'Facebook', icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-  ), href: 'https://www.facebook.com/p/Digitalwebconnection-100092036863467/' },
-  { label: 'Twitter', icon: (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v11A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-  ), href: 'https://x.com/Digiwebconnect' },
+  {
+    label: 'LinkedIn', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" /><circle cx="4" cy="4" r="2" /></svg>
+    ), href: 'https://in.linkedin.com/company/digitalwebconnection'
+  },
+  {
+    label: 'Instagram', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="5" /><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" /></svg>
+    ), href: 'https://www.instagram.com/digitalwebconnection/'
+  },
+  {
+    label: 'Facebook', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" /></svg>
+    ), href: 'https://www.facebook.com/p/Digitalwebconnection-100092036863467/'
+  },
+  {
+    label: 'Twitter', icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v11A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" /></svg>
+    ), href: 'https://x.com/Digiwebconnect'
+  },
 ]
 
 export default function Footer() {
@@ -58,7 +66,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-3 no-underline mb-5 group">
               <img src={logoImg} alt="DWC Logo" className="h-11 w-auto object-contain transition-transform group-hover:scale-105" />
-             
+
             </Link>
             <p className="text-white text-sm leading-relaxed mb-6 max-w-[280px]">
               AI-Driven Digital Marketing Agency in Ahmedabad. Helping brands grow with strategy, creativity, and research.
@@ -85,7 +93,11 @@ export default function Footer() {
             <ul className="list-none flex flex-col gap-3">
               {services.map(s => (
                 <li key={s.path}>
-                  <Link to={s.path} className="text-white/60 no-underline text-sm transition-colors hover:text-primary">
+                  <Link 
+                    to={s.path} 
+                    onClick={(e) => e.preventDefault()}
+                    className="text-white/40 no-underline text-sm cursor-not-allowed"
+                  >
                     {s.label}
                   </Link>
                 </li>
@@ -99,7 +111,11 @@ export default function Footer() {
             <ul className="list-none flex flex-col gap-3">
               {company.map(c => (
                 <li key={c.path}>
-                  <Link to={c.path} className="text-white/60 no-underline text-sm transition-colors hover:text-primary">
+                  <Link 
+                    to={c.path} 
+                    onClick={(e) => e.preventDefault()}
+                    className="text-white/40 no-underline text-sm cursor-not-allowed"
+                  >
                     {c.label}
                   </Link>
                 </li>
@@ -117,10 +133,10 @@ export default function Footer() {
               <a href="tel:+919876543210" className="text-white/60 no-underline text-sm transition-colors hover:text-primary">
                 +91 99982 04044
               </a>
-              <a 
-                href="https://maps.google.com/?q=B-1103,+Titanium+City+Center,+Prahladnagar,+Ahmedabad,+Gujarat,+India" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://maps.google.com/?q=B-1103,+Titanium+City+Center,+Prahladnagar,+Ahmedabad,+Gujarat,+India"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/60 no-underline text-sm transition-colors hover:text-primary"
               >
                 B-1103, Tittanium city center, Prahladnagar, Ahmedabad, Gujarat, India

@@ -43,7 +43,7 @@ export default function ClientLogos() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#020202] h-auto overflow-hidden relative flex flex-col items-center pt-10 lg:pt-14 pb-8 lg:pb-12"
+      className="bg-[#020202] h-auto overflow-hidden relative flex flex-col items-center pt-10 lg:pt-18 pb-8 lg:pb-12"
       id="clients"
     >
       {/* Immersive Background Glows */}

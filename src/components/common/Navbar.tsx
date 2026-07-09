@@ -40,6 +40,10 @@ export default function Navbar() {
 
   useEffect(() => { setMobileOpen(false) }, [location])
 
+  const isBlocked = (label: string) => {
+    return label !== 'Home';
+  }
+
   return (
     <>
       <nav
@@ -49,15 +53,15 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-3 flex items-center justify-between">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center shrink-0"
           >
-            <img 
-              src={logoImg} 
-              alt="DWC Logo" 
-              className={`w-auto object-contain transition-all duration-400 ${scrolled ? 'h-10 md:h-12' : 'h-12 md:h-16'}`} 
+            <img
+              src={logoImg}
+              alt="DWC Logo"
+              className={`w-auto object-contain transition-all duration-400 ${scrolled ? 'h-10 md:h-12' : 'h-12 md:h-16'}`}
             />
           </Link>
 
@@ -71,19 +75,27 @@ export default function Navbar() {
                   onMouseEnter={() => setMegaOpen(true)}
                   onMouseLeave={() => setMegaOpen(false)}
                 >
-                  <button
+                  <Link
+                    to="/services"
+                    onClick={(e) => {
+                      if (isBlocked(link.label)) {
+                        e.preventDefault();
+                      }
+                    }}
                     className={`font-body font-medium text-sm px-4 py-2 rounded-lg transition-all duration-200 flex items-center gap-1.5
-                      ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-white/85 hover:bg-white/5'}`}
+                      ${isBlocked(link.label) 
+                        ? 'cursor-not-allowed text-white/40' 
+                        : (location.pathname.startsWith('/services') ? 'text-primary' : 'text-white/85 hover:bg-white/5')}`}
                   >
                     {link.label}
-                    <svg 
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${megaOpen ? 'rotate-180' : 'rotate-0'}`} 
+                    <svg
+                      className={`w-3.5 h-3.5 transition-transform duration-300 ${megaOpen ? 'rotate-180' : 'rotate-0'}`}
                       viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                     >
-                      <path d="M6 9l6 6 6-6"/>
+                      <path d="M6 9l6 6 6-6" />
                     </svg>
-                  </button>
-                  
+                  </Link>
+
                   {/* Mega Dropdown */}
                   <div className={`absolute top-full left-0 w-[600px] bg-black shadow-[0_50px_100px_-20px_rgba(0,0,0,0.8)] rounded-2xl p-8 transition-all duration-300 border border-white/10 overflow-hidden
                     ${megaOpen ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible translate-y-6'}`}
@@ -99,16 +111,13 @@ export default function Navbar() {
                         <Link
                           key={sub.path}
                           to={sub.path}
-                          onClick={() => setMegaOpen(false)}
-                          className="p-4 rounded-xl no-underline transition-all duration-300 hover:bg-white/5 border border-transparent hover:border-white/5 group/item"
+                          onClick={(e) => e.preventDefault()}
+                          className="p-4 rounded-xl no-underline transition-all duration-300 border border-transparent cursor-not-allowed opacity-50 group/item"
                         >
-                          <div className="text-white font-display font-semibold text-sm mb-1 group-hover/item:text-primary transition-colors flex items-center gap-1.5">
+                          <div className="text-white font-display font-semibold text-sm mb-1 flex items-center gap-1.5">
                             {sub.label}
-                            <svg className="w-3.5 h-3.5 opacity-0 -translate-x-1.5 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
                           </div>
-                          <div className="text-zinc-400 text-[0.78rem] leading-relaxed group-hover/item:text-zinc-300 transition-colors">{sub.desc}</div>
+                          <div className="text-zinc-400 text-[0.78rem] leading-relaxed">{sub.desc}</div>
                         </Link>
                       ))}
                     </div>
@@ -118,8 +127,15 @@ export default function Navbar() {
                 <Link
                   key={link.path}
                   to={link.path}
+                  onClick={(e) => {
+                    if (isBlocked(link.label)) {
+                      e.preventDefault();
+                    }
+                  }}
                   className={`font-body font-medium text-sm px-4 py-2 rounded-lg transition-all duration-200
-                    ${location.pathname === link.path ? 'text-primary' : 'text-white/85 hover:bg-white/5'}`}
+                    ${isBlocked(link.label) 
+                      ? 'cursor-not-allowed text-white/40' 
+                      : (location.pathname === link.path ? 'text-primary' : 'text-white/85 hover:bg-white/5')}`}
                 >
                   {link.label}
                 </Link>
@@ -131,8 +147,9 @@ export default function Navbar() {
           <div className="hidden lg:flex">
             <Link
               to="/contact"
+              onClick={(e) => e.preventDefault()}
               data-cursor="button"
-              className="bg-brand-gradient text-dark font-display font-semibold text-[0.875rem] px-6 py-2.5 rounded-full no-underline transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(13,94,246,0.5)] shadow-[0_4px_20px_rgba(13,94,246,0.35)]"
+              className="bg-brand-gradient text-dark font-display font-semibold text-[0.875rem] px-6 py-2.5 rounded-full no-underline transition-all duration-200 cursor-not-allowed opacity-50"
             >
               Get Free Consultation
             </Link>
@@ -166,7 +183,15 @@ export default function Navbar() {
             <Link
               key={link.path || link.label}
               to={link.path || '/services'}
-              className={`text-white no-underline font-display font-bold text-[clamp(1.8rem,6vw,2.8rem)] transition-all duration-400 hover:text-primary
+              onClick={(e) => {
+                if (isBlocked(link.label)) {
+                  e.preventDefault();
+                } else {
+                  setMobileOpen(false);
+                }
+              }}
+              className={`no-underline font-display font-bold text-[clamp(1.8rem,6vw,2.8rem)] transition-all duration-400
+                ${isBlocked(link.label) ? 'cursor-not-allowed text-white/30' : 'text-white hover:text-primary'}
                 ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
               style={{ transitionDelay: `${i * 0.05}s` }}
             >
@@ -175,7 +200,8 @@ export default function Navbar() {
           ))}
           <Link
             to="/contact"
-            className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400 hover:scale-105 active:scale-95
+            onClick={(e) => e.preventDefault()}
+            className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400 cursor-not-allowed opacity-50
               ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
             style={{ transitionDelay: `${navLinks.length * 0.05}s` }}
           >

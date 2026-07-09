@@ -143,23 +143,17 @@ const AboutSection = () => {
             <div ref={btnRef}>
               <a
                 href="/about"
+                onClick={(e) => e.preventDefault()}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   fontFamily: 'Outfit, sans-serif', fontSize: 13, fontWeight: 600,
                   letterSpacing: '0.1em', textTransform: 'uppercase',
-                  color: '#ffffff', textDecoration: 'none',
-                  background: 'rgba(59,130,246,0.12)',
-                  border: '1px solid rgba(59,130,246,0.4)',
+                  color: 'rgba(255,255,255,0.4)', textDecoration: 'none',
+                  background: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.1)',
                   borderRadius: 100, padding: '14px 28px',
                   transition: 'all 0.3s ease',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = '#3b82f6';
-                  e.currentTarget.style.borderColor = '#3b82f6';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = 'rgba(59,130,246,0.12)';
-                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)';
+                  cursor: 'not-allowed',
                 }}
               >
                 Discover Our Story

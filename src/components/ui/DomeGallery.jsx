@@ -50,7 +50,7 @@ function computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments) {
 export default function DomeGallery({
   images = DEFAULT_IMAGES,
   fit = 0.5, fitBasis = 'auto', minRadius = 600, maxRadius = Infinity,
-  padFactor = 0.25, overlayBlurColor = '#111111',
+  padFactor = 0.25, overlayBlurColor = '#000000ff',
   maxVerticalRotationDeg = DEFAULTS.maxVerticalRotationDeg,
   dragSensitivity = DEFAULTS.dragSensitivity,
   enlargeTransitionMs = DEFAULTS.enlargeTransitionMs,

@@ -23,26 +23,51 @@ import InsightDetail from './pages/InsightDetail'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
 
+import AOS from 'aos'
+
 function ScrollToTop() {
   const location = useLocation()
   useEffect(() => {
-    if (location.hash) {
-      const targetElement = document.querySelector(location.hash)
-      if (targetElement) {
-        setTimeout(() => {
-          if ((window as any).lenis) {
-            ;(window as any).lenis.scrollTo(targetElement, { duration: 1.2 })
-          } else {
-            targetElement.scrollIntoView({ behavior: 'smooth' })
-          }
-        }, 100)
-        return
-      }
+    try {
+      AOS.refresh()
+    } catch (e) {
+      console.warn('AOS refresh failed', e)
     }
-    
-    if ((window as any).lenis) {
-      ;(window as any).lenis.scrollTo(0, { immediate: true })
-    } else {
+
+    try {
+      if (location.hash) {
+        try {
+          const targetElement = document.querySelector(location.hash)
+          if (targetElement) {
+            setTimeout(() => {
+              try {
+                if ((window as any).lenis) {
+                  ;(window as any).lenis.scrollTo(targetElement, { duration: 1.2 })
+                } else {
+                  targetElement.scrollIntoView({ behavior: 'smooth' })
+                }
+              } catch (e) {
+                targetElement.scrollIntoView({ behavior: 'smooth' })
+              }
+            }, 100)
+            return
+          }
+        } catch (e) {
+          console.warn('Invalid hash selector query', e)
+        }
+      }
+      
+      if ((window as any).lenis) {
+        try {
+          ;(window as any).lenis.scrollTo(0, { immediate: true })
+        } catch (e) {
+          window.scrollTo(0, 0)
+        }
+      } else {
+        window.scrollTo(0, 0)
+      }
+    } catch (err) {
+      console.error('ScrollToTop error:', err)
       window.scrollTo(0, 0)
     }
   }, [location.pathname, location.hash])

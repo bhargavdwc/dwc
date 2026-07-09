@@ -57,10 +57,7 @@ const AboutTeaser = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-2"
-      style={{ background: '#111111' }}
-      data-bg="#111111"
-      data-text="#ffffff"
+      className="relative overflow-hidden py-18"
     >
       <DotBackground variant="orbit" opacity={0.15} />
       <div className="absolute inset-0 bg-dot-dark bg-[length:28px_28px] pointer-events-none z-[1]" />
@@ -90,13 +87,15 @@ const AboutTeaser = () => {
 
           <a
             href="/about"
+            onClick={(e) => e.preventDefault()}
             className="magnetic"
             style={{
               fontFamily: 'Outfit, sans-serif', fontSize: 13, fontWeight: 600,
               letterSpacing: '0.1em', textTransform: 'uppercase',
-              color: 'white', textDecoration: 'none',
-              borderBottom: '1px solid rgba(255,255,255,0.3)', paddingBottom: 3,
+              color: 'rgba(255,255,255,0.4)', textDecoration: 'none',
+              borderBottom: '1px solid rgba(255,255,255,0.15)', paddingBottom: 3,
               transition: 'border-color 0.3s',
+              cursor: 'not-allowed',
             }}
           >
             Know More →
@@ -113,7 +112,6 @@ const AboutTeaser = () => {
             images={AGENCY_IMAGES}
             fit={0.48}
             minRadius={minRadius}
-            overlayBlurColor="#111111"
             grayscale={false}
             imageBorderRadius="16px"
             openedImageBorderRadius="20px"

@@ -18,8 +18,8 @@ export default function Home() {
       <ClientLogos />
       <Stats />
       <Services />
-      <Testimonials />
       <AboutTeaser />
+      <Testimonials />
       <ContactForm />
       <FAQ />
     </main>
