@@ -119,7 +119,7 @@ const AboutSection = () => {
                 overflow: 'hidden',
               }}
             >
-              We Build Brands That Are Impossible to Ignore
+              Helping Businesses Grow Beyond Expectations
             </h2>
 
             {/* Body */}
@@ -128,13 +128,14 @@ const AboutSection = () => {
                 fontFamily: 'DM Sans, sans-serif', fontSize: '1rem',
                 lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 16
               }}>
-                DWC Studio started as a boutique consultancy with a single mission — bridge the gap between creative brilliance and data precision. Today, 40+ specialists across strategy, content, paid media, SEO, and brand identity work together under one roof.
+                Digital Web Connection is a leading Digital Marketing Agency in Gujarat helping businesses build a strong online presence and achieve measurable growth. We partner with startups, SMEs, and enterprises to deliver data-driven solutions through SEO, website development, Google Ads, social media marketing, branding, and AI-powered digital strategies.
+                
               </p>
               <p style={{
                 fontFamily: 'DM Sans, sans-serif', fontSize: '1rem',
                 lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 36
               }}>
-                We don't just run campaigns — we build marketing ecosystems that make brands unstoppable in their markets.
+                Focused on transparency, innovation, and measurable results, we deliver data-driven digital strategies that help businesses grow with confidence.
               </p>
             </div>
 

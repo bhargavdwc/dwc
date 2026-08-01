@@ -21,7 +21,7 @@ export default function Hero() {
     return () => { tl.kill() }
   }, [])
 
-  const words = ['AI-Driven', 'Digital', 'Marketing', 'Agency', 'in', 'Ahmedabad']
+  const words = ['Grow', 'Your', 'Business', 'with', 'the', 'Leading', 'Digital', 'Marketing']
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
@@ -44,7 +44,7 @@ export default function Hero() {
       {/* Gradient overlay at bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-[200px] bg-gradient-to-t from-black to-transparent z-[1]" />
 
-      <div className="relative z-[2] text-center px-6 pt-8 max-w-[1000px] flex flex-col items-center justify-center h-full">
+      <div className="relative z-[2] text-center px-6 pt-8 max-w-5xl flex flex-col items-center justify-center h-full">
         {/* H1 with word split */}
         <h1
           ref={h1Ref}
@@ -67,9 +67,9 @@ export default function Hero() {
         {/* Body */}
         <p
           ref={bodyRef}
-          className="font-body text-[clamp(0.9rem,1.1vw,1rem)] text-white/60 leading-relaxed mb-8 max-w-[640px] opacity-0 translate-y-[25px]"
+          className="font-body text-white/60 leading-relaxed mb-8 max-w-7xl opacity-0 translate-y-[25px]"
         >
-          Achieving measurable business growth through strategy, creativity, and research. We offer SEO, PPC, Social Media, and Web Development to help brands reach and convert their ideal audiences.
+          Digital Web Connection is a trusted digital marketing company in Ahmedabad, helping startups, local businesses, and enterprises grow through SEO, Meta Ads, social media marketing, Graphic designing, website development, and AI-powered digital strategies. Our experienced team delivers data-driven solutions that increase visibility, generate qualified leads, and drive measurable business growth across Ahmedabad, Gujarat, and India.
         </p>
 
         {/* New Button at last of content */}
