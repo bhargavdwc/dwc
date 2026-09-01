@@ -126,7 +126,7 @@ export default function Contact() {
 
         <div className="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
           {/* LEFT: Text Content */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left lg:-mt-10 -mt-5 w-full relative z-20">
+          <div className="lg:col-span-7 flex flex-col items-start text-left lg:-mt-10 -mt-5 w-full relative z-20 order-2 lg:order-1">
             <div
               data-aos="fade-down"
               className="hidden md:inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.2em] uppercase text-blue-900 bg-white border border-cyan/25 rounded-full px-5 py-1.5 mb-7 shadow-[0_0_20px_rgba(4,185,202,0.15)] hover:shadow-[0_0_35px_rgba(4,185,202,0.3)] transition-shadow duration-300 cursor-default select-none"
@@ -192,7 +192,7 @@ export default function Contact() {
 
           {/* RIGHT: Video Visual */}
           <div
-            className="hidden md:flex lg:col-span-5 justify-center items-center relative lg:-mt-16 mt-6 w-full z-10"
+            className="flex lg:col-span-5 justify-center items-center relative lg:-mt-16 mt-6 w-full z-10 order-1 lg:order-2"
             data-aos="fade-left"
           >
             <div className="absolute w-[240px] h-[240px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] bg-cyan/15 rounded-full blur-[80px] md:blur-[100px] pointer-events-none z-0" />
