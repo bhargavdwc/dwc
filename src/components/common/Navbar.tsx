@@ -42,7 +42,7 @@ export default function Navbar() {
   useEffect(() => { setMobileOpen(false) }, [location])
 
   const isBlocked = (label: string) => {
-    return label !== 'Home' && label !== 'Contact';
+    return label !== 'Home';
   }
 
   return (

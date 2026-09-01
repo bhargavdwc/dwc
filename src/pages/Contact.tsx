@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import DotBackground from "../components/three/DotBackground";
 import contactVideo from "../assets/contact-video.mp4";
-import urgencyBg from "../assets/contact_hero1.jpg";
+import leadImg from "../assets/lead-img.jpg";
 
 const services = [
   "Lead Generation",
@@ -816,7 +816,7 @@ export default function Contact() {
       {/* ─── URGENCY SECTION ─── */}
       <section 
         className="py-24 relative overflow-hidden bg-fixed bg-cover bg-center border-y border-white/10"
-        style={{ backgroundImage: `url(${urgencyBg})` }}
+        style={{ backgroundImage: `url(${leadImg})` }}
       >
         {/* Dark overlay for readability */}
         <div className="absolute inset-0 bg-slate-900/60" />
