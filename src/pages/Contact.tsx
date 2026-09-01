@@ -55,7 +55,7 @@ export default function Contact() {
       formData.set("name", `${form.firstName} ${form.lastName}`.trim());
 
       // Ensure it sends to your Web3Forms registered email
-      formData.append("access_key", "a825aac6-7cd8-4618-b763-f274d1f0d081");
+      formData.append("access_key", "d4507fb4-e0de-4be5-8255-69de6d574fc8");
 
       // Enhance the email you receive
       formData.append("subject", "New Lead Submission - DWC Solar");

@@ -1,101 +1,203 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { Suspense, useEffect } from 'react'
-import Home from './pages/Home'
-import Navbar from './components/common/Navbar'
-import Footer from './components/common/Footer'
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import Home from "./pages/Home";
+import Navbar from "./components/common/Navbar";
+import Footer from "./components/common/Footer";
 
-import ScrollProgress from './components/common/ScrollProgress'
-import PageWrapper from './components/common/PageWrapper'
-import BackToTop from './components/common/BackToTop'
-import useLenis from './hooks/useLenis'
-import SplashCursor from './components/ui/SplashCursor'
+import ScrollProgress from "./components/common/ScrollProgress";
+import PageWrapper from "./components/common/PageWrapper";
+import BackToTop from "./components/common/BackToTop";
+import useLenis from "./hooks/useLenis";
+import SplashCursor from "./components/ui/SplashCursor";
 
-import About from './pages/About'
-import Services from './pages/Services'
-import ServiceSEO from './pages/ServiceSEO'
-import ServiceSMM from './pages/ServiceSMM'
-import ServicePPC from './pages/ServicePPC'
-import ServiceMeta from './pages/ServiceMeta'
-import ServiceLinkedIn from './pages/ServiceLinkedIn'
-import Projects from './pages/Projects'
-import Insights from './pages/Insights'
-import InsightDetail from './pages/InsightDetail'
-import Contact from './pages/Contact'
-import NotFound from './pages/NotFound'
+import About from "./pages/About";
+import Services from "./pages/Services";
+import ServiceSEO from "./pages/ServiceSEO";
+import ServiceSMM from "./pages/ServiceSMM";
+import ServicePPC from "./pages/ServicePPC";
+import ServiceMeta from "./pages/ServiceMeta";
+import ServiceLinkedIn from "./pages/ServiceLinkedIn";
+import Projects from "./pages/Projects";
+import Insights from "./pages/Insights";
+import InsightDetail from "./pages/InsightDetail";
+import Contact from "./pages/Contact";
+import SunitaJethani from "./pages/SunitaJethani";
+import NotFound from "./pages/NotFound";
 
-import AOS from 'aos'
+import AOS from "aos";
 
 function ScrollToTop() {
-  const location = useLocation()
+  const location = useLocation();
   useEffect(() => {
     try {
-      AOS.refresh()
+      AOS.refresh();
     } catch (e) {
-      console.warn('AOS refresh failed', e)
+      console.warn("AOS refresh failed", e);
     }
 
     try {
       if (location.hash) {
         try {
-          const targetElement = document.querySelector(location.hash)
+          const targetElement = document.querySelector(location.hash);
           if (targetElement) {
             setTimeout(() => {
               try {
                 if ((window as any).lenis) {
-                  ;(window as any).lenis.scrollTo(targetElement, { duration: 1.2 })
+                  (window as any).lenis.scrollTo(targetElement, {
+                    duration: 1.2,
+                  });
                 } else {
-                  targetElement.scrollIntoView({ behavior: 'smooth' })
+                  targetElement.scrollIntoView({ behavior: "smooth" });
                 }
               } catch (e) {
-                targetElement.scrollIntoView({ behavior: 'smooth' })
+                targetElement.scrollIntoView({ behavior: "smooth" });
               }
-            }, 100)
-            return
+            }, 100);
+            return;
           }
         } catch (e) {
-          console.warn('Invalid hash selector query', e)
+          console.warn("Invalid hash selector query", e);
         }
       }
-      
+
       if ((window as any).lenis) {
         try {
-          ;(window as any).lenis.scrollTo(0, { immediate: true })
+          (window as any).lenis.scrollTo(0, { immediate: true });
         } catch (e) {
-          window.scrollTo(0, 0)
+          window.scrollTo(0, 0);
         }
       } else {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
       }
     } catch (err) {
-      console.error('ScrollToTop error:', err)
-      window.scrollTo(0, 0)
+      console.error("ScrollToTop error:", err);
+      window.scrollTo(0, 0);
     }
-  }, [location.pathname, location.hash])
-  return null
+  }, [location.pathname, location.hash]);
+  return null;
 }
 
 function AnimatedRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
-      <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-      <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-      <Route path="/services/search-engine-optimization" element={<PageWrapper><ServiceSEO /></PageWrapper>} />
-      <Route path="/services/social-media-marketing" element={<PageWrapper><ServiceSMM /></PageWrapper>} />
-      <Route path="/services/pay-per-click-ppc" element={<PageWrapper><ServicePPC /></PageWrapper>} />
-      <Route path="/services/meta-ads" element={<PageWrapper><ServiceMeta /></PageWrapper>} />
-      <Route path="/services/linkedin-marketing" element={<PageWrapper><ServiceLinkedIn /></PageWrapper>} />
-      <Route path="/projects" element={<PageWrapper><Projects /></PageWrapper>} />
-      <Route path="/insights" element={<PageWrapper><Insights /></PageWrapper>} />
-      <Route path="/insights/:slug" element={<PageWrapper><InsightDetail /></PageWrapper>} />
-      <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-      <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+      <Route
+        path="/"
+        element={
+          <PageWrapper>
+            <Home />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <PageWrapper>
+            <About />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services"
+        element={
+          <PageWrapper>
+            <Services />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services/search-engine-optimization"
+        element={
+          <PageWrapper>
+            <ServiceSEO />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services/social-media-marketing"
+        element={
+          <PageWrapper>
+            <ServiceSMM />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services/pay-per-click-ppc"
+        element={
+          <PageWrapper>
+            <ServicePPC />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services/meta-ads"
+        element={
+          <PageWrapper>
+            <ServiceMeta />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/services/linkedin-marketing"
+        element={
+          <PageWrapper>
+            <ServiceLinkedIn />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/projects"
+        element={
+          <PageWrapper>
+            <Projects />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/insights"
+        element={
+          <PageWrapper>
+            <Insights />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/insights/:slug"
+        element={
+          <PageWrapper>
+            <InsightDetail />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <PageWrapper>
+            <Contact />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/sunitajethani"
+        element={
+          <PageWrapper>
+            <SunitaJethani />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <PageWrapper>
+            <NotFound />
+          </PageWrapper>
+        }
+      />
     </Routes>
-  )
+  );
 }
 
 function App() {
-  useLenis()
+  useLenis();
 
   return (
     <BrowserRouter>
@@ -109,7 +211,7 @@ function App() {
       <Footer />
       <BackToTop />
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;
