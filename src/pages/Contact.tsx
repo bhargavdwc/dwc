@@ -83,7 +83,7 @@ export default function Contact() {
     <main className="bg-black text-white">
       {/* ─── HERO SECTION ─── */}
       <section
-        className="relative overflow-hidden bg-black no-splash min-h-screen lg:h-[100vh] flex items-center justify-center pt-28 pb-16 lg:pt-48 lg:pb-24 px-6 md:px-12"
+        className="relative overflow-hidden bg-black no-splash lg:min-h-screen lg:h-[100vh] flex items-center justify-center pt-32 pb-20 lg:pt-48 lg:pb-24 px-6 md:px-12"
         onMouseMove={handleHeroMouseMove}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => {
@@ -92,7 +92,7 @@ export default function Contact() {
         }}
       >
         {/* Background Elements */}
-        <div className="absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-blue-900 via-blue-500 to-blue-400 rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl opacity-40" />
+        <div className="hidden md:block absolute -top-[10%] -right-[15%] w-[45vw] h-[45vw] min-w-[450px] min-h-[450px] bg-gradient-to-tr from-blue-900 via-blue-500 to-blue-400 rotate-[20deg] rounded-[70px] pointer-events-none z-0 shadow-2xl opacity-40" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(13,94,246,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(13,94,246,0.025)_1px,transparent_1px)] bg-[size:42px_42px] pointer-events-none" />
         <DotBackground variant="float" opacity={0.1} />
 
@@ -117,7 +117,7 @@ export default function Contact() {
           <div className="lg:col-span-7 flex flex-col items-start text-left lg:-mt-10 -mt-5 w-full relative z-20">
             <div
               data-aos="fade-down"
-              className="inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.2em] uppercase text-blue-900 bg-white border border-cyan/25 rounded-full px-5 py-1.5 mb-7 shadow-[0_0_20px_rgba(4,185,202,0.15)] hover:shadow-[0_0_35px_rgba(4,185,202,0.3)] transition-shadow duration-300 cursor-default select-none"
+              className="hidden md:inline-flex items-center gap-2.5 font-mono text-[0.78rem] tracking-[0.2em] uppercase text-blue-900 bg-white border border-cyan/25 rounded-full px-5 py-1.5 mb-7 shadow-[0_0_20px_rgba(4,185,202,0.15)] hover:shadow-[0_0_35px_rgba(4,185,202,0.3)] transition-shadow duration-300 cursor-default select-none"
             >
               Limited Onboarding for Solar Season
             </div>
@@ -180,7 +180,7 @@ export default function Contact() {
           </div>
 
           {/* RIGHT: 3D Visual */}
-          <div className="lg:col-span-5 flex justify-center items-center relative lg:-mt-16 -mt-8 w-full z-10">
+          <div className="hidden md:flex lg:col-span-5 justify-center items-center relative lg:-mt-16 mt-6 lg:-mt-8 w-full z-10">
             <div className="absolute w-[240px] h-[240px] md:w-[360px] md:h-[360px] lg:w-[420px] lg:h-[420px] bg-cyan/15 rounded-full blur-[80px] md:blur-[100px] pointer-events-none z-0" />
             <img
               src={contact3dVisual}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import logoImg from '../../assets/1.png'
 
 const navLinks = [
@@ -26,6 +26,7 @@ export default function Navbar() {
   const [megaOpen, setMegaOpen] = useState(false)
   const lastScrollY = useRef(0)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -156,11 +157,12 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="flex lg:hidden bg-transparent border-none p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex lg:hidden bg-transparent border-none p-2 relative z-[99999] cursor-pointer pointer-events-auto"
+            onClick={() => setMobileOpen(prev => !prev)}
+            onTouchEnd={(e) => { e.preventDefault(); setMobileOpen(prev => !prev); }}
             aria-label="Toggle menu"
           >
-            <div className="w-6 flex flex-col gap-[5px]">
+            <div className="w-6 flex flex-col gap-[5px] pointer-events-none">
               <span className={`h-0.5 w-full bg-white transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
               <span className={`h-0.5 w-full bg-white transition-all duration-300 ${mobileOpen ? 'opacity-0' : 'opacity-1'}`} />
               <span className={`h-0.5 w-full bg-white transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
@@ -177,7 +179,7 @@ export default function Navbar() {
         {/* Soft floating background visual aura */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-primary/10 rounded-full blur-[100px] pointer-events-none z-0" />
 
-        <div className="flex flex-col items-center gap-6 relative z-10">
+        <div className="flex flex-col items-center gap-6 relative z-10 pointer-events-auto">
           {navLinks.map((link, i) => (
             <Link
               key={link.path || link.label}
@@ -187,6 +189,14 @@ export default function Navbar() {
                   e.preventDefault();
                 } else {
                   setMobileOpen(false);
+                }
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                if (!isBlocked(link.label)) {
+                  setMobileOpen(false);
+                  navigate(link.path || '/services');
+                  window.scrollTo(0, 0);
                 }
               }}
               className={`no-underline font-display font-bold text-[clamp(1.8rem,6vw,2.8rem)] transition-all duration-400
@@ -200,6 +210,12 @@ export default function Navbar() {
           <Link
             to="/contact"
             onClick={() => setMobileOpen(false)}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setMobileOpen(false);
+              navigate('/contact');
+              window.scrollTo(0, 0);
+            }}
             className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400
               ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
             style={{ transitionDelay: `${navLinks.length * 0.05}s` }}
