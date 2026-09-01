@@ -200,7 +200,7 @@ export default function Contact() {
       </section>
 
       {/* ─── TRUST / RESULTS SECTION ─── */}
-      <section className="py-20 bg-black border-t border-white/5">
+      <section className="py-12 bg-black border-t border-white/5">
         <div className="max-w-[1200px] mx-auto px-6 md:px-12">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold text-3xl md:text-4xl mb-4">
