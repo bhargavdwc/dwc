@@ -758,7 +758,7 @@ export default function Contact() {
                   muted
                   playsInline
                   controls
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover [&:fullscreen]:object-contain [&:-webkit-full-screen]:object-contain"
                 />
               </div>
             </div>
