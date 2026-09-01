@@ -14,6 +14,7 @@ const company = [
   { label: 'Our Team', path: '/about#team' },
   { label: 'About Us', path: '/about' },
   { label: 'Contact Us', path: '/contact' },
+  { label: 'Landing Page', path: '/contact' },
 ]
 
 const socials = [
@@ -113,8 +114,15 @@ export default function Footer() {
                 <li key={c.path}>
                   <Link 
                     to={c.path} 
-                    onClick={(e) => e.preventDefault()}
-                    className="text-white/40 no-underline text-sm cursor-not-allowed"
+                    onClick={(e) => {
+                      if (c.label !== 'Landing Page') e.preventDefault();
+                      else window.scrollTo(0, 0);
+                    }}
+                    className={`no-underline text-sm transition-all duration-300 ${
+                      c.label === 'Landing Page'
+                        ? 'text-white/60 hover:text-primary cursor-pointer'
+                        : 'text-white/40 cursor-not-allowed'
+                    }`}
                   >
                     {c.label}
                   </Link>
