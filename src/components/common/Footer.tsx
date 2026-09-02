@@ -209,10 +209,19 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10 px-8 py-6">
-        <div className="max-w-[1400px] mx-auto flex flex-wrap justify-center items-center gap-4">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white text-[0.75rem] font-mono">
             © 2026 Digital Web Connection. All rights reserved.
           </p>
+          <div className="flex items-center">
+            <Link
+              to="/privacy-policy"
+              className="text-white/60 hover:text-white transition-colors text-[0.75rem] font-mono no-underline"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

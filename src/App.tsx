@@ -23,6 +23,7 @@ import InsightDetail from "./pages/InsightDetail";
 import Contact from "./pages/Contact";
 import SunitaJethani from "./pages/SunitaJethani";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 import AOS from "aos";
 
@@ -181,6 +182,14 @@ function AnimatedRoutes() {
         element={
           <PageWrapper>
             <SunitaJethani />
+          </PageWrapper>
+        }
+      />
+      <Route
+        path="/privacy-policy"
+        element={
+          <PageWrapper>
+            <PrivacyPolicy />
           </PageWrapper>
         }
       />
