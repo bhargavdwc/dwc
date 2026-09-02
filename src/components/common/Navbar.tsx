@@ -147,9 +147,10 @@ export default function Navbar() {
           {/* CTA Button */}
           <div className="hidden lg:flex">
             <Link
-              to="/contact"
+              to="#"
+              onClick={(e) => e.preventDefault()}
               data-cursor="button"
-              className="bg-brand-gradient text-dark font-display font-semibold text-[0.875rem] px-6 py-2.5 rounded-full no-underline transition-all duration-200 hover:scale-105 hover:opacity-90"
+              className="bg-brand-gradient text-dark font-display font-semibold text-[0.875rem] px-6 py-2.5 rounded-full no-underline transition-all duration-200 cursor-not-allowed opacity-50"
             >
               Get Free Consultation
             </Link>
@@ -208,15 +209,10 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            to="/contact"
-            onClick={() => setMobileOpen(false)}
-            onTouchEnd={(e) => {
-              e.preventDefault();
-              setMobileOpen(false);
-              navigate('/contact');
-              window.scrollTo(0, 0);
-            }}
-            className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400
+            to="#"
+            onClick={(e) => e.preventDefault()}
+            onTouchEnd={(e) => e.preventDefault()}
+            className={`mt-6 bg-brand-gradient text-dark font-display font-bold px-8 py-3.5 rounded-full no-underline transition-all duration-400 cursor-not-allowed opacity-50
               ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
             style={{ transitionDelay: `${navLinks.length * 0.05}s` }}
           >
